@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import urls from '../../assets/constants/ursl'
 import { useHttp } from '../../hooks/http.hook'
@@ -36,14 +37,14 @@ export const Registration = () => {
       formData.append("name", form.name);
       formData.append("email", form.email);
       formData.append("password", form.password);
-      console.log(form.name)
       // if (form.avatar) {
       //   formData.append('avatar', form.avatar, form.avatar.name)
       // } else {
       //   formData.append('avatar', "")
       // }
-      const data = await request(`${urls.API}/users`, 'POST', {"name": form.name, "email": form.email, "password": form.password}, {}, true)
+      const data = await request(`${urls.API}/users`, 'POST', { "name": form.name, "email": form.email, "password": form.password }, {}, true)
       message(data.message);
+      console.log(data.message)
     } catch (e) {
     }
   }
@@ -80,9 +81,12 @@ export const Registration = () => {
             </div>
           </div>
           <div className="card-action">
-            <button onClick={registerHandler} disabled={loading} className="btn waves-effect red waves-light" type="submit" name="action">Submit
+            <button onClick={registerHandler} disabled={loading} className="btn waves-effect red waves-light" type="submit" name="action">Sign up!
             <i className="material-icons right">send</i>
             </button>
+          </div>
+          <div className="link-block">
+          <NavLink className="auth-link" to="/login">Sign in</NavLink>
           </div>
         </div>
 

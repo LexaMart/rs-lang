@@ -5,15 +5,23 @@ import './App.css';
 import 'materialize-css';
 
 import { useRoutes } from './routes';
+import { useAuth } from './hooks/auth.hook';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
-  const routes = useRoutes(false)
+  const { token, login, logout, userId, refreshToken } = useAuth()
+  const isAuthenticated = !!token
+  const routes = useRoutes(isAuthenticated)
   return (
-    <Router>
-      <div className="container">
-        {routes}
-      </div>
-    </Router>
+    <AuthContext.Provider value={{
+      token, login, logout, userId, refreshToken, isAuthenticated
+    }}>
+      <Router>
+        <div className="container">
+          {routes}
+        </div>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 
