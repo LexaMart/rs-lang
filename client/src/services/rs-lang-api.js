@@ -11,7 +11,7 @@ export const rsLangApi = {
 
   login(email, password) {
     return axios
-      .get(`${RS_LANG_API}users`, {
+      .post(`${RS_LANG_API}signin`, {
         email: email,
         password: password,
       })
@@ -35,7 +35,6 @@ export const rsLangApi = {
       method: "post",
       url: `${RS_LANG_API}users`,
       data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
     })
       .then((response) => {
         return response.data;

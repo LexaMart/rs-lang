@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import urls from '../../assets/constants/ursl'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
+import { register } from '../../redux/auth-reducer'
 
 import './registration.css'
 
 export const Registration = () => {
 
+  const dispatch = useDispatch();
   const message = useMessage();
   const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
@@ -33,18 +36,19 @@ export const Registration = () => {
   const registerHandler = async () => {
 
     try {
-      const formData = new FormData();
-      formData.append("name", form.name);
-      formData.append("email", form.email);
-      formData.append("password", form.password);
-      if (form.avatar) {
-        formData.append('avatar', form.avatar, form.avatar.name)
-      } else {
-        formData.append('avatar', "")
-      }
-      const data = await request(`${urls.API}/users`, 'POST', formData, {}, false)
-      message(data.message);
-      console.log(data.message)
+      await register(form.name, form.email, form.password, form.avatar)(dispatch)
+      // const formData = new FormData();
+      // formData.append("name", form.name);
+      // formData.append("email", form.email);
+      // formData.append("password", form.password);
+      // if (form.avatar) {
+      //   formData.append('avatar', form.avatar, form.avatar.name)
+      // } else {
+      //   formData.append('avatar', "")
+      // }
+      // const data = await request(`${urls.API}/users`, 'POST', formData, {}, false)
+      // message(data.message);
+      // console.log(data.message)
     } catch (e) {
     }
   }

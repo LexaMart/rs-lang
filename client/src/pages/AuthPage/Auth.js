@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import urls from '../../assets/constants/ursl'
 import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
+import { login } from '../../redux/auth-reducer'
 
 import './auth.css'
 
 export const Auth = () => {
   const auth = useContext(AuthContext)
+  const dispatch = useDispatch()
   const message = useMessage();
   const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
@@ -28,10 +31,11 @@ export const Auth = () => {
 
   const loginHandler = async () => {
     try {
-      const data = await request(`${urls.API}/signin`, 'POST', { "email": form.email, "password": form.password }, {}, true)
-      auth.login(data.token, data.refreshToken, data.userId)
-      // setAcive(!active)
-      console.log(data)
+      await login(form.email, form.password)(dispatch);
+      // const data = await request(`${urls.API}/signin`, 'POST', { "email": form.email, "password": form.password }, {}, true)
+      // auth.login(data.token, data.refreshToken, data.userId)
+      // // setAcive(!active)
+      // console.log(data)
     } catch (e) { }
   }
   return (
