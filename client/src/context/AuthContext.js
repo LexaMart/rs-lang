@@ -8,5 +8,6 @@ export const AuthContext  = createContext({
   userId: null,
   login: n,
   logout: n,
-  isAuthenticated: false
+  isAuthenticated: false,
+  photoPath: ""
 })

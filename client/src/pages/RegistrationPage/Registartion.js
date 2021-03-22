@@ -12,19 +12,19 @@ export const Registration = () => {
   const message = useMessage();
   const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
-    "name": "", "email": "", "password": '',
+    name: "", email: "", password: '', avatar: null
   })
-  // avatar: null
+
 
   useEffect(() => {
     message(error)
     clearError();
   }, [error, message, clearError])
 
-  // const avatarHandler = (event) => {
-  //   const file = event.target.files[0];
-  //   setForm({ ...form, avatar: file })
-  // }
+  const avatarHandler = (event) => {
+    const file = event.target.files[0];
+    setForm({ ...form, avatar: file })
+  }
 
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
@@ -37,12 +37,12 @@ export const Registration = () => {
       formData.append("name", form.name);
       formData.append("email", form.email);
       formData.append("password", form.password);
-      // if (form.avatar) {
-      //   formData.append('avatar', form.avatar, form.avatar.name)
-      // } else {
-      //   formData.append('avatar', "")
-      // }
-      const data = await request(`${urls.API}/users`, 'POST', { "name": form.name, "email": form.email, "password": form.password }, {}, true)
+      if (form.avatar) {
+        formData.append('avatar', form.avatar, form.avatar.name)
+      } else {
+        formData.append('avatar', "")
+      }
+      const data = await request(`${urls.API}/users`, 'POST', formData, {}, false)
       message(data.message);
       console.log(data.message)
     } catch (e) {
@@ -79,6 +79,16 @@ export const Registration = () => {
                 <label htmlFor="password">Password</label>
               </div>
             </div>
+            <div className="input-field">
+              <input placeholder="Set your photo "
+                accept="image/jpeg"
+                id="Photo"
+                type="file"
+                name="avatar"
+                className="card-input"
+                onChange={avatarHandler}
+              />
+            </div>
           </div>
           <div className="card-action">
             <button onClick={registerHandler} disabled={loading} className="btn waves-effect red waves-light" type="submit" name="action">Sign up!
@@ -86,7 +96,7 @@ export const Registration = () => {
             </button>
           </div>
           <div className="link-block">
-          <NavLink className="auth-link" to="/login">Sign in</NavLink>
+            <NavLink className="auth-link" to="/login">Sign in</NavLink>
           </div>
         </div>
 

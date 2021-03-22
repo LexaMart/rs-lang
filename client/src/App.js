@@ -9,12 +9,12 @@ import { useAuth } from './hooks/auth.hook';
 import { AuthContext } from './context/AuthContext';
 
 function App() {
-  const { token, login, logout, userId, refreshToken } = useAuth()
+  const { token, login, logout, userId, refreshToken, photoPath } = useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
   return (
     <AuthContext.Provider value={{
-      token, login, logout, userId, refreshToken, isAuthenticated
+      token, login, logout, userId, refreshToken, isAuthenticated, photoPath
     }}>
       <Router>
         <div className="container">

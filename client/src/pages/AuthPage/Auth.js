@@ -28,9 +28,6 @@ export const Auth = () => {
 
   const loginHandler = async () => {
     try {
-      const formData = new FormData();
-      formData.append('email', form.email);
-      formData.append('password', form.password);
       const data = await request(`${urls.API}/signin`, 'POST', { "email": form.email, "password": form.password }, {}, true)
       auth.login(data.token, data.refreshToken, data.userId)
       // setAcive(!active)
