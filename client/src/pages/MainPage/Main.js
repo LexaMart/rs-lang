@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {useHttp} from './../../hooks/http.hook'
+import { useHttp } from '../../hooks/http.hook'
 export const Main = () => {
 
-  const {request} = useHttp()
-  const fetch = async () =>{ 
-  const fetched = await request('https://rs-lang-api.herokuapp.com/words', 'GET') 
-  console.log(fetched)
+  const { request } = useHttp()
+  const fetch = async () => {
+    const fetched = await request('https://rs-lang-api.herokuapp.com/words', 'GET')
+    console.log(fetched)
   }
   return (
     <div>
