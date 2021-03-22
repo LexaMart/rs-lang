@@ -121,7 +121,7 @@ export const Settings = () => {
               ? WORDS_CONFIG.SELECT_LANGUAGE.native
               : WORDS_CONFIG.SELECT_LANGUAGE.foreign}
           </option>
-          <option value={LANGUAGE_CONFIG.FOREIGN_LANGUAGE}>
+          <option value={LANGUAGE_CONFIG.foreign}>
             {activeLanguage === LANGUAGE_CONFIG.native
               ? WORDS_CONFIG.FOREIGN_LANGUAGE.native
               : WORDS_CONFIG.FOREIGN_LANGUAGE.foreign}
