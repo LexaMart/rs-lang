@@ -1,0 +1,9 @@
+.dictionary {
+  background: linear-gradient(180deg, #f08a5d 11.57%, #b83b5e 88.96%);
+}
+.dictionary__progress {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
