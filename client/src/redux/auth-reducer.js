@@ -57,8 +57,10 @@ export const logout = () => ({ type: ACTION_CONST.SET_DEFAULT_VALUES });
 export const login = (email, password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.login(email, password);
+  if (response.data) {
+    dispatch(setUserData(response.data));
+  }
 
-  dispatch(setUserData(response));
   dispatch(setIsLoadingInProgress(false));
 };
 
@@ -68,8 +70,9 @@ export const register = (userName, email, password, image) => async (
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.register(userName, email, password, image);
   console.log(response);
-
-  dispatch(setUserData(response));
+  if (response.data) {
+    dispatch(setUserData(response.data));
+  }
   dispatch(setIsLoadingInProgress(false));
 };
 

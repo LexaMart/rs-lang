@@ -16,7 +16,7 @@ export const rsLangApi = {
         password: password,
       })
       .then((response) => {
-        return response.data;
+        return response;
       })
       .catch((er) => {
         console.log("error: ", er.message);
@@ -37,7 +37,7 @@ export const rsLangApi = {
       data: formData,
     })
       .then((response) => {
-        return response.data;
+        return response;
       })
       .catch((er) => {
         console.log("error: ", er.message);
