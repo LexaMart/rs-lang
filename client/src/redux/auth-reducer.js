@@ -69,7 +69,6 @@ export const register = (userName, email, password, image) => async (
 ) => {
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.register(userName, email, password, image);
-  console.log(response);
   if (response.data) {
     dispatch(setUserData(response.data));
   }
