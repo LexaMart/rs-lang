@@ -32,19 +32,21 @@ const ACTION_CONST = {
           isGameStarted: action.isGameStarted,
         };
       }
-      case ACTION_CONST.SET_ACTIVE_CARD: {
-          const randomValue = Math.floor(Math.random() * Math.floor(state.remainWordsData.length));
+      case ACTION_CONST.SET_ACTIVE_CARD: {  
+        const randomValue = Math.floor(Math.random() * Math.floor(state.remainWordsData.length));
         return {
           ...state,
           activeCard: state.remainWordsData[randomValue],
+          remainWordsData: [...state.remainWordsData].splice(randomValue, 1)
         };
       }
       case ACTION_CONST.SET_CARDS_FOR_SELECTION: {
         const arrayOfCardsForSelect = [...state.remainWordsData];
+        //TODO
         const length = 3;
         const result = [];
         for (let i = 0; i < length; i++) {
-            let index = Math.floor(Math.random() * Math.floor(arrayOfCardsForSelect - 1));
+            let index = Math.floor(Math.random() * Math.floor(arrayOfCardsForSelect.length -1));
             let curCard = arrayOfCardsForSelect[index];
             arrayOfCardsForSelect.splice(index, 1);
             result.push(curCard);

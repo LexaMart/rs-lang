@@ -22,6 +22,11 @@ export const Savannah = () => {
     dispatch(setActiveCard());
     dispatch(setCardsForSelection());
   };
+
+  const handleCardClick = (event) => {
+    console.log(event)
+  }
+
   return (
     <div className="savannah-container">
       <div>
@@ -31,7 +36,7 @@ export const Savannah = () => {
       {isGameStarted && <div>{activeCard.word}</div> }
       <div className="selection-container">
         {isGameStarted && cardsForSelection.map((word) => {
-          return <div key={word.id}>{word.word}</div>;
+          return <div key={word.id} onClick={(word) =>handleCardClick(word)}>{word.word}</div>;
         })}
       </div>
     </div>
