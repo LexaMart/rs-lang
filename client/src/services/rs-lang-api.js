@@ -28,14 +28,11 @@ export const rsLangApi = {
     formData.append("name", userName);
     formData.append("email", email);
     formData.append("password", password);
-    if (image) {
-      formData.append("avatar", image);
-    }
+    formData.append("avatar", image);
     return axios({
       method: "post",
       url: `${RS_LANG_API}users`,
       data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
     })
       .then((response) => {
         return response;

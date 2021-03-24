@@ -57,7 +57,7 @@ export const logout = () => ({ type: ACTION_CONST.SET_DEFAULT_VALUES });
 export const login = (email, password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.login(email, password);
-  if (response.data) {
+  if (response) {
     dispatch(setUserData(response.data));
   }
 
