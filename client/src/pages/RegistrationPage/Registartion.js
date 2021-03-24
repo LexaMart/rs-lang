@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useMessage } from '../../hooks/message.hook'
 import { register } from '../../redux/auth-reducer'
@@ -14,6 +14,10 @@ export const Registration = () => {
   const [form, setForm] = useState({
     name: "", email: "", password: '', avatar: ''
   })
+
+  const isLoading = useSelector(
+    (store) => store.authStore.isLoading
+  );
 
   const avatarHandler = (event) => {
     const file = event.target.files[0];
@@ -70,7 +74,7 @@ export const Registration = () => {
             </div>
           </div>
           <div className="card-action">
-            <button onClick={registerHandler}  className="btn waves-effect red waves-light" type="submit" name="action">Sign up!
+            <button onClick={registerHandler} disabled={isLoading} className="btn waves-effect red waves-light" type="submit" name="action">Sign up!
             <i className="material-icons right">send</i>
             </button>
           </div>

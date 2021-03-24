@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import urls from '../../assets/constants/ursl'
@@ -14,29 +14,24 @@ export const Auth = () => {
   const auth = useContext(AuthContext)
   const dispatch = useDispatch()
   const message = useMessage();
-  const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
     "email": "", "password": '',
   })
 
-  useEffect(() => {
-    message(error)
-    clearError();
-  }, [error, message, clearError])
 
+  const isLoading = useSelector(
+    (store) => store.authStore.isLoading
+  );
 
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
-  const loginHandler = async () => {
-    try {
-      await login(form.email, form.password)(dispatch);
-      // const data = await request(`${urls.API}/signin`, 'POST', { "email": form.email, "password": form.password }, {}, true)
-      // auth.login(data.token, data.refreshToken, data.userId)
-      // // setAcive(!active)
-      // console.log(data)
-    } catch (e) { }
+  const loginHandler = () => {
+
+      dispatch(login(form.email, form.password));
+
+
   }
   return (
     <div className="row">
@@ -65,7 +60,7 @@ export const Auth = () => {
             </div>
           </div>
           <div className="card-action">
-            <button onClick={loginHandler} disabled={loading} className="btn waves-effect red waves-light" type="submit" name="action">Sign in!
+            <button onClick={loginHandler} disabled={isLoading} className="btn waves-effect red waves-light" type="submit" name="action">Sign in!
             <i className="material-icons right">send</i>
             </button>
           </div>
