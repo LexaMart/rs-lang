@@ -5,6 +5,9 @@ const ACTION_CONST = {
     SET_IS_WORDS_DATA: "SET_WORDS_DATA",
     SET_ACTIVE_CARD: "SET_ACTIVE_CARD",
     SET_CARDS_FOR_SELECTION: "SET_CARDS_FOR_SELECTION",
+    GUESS_THE_WORD: "GUESS_THE_WORD",
+    NOT_GUESS_THE_WORD: "NOT_GUESS_THE_WORD",
+    SET_DEFAULT_VALUES: "SET_DEFAULT_VALUES",
   };
   
   const DEFAULT_VALUES = {
@@ -12,6 +15,7 @@ const ACTION_CONST = {
     TRUE: true,
     FALSE: false,
     LANGUAGE: "en",
+    LIVES_ARRAY: [1, 1, 1, 1, 1],
   };
   
   let initialState = {
@@ -22,10 +26,18 @@ const ACTION_CONST = {
     isGameStarted: DEFAULT_VALUES.FALSE,
     isAdditionalButtonsShown: DEFAULT_VALUES.TRUE,
     activeLanguage: DEFAULT_VALUES.LANGUAGE,
+    livesArray: DEFAULT_VALUES.LIVES_ARRAY,
+    isGameWon: DEFAULT_VALUES.FALSE,
+    isGameLost: DEFAULT_VALUES.FALSE,
   };
   
   const savannahReducer = (state = initialState, action) => {
     switch (action.type) {
+      case ACTION_CONST.SET_DEFAULT_VALUES: {
+        return {
+         ...initialState
+        };
+      }
       case ACTION_CONST.SET_IS_GAME_STARTED: {
         return {
           ...state,
@@ -34,14 +46,16 @@ const ACTION_CONST = {
       }
       case ACTION_CONST.SET_ACTIVE_CARD: {  
         const randomValue = Math.floor(Math.random() * Math.floor(state.remainWordsData.length));
+        const remainWordsDataArray = state.remainWordsData.slice();
+        remainWordsDataArray.splice(randomValue, 1);
         return {
           ...state,
           activeCard: state.remainWordsData[randomValue],
-          remainWordsData: [...state.remainWordsData].splice(randomValue, 1)
+          remainWordsData: [...remainWordsDataArray]
         };
       }
       case ACTION_CONST.SET_CARDS_FOR_SELECTION: {
-        const arrayOfCardsForSelect = [...state.remainWordsData];
+        const arrayOfCardsForSelect = [...state.wordsData];
         //TODO
         const length = 3;
         const result = [];
@@ -56,6 +70,35 @@ const ACTION_CONST = {
           ...state,
           cardsForSelection: result,
         };
+      }
+      case ACTION_CONST.GUESS_THE_WORD: {  
+        if (state.remainWordsData.length) {
+          return {
+            ...state,
+          };
+        } else {
+          return {
+            ...state,
+            isGameWon: DEFAULT_VALUES.TRUE,
+            isGameStarted: DEFAULT_VALUES.FALSE,
+          };
+        };
+      }
+      case ACTION_CONST.NOT_GUESS_THE_WORD: {  
+        if (state.livesArray.length) {
+          const remainLivesArray = state.livesArray.slice();
+          remainLivesArray.splice(0,1);
+          return {
+            ...state,
+            livesArray: [...remainLivesArray],
+          };
+        } else {
+          return {
+            ...state,
+            isGameLost: DEFAULT_VALUES.TRUE,
+            isGameStarted: DEFAULT_VALUES.FALSE,
+          };
+        }
       }
       default:
         return state;
@@ -73,6 +116,18 @@ const ACTION_CONST = {
   
   export const setCardsForSelection = () => ({
     type: ACTION_CONST.SET_CARDS_FOR_SELECTION,
+    
+  });
+  export const guessTheWord = () => ({
+    type: ACTION_CONST.GUESS_THE_WORD,
+    
+  });
+  export const setDefaultValues= () => ({
+    type: ACTION_CONST.SET_DEFAULT_VALUES,
+    
+  });
+  export const notGuessTheWord = () => ({
+    type: ACTION_CONST.NOT_GUESS_THE_WORD,
     
   });
   
