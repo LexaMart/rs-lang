@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { useHttp } from '../../hooks/http.hook'
 export const Main = () => {
@@ -12,6 +13,7 @@ export const Main = () => {
     <div>
       <h1> Main page</h1>
       <button onClick={() => fetch()}>click</button>
+      <NavLink to='/settings'>Settings</NavLink>
     </div>
   )
 }

@@ -10,6 +10,7 @@ import { Settings } from './pages/SettingsPage/Settings'
 import { Statistic } from './pages/StatisticPage/Statistic'
 
 export const useRoutes = isAuthenticated => {
+  console.log(isAuthenticated);
   if (isAuthenticated) {
     return (
       <Switch>
