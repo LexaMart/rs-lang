@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import urls from '../../assets/constants/ursl'
-import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
 import { register } from '../../redux/auth-reducer'
 
@@ -13,16 +11,9 @@ export const Registration = () => {
 
   const dispatch = useDispatch();
   const message = useMessage();
-  const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
-    name: "", email: "", password: '', avatar: null
+    name: "", email: "", password: '', avatar: ''
   })
-
-
-  useEffect(() => {
-    message(error)
-    clearError();
-  }, [error, message, clearError])
 
   const avatarHandler = (event) => {
     const file = event.target.files[0];
@@ -33,24 +24,8 @@ export const Registration = () => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
-  const registerHandler = async () => {
-
-    try {
-      await register(form.name, form.email, form.password, form.avatar)(dispatch)
-      // const formData = new FormData();
-      // formData.append("name", form.name);
-      // formData.append("email", form.email);
-      // formData.append("password", form.password);
-      // if (form.avatar) {
-      //   formData.append('avatar', form.avatar, form.avatar.name)
-      // } else {
-      //   formData.append('avatar', "")
-      // }
-      // const data = await request(`${urls.API}/users`, 'POST', formData, {}, false)
-      // message(data.message);
-      // console.log(data.message)
-    } catch (e) {
-    }
+  const registerHandler = () => {
+    dispatch(register(form.name, form.email, form.password, form.avatar))
   }
 
 
@@ -95,7 +70,7 @@ export const Registration = () => {
             </div>
           </div>
           <div className="card-action">
-            <button onClick={registerHandler} disabled={loading} className="btn waves-effect red waves-light" type="submit" name="action">Sign up!
+            <button onClick={registerHandler}  className="btn waves-effect red waves-light" type="submit" name="action">Sign up!
             <i className="material-icons right">send</i>
             </button>
           </div>

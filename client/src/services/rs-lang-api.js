@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const RS_LANG_API = "https://rs-lang-api.herokuapp.com/";
+export const RS_LANG_API = "https://rs-lang-74-api.herokuapp.com/";
 
 export const rsLangApi = {
   getAllWords() {
@@ -25,16 +25,17 @@ export const rsLangApi = {
 
   register(userName, email, password, image) {
     const formData = new FormData();
-    formData.append("userName", userName);
+    formData.append("name", userName);
     formData.append("email", email);
     formData.append("password", password);
     if (image) {
-      formData.append("image", image);
+      formData.append("avatar", image);
     }
     return axios({
       method: "post",
       url: `${RS_LANG_API}users`,
       data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
     })
       .then((response) => {
         return response;
