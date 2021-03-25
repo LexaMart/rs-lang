@@ -14,6 +14,7 @@ export const Main = () => {
       <h1> Main page</h1>
       <button onClick={() => fetch()}>click</button>
       <NavLink to='/settings'>Settings</NavLink>
+      <NavLink to='/statistic'> Statistic </NavLink>
     </div>
   )
 }

@@ -9,6 +9,7 @@ import { Registration } from './pages/RegistrationPage/Registartion'
 import { Settings } from './pages/SettingsPage/Settings'
 import { Statistic } from './pages/StatisticPage/Statistic'
 import { Savannah } from './pages/GamesPage/Savannah/Savannah'
+import { MyGame } from './pages/GamesPage/MyGame/MyGame'
 
 export const useRoutes = isAuthenticated => {
   console.log(isAuthenticated);
@@ -23,6 +24,9 @@ export const useRoutes = isAuthenticated => {
         </Route>
         <Route path="/savannah" exact>
           <Savannah />
+        </Route>
+        <Route path="/mygame" exact>
+          <MyGame />
         </Route>
         <Route path="/settings" exact>
           <Settings />
