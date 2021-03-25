@@ -2,13 +2,14 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Auth } from './pages/AuthPage/Auth';
 
-import { Games } from './pages/GamesPage/Games';
-import { Main } from './pages/MainPage/Main';
-import { Promo } from './pages/PromoPage/Promo';
-import { Registration } from './pages/RegistrationPage/Registartion';
-import { Settings } from './pages/SettingsPage/Settings';
-import { Statistic } from './pages/StatisticPage/Statistic';
-import { Dictionary } from './pages/DictionaryPage/Dictionary';
+import { Games } from './pages/GamesPage/Games'
+import { Main } from './pages/MainPage/Main'
+import { Promo } from './pages/PromoPage/Promo'
+import { Registration } from './pages/RegistrationPage/Registartion'
+import { Settings } from './pages/SettingsPage/Settings'
+import { Statistic } from './pages/StatisticPage/Statistic'
+import { Savannah } from './pages/GamesPage/Savannah/Savannah'
+import { Dictionary } from './pages/DictionaryPage/Dictionary'
 
 export const useRoutes = (isAuthenticated) => {
   console.log(isAuthenticated);
@@ -20,6 +21,9 @@ export const useRoutes = (isAuthenticated) => {
         </Route>
         <Route path="/games" exact>
           <Games />
+        </Route>
+        <Route path="/savannah" exact>
+          <Savannah />
         </Route>
         <Route path="/settings" exact>
           <Settings />
