@@ -15,14 +15,13 @@ function App() {
   const routes = useRoutes(isAuthenticated)
   return (
     <div className="app_container">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-    <Header />
-    <Router>
-      <div className="main_container">
-        {routes}
-      </div>
-    </Router>
-    <Footer />
+      <Router>
+        <Header />
+        <div className="main_container">
+          {routes}
+        </div>
+        <Footer />
+      </Router>
     </div>
   );
 }

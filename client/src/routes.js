@@ -30,6 +30,7 @@ export const useRoutes = (isAuthenticated) => {
         </Route>
         <Route path="/mygame" exact>
           <MyGame />
+        </Route>
         <Route path="/audiocall" exact>
           <AudioCall />
         </Route>
