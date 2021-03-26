@@ -55,7 +55,7 @@ export const MyGame = () => {
       setWiningCard(arrayToPlay[Math.floor(Math.random() * 4)])
 
     }
-  }, [isGameStarted, gameCards, request]), [isGameStarted,randomInt])
+  }, [isGameStarted, gameCards, request, randomInt]), [isGameStarted, randomInt])
   return (
     <div className="our-game-container">
       {
