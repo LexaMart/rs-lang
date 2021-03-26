@@ -59,12 +59,12 @@ export const MyGame = () => {
   return (
     <div className="our-game-container">
       {
-        !isGameStarted &&
+        !isGameStarted && !isGameLost &&
         <Rules startGame={startGame} />
       }
       {
         isGameLost &&
-        <></>
+        <>Lost</>
       }
       {isGameStarted && winingCard &&
         <div className="word-to-guess-block">
