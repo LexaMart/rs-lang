@@ -54,5 +54,5 @@ export const Main = () => {
           <i id="arrow" className="material-icons white-text btn" onClick={() => changePage(1)}>keyboard_arrow_right</i>
         </div>
     </div>
-  )
-}
+  );
+};
