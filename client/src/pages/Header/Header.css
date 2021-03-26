@@ -1,0 +1,16 @@
+.header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 4%;
+    padding-right: 4%;
+    height: 56px;
+    user-select: none; 
+}
+
+.app_logo {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 44px;
+}
