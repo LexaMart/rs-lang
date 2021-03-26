@@ -8,8 +8,10 @@ import { Promo } from './pages/PromoPage/Promo'
 import { Registration } from './pages/RegistrationPage/Registartion'
 import { Settings } from './pages/SettingsPage/Settings'
 import { Statistic } from './pages/StatisticPage/Statistic'
+import { Savannah } from './pages/GamesPage/Savannah/Savannah'
 
 export const useRoutes = isAuthenticated => {
+  console.log(isAuthenticated);
   if (isAuthenticated) {
     return (
       <Switch>
@@ -18,6 +20,9 @@ export const useRoutes = isAuthenticated => {
         </Route>
         <Route path="/games" exact>
           <Games />
+        </Route>
+        <Route path="/savannah" exact>
+          <Savannah />
         </Route>
         <Route path="/settings" exact>
           <Settings />

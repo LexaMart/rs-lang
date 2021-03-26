@@ -1,0 +1,16 @@
+.link-block {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-link {
+  margin-top: 10px;
+  color: black;
+  font-size: 30px;
+}
+.card-action {
+  display: flex !important;
+  justify-content: center !important;
+}
