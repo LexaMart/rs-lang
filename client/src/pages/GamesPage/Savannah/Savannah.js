@@ -2,65 +2,104 @@ import React, { useState, useEffect } from "react";
 import "./Savannah.scss";
 import {RS_LANG_API} from '../../../services/rs-lang-api'
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setIsGameStarted,
-  setActiveCard,
-  setCardsForSelection,
-  guessTheWord,
-  notGuessTheWord,
-  setDefaultValues,
-} from "../../../redux/savannah-reducer";
+import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
+import { wordsMockData } from "../../../shared/wordsMockData";
 
 export const Savannah = () => {
-  const dispatch = useDispatch();
-  const isGameStarted = useSelector(
-    (store) => store.savannahStore.isGameStarted
-  );
-  const activeCard = useSelector((store) => store.savannahStore.activeCard);
-  const cardsForSelection = useSelector(
-    (store) => store.savannahStore.cardsForSelection
-  );
-  const isGameWon = useSelector((store) => store.savannahStore.isGameWon);
-  const isGameLost = useSelector((store) => store.savannahStore.isGameLost);
-  const livesArray = useSelector((store) => store.savannahStore.livesArray);
+  const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
+  const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
+  const [isGameLost, setIsGameLost] = useState(GAME_DEFAULT_VALUES.FALSE);
+  const [livesArray, setLivesArray] = useState(GAME_DEFAULT_VALUES.LIVES_ARRAY);
+  const [wordsArray, setWordsArray] = useState(wordsMockData);
+  const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
+  const [activeCard, setActiveCard] = useState();
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     dispatch(setActiveCard());
-  //   }, 1000);
-  //   return () => clearTimeout(timer);
-  // }, [isGameStarted, activeCard]);
-    useEffect(() => {
-      if (activeCard) {
-        const audio = new Audio();
-        audio.src = `${RS_LANG_API}${activeCard.audio}`;
-        audio.play();
-      }
+  const [cardsForSelection, setCardsForSelection] = useState(null);
+
+  useEffect(() => {
+    if (activeCard) {
+      playActiveCardAudio();
+    }
   }, [activeCard]);
 
   const startGame = () => {
-    dispatch(setDefaultValues());
-    dispatch(setIsGameStarted(!isGameStarted));
-    dispatch(setActiveCard());
-    dispatch(setCardsForSelection());
+    setDefaultGameSettings();
+    setIsGameStarted(!isGameStarted);
+    setRandomActiveCardAndCardsForSelection();
+  };
+
+  const setDefaultGameSettings = () => {
+    setWordsArray(wordsMockData);
+    setRemainWordsArray(wordsMockData);
+    setLivesArray(GAME_DEFAULT_VALUES.LIVES_ARRAY);
+    setIsGameLost(GAME_DEFAULT_VALUES.FALSE);
+    setIsGameWon(GAME_DEFAULT_VALUES.FALSE);
+  };
+
+  const getRandomValue = (value) => {
+    return Math.floor(Math.random() * Math.floor(value));
+  };
+
+  const playActiveCardAudio = () => {
+    const audio = new Audio();
+    audio.src = `${RS_LANG_API}${activeCard.audio}`;
+    audio.play();
+  };
+
+  const getRandomCardsForSelect = (activeCard) => {
+    const arrayOfCardsForSelect = [...wordsArray].filter(
+      (card) => card.id !== activeCard.id
+    );
+
+    //TODO
+    const length = 3;
+    const result = [];
+    for (let i = 0; i < length; i++) {
+      let index = getRandomValue(arrayOfCardsForSelect.length - 1);
+      let curCard = arrayOfCardsForSelect[index];
+      arrayOfCardsForSelect.splice(index, 1);
+      result.push(curCard);
+    }
+    result.splice(Math.floor(Math.random() * Math.floor(3)), 0, activeCard);
+
+    return result;
   };
 
   const handleCardClick = (event, word) => {
-    if (word.id === activeCard.id) {
-      dispatch(guessTheWord());
-      if (!isGameWon) {
-        dispatch(setActiveCard());
-        dispatch(setCardsForSelection());
-      }
-    } else {
-      dispatch(notGuessTheWord());
-      if (!isGameLost) {
-        dispatch(setActiveCard());
-        dispatch(setCardsForSelection());
-      }
+    word.id === activeCard.id ? guessTheWord() : notGuessTheWord();
+  };
+
+  const setRandomActiveCardAndCardsForSelection = () => {
+    const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
+    const remainWordsArrayForSelection = [...remainWordsArray];
+
+    setActiveCard(remainWordsArray[activeCardIndex]);
+    setCardsForSelection(() =>
+      getRandomCardsForSelect(remainWordsArray[activeCardIndex])
+    );
+    remainWordsArrayForSelection.splice(activeCardIndex, 1);
+    setRemainWordsArray(remainWordsArrayForSelection);
+  };
+
+  const guessTheWord = () => {
+    if (remainWordsArray.length) {
+          setRandomActiveCardAndCardsForSelection();
+        } else {
+      setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
+      setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
+      setActiveCard(null);
     }
-    console.log(word);
+  };
+
+  const notGuessTheWord = () => {
+    const remainLivesArray = [...livesArray];
+    remainLivesArray.splice(0, 1);
+    setLivesArray(remainLivesArray);
+    if (!remainLivesArray.length) {
+      setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
+      setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
+      setActiveCard(null);
+    }
   };
 
   return (
