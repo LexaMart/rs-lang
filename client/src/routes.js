@@ -9,6 +9,7 @@ import { Registration } from './pages/RegistrationPage/Registartion'
 import { Settings } from './pages/SettingsPage/Settings'
 import { Statistic } from './pages/StatisticPage/Statistic'
 import { Savannah } from './pages/GamesPage/Savannah/Savannah'
+import { AudioCall } from './pages/GamesPage/AudioCall/AudioCall'
 import { Dictionary } from './pages/DictionaryPage/Dictionary'
 
 export const useRoutes = (isAuthenticated) => {
@@ -24,6 +25,9 @@ export const useRoutes = (isAuthenticated) => {
         </Route>
         <Route path="/savannah" exact>
           <Savannah />
+        </Route>
+        <Route path="/audiocall" exact>
+          <AudioCall />
         </Route>
         <Route path="/settings" exact>
           <Settings />
