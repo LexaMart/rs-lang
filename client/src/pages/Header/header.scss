@@ -1,0 +1,36 @@
+.header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 4%;
+    padding-right: 4%;
+    height: 56px;
+    user-select: none; 
+}
+
+.app_logo {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 44px;
+}
+.burger-image {
+    transition: all 0.5s;
+    width: 50%;
+    cursor: pointer;
+}
+.bg-active {
+    transition: all 0.5s;
+    transform: rotate(90deg);
+    z-index: 3;
+}
+.burger-block {
+    transition: all 0.5s;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.burger-image:hover {
+    width: 55%;
+}

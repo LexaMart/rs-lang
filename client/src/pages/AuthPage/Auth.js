@@ -29,7 +29,7 @@ export const Auth = () => {
 
   const loginHandler = () => {
 
-      dispatch(login(form.email, form.password));
+    dispatch(login(form.email, form.password));
 
 
   }
