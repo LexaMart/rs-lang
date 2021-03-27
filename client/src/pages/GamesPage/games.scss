@@ -1,0 +1,33 @@
+.games-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 85vh;
+}
+
+.game-card {
+  cursor: pointer;
+  border-radius: 15px;
+  margin: 10px;
+  width: 250px;
+  height: 250px;
+  background: rgba(78, 77, 77, 0.7);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: column;
+}
+
+.game-name {
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 90%;
+  text-align: center;
+  background: rgba(226, 220, 220, 0.8);
+  color: black;
+}
+
+.game-icon {
+  width: 95px;
+}
