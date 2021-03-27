@@ -20,6 +20,9 @@ export const AudioCall = () => {
   const optionalStatisticObject = useSelector(
     (store) => store.statisticsStore.statisticsData.optional
   );
+  const wholeLearnedWords = useSelector(
+    (store) => store.statisticsStore.learnedWords
+  );
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
 
@@ -146,6 +149,7 @@ export const AudioCall = () => {
         isAuthenticated,
         userId,
         token,
+        wholeLearnedWords,
         optionalStatisticObject,
         numberOfLearnedWords,
         numberOfIncorrectAnswers

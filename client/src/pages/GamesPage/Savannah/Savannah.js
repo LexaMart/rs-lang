@@ -38,6 +38,9 @@ export const Savannah = () => {
   const optionalStatisticObject = useSelector(
     (store) => store.statisticsStore.statisticsData.optional
   );
+  const wholeLearnedWords = useSelector(
+    (store) => store.statisticsStore.learnedWords
+  );
   const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -207,6 +210,7 @@ export const Savannah = () => {
         isAuthenticated,
         userId,
         token,
+        wholeLearnedWords,
         optionalStatisticObject,
         numberOfLearnedWords,
         numberOfIncorrectAnswers

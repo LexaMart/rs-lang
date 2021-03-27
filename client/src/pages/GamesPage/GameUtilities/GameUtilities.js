@@ -1,21 +1,22 @@
 import moment from "moment";
 import { rsLangApi } from "../../../services/rs-lang-api";
-export const sendStatistic = (isAuthenticated, userId, token, optionalStatisticObject, numberOfLearnedWords, numberOfIncorrectAnswers) => {
+export const sendStatistic = (isAuthenticated, userId, token, wholeLearnedWords, optionalStatisticObject, numberOfLearnedWords, numberOfIncorrectAnswers) => {
   if (isAuthenticated) {
     let now = moment().format("DD-MM-YYYY");
+    const newWholeLearnedWords = wholeLearnedWords + numberOfLearnedWords
     const optionalObject = { ...optionalStatisticObject };
     //TODO move to redux??
     if (!optionalObject[now]) {
       optionalObject[now] = {
         date: now,
-        learnedWords: numberOfLearnedWords,
+        learnedWords: newWholeLearnedWords,
         correctAnswers: numberOfLearnedWords,
         incorrectAnswers: numberOfIncorrectAnswers,
       };
     } else
       optionalObject[now] = {
         date: now,
-        learnedWords: numberOfLearnedWords,
+        learnedWords: newWholeLearnedWords,
         correctAnswers:
           optionalObject[now].correctAnswers + numberOfLearnedWords,
         incorrectAnswers:
@@ -24,7 +25,7 @@ export const sendStatistic = (isAuthenticated, userId, token, optionalStatisticO
     rsLangApi.sendStatistic(
       userId,
       token,
-      numberOfLearnedWords,
+      newWholeLearnedWords,
       optionalObject
     );
   }
