@@ -10,39 +10,69 @@ import {
 import { useHttp } from "../../hooks/http.hook";
 import { useSelector, useDispatch } from "react-redux";
 import urls from "../../assets/constants/ursl";
-import {
-  getStatistic
-} from "../../redux/statistics-reducer";
+import { getStatistic } from "../../redux/statistics-reducer";
 
 export const Statistic = () => {
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
-  const wholeLearnedWords = useSelector((store) => store.statisticsStore.learnedWords);
-  const { request } = useHttp();
+  const wholeLearnedWords = useSelector(
+    (store) => store.statisticsStore.learnedWords
+  );
+  const wholeIncorrectWords = useSelector(
+    (store) => store.statisticsStore.incorrectAnswers
+  );
+  const savannahMaxSeries = useSelector(
+    (store) => store.statisticsStore.savannahMaxSeries
+  );
+  const savannahLearnedWords = useSelector(
+    (store) => store.statisticsStore.savannahLearnedWords
+  );
+  const savannahIncorrectAnswers = useSelector(
+    (store) => store.statisticsStore.savannahIncorrectAnswers
+  );
+  const audioCallMaxSeries = useSelector(
+    (store) => store.statisticsStore.audioCallMaxSeries
+  );
+  const audioCallLearnedWords = useSelector(
+    (store) => store.statisticsStore.audioCallLearnedWords
+  );
+  const audioCallIncorrectAnswers = useSelector(
+    (store) => store.statisticsStore.audioCallIncorrectAnswers
+  );
+  const sprintMaxSeries = useSelector(
+    (store) => store.statisticsStore.sprintMaxSeries
+  );
+  const sprintLearnedWords = useSelector(
+    (store) => store.statisticsStore.sprintLearnedWords
+  );
+  const sprintIncorrectAnswers = useSelector(
+    (store) => store.statisticsStore.sprintIncorrectAnswers
+  );
+  const myGameMaxSeries = useSelector(
+    (store) => store.statisticsStore.myGameMaxSeries
+  );
+  const myGameLearnedWords = useSelector(
+    (store) => store.statisticsStore.myGameLearnedWords
+  );
+  const myGameIncorrectAnswers = useSelector(
+    (store) => store.statisticsStore.myGameIncorrectAnswers
+  );
+  const statisticsOptionalData = useSelector(
+    (store) => store.statisticsStore.statisticsData.optional
+  );
   const [rechartsData, setRechartsData] = useState();
   const dispatch = useDispatch();
 
-
+  //TODO if you never played it brokes
   useEffect(
     useCallback(async () => {
       if (isAuthenticated) {
-        dispatch(getStatistic(userId, token))
-        const statistics = await request(
-          `${urls.API}/users/${userId}/statistics`,
-          "GET",
-          null,
-          {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          }
-        );
-        const data = Object.values(statistics.optional);
-
+        dispatch(getStatistic(userId, token));
+        const data = Object.values(statisticsOptionalData);
         setRechartsData(data);
       }
-    }, [isAuthenticated, request, token, userId]),
+    }, [dispatch, isAuthenticated, statisticsOptionalData, token, userId]),
     [isAuthenticated]
   );
 
@@ -50,7 +80,50 @@ export const Statistic = () => {
     <div>
       <h1> Statistic Page</h1>
       <>
-      <p>Whole learned words: {wholeLearnedWords}</p>
+        <p>Whole learned words: {wholeLearnedWords}</p>
+        <p>
+          Percents of wins:{" "}
+          {(wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
+            100 || 0}{" "}
+          %
+        </p>
+        <p>savannahMaxSeries: {savannahMaxSeries}</p>
+        <p>savannahLearnedWords: {savannahLearnedWords}</p>
+        <p>
+          Savannah Percents of wins:{" "}
+          {(savannahLearnedWords /
+            (savannahLearnedWords + savannahIncorrectAnswers)) *
+            100 || 0}{" "}
+          %
+        </p>
+        <p>audioCallMaxSeries: {audioCallMaxSeries}</p>
+        <p>audioCallLearnedWords: {audioCallLearnedWords}</p>
+        <p>
+          AudioCall Percents of wins:{" "}
+          {(audioCallLearnedWords /
+            (audioCallLearnedWords + audioCallIncorrectAnswers)) *
+            100 || 0}{" "}
+          %
+        </p>
+        <p>sprintMaxSeries: {sprintMaxSeries}</p>
+        <p>sprintLearnedWords: {sprintLearnedWords}</p>
+        <p>
+          sprint Percents of wins:{" "}
+          {(sprintLearnedWords /
+            (sprintLearnedWords + sprintIncorrectAnswers)) *
+            100 || 0}{" "}
+          %
+        </p>
+        <p>myGameMaxSeries: {myGameMaxSeries}</p>
+        <p>myGameLearnedWords: {myGameLearnedWords}</p>
+        <p>
+          myGame Percents of wins:{" "}
+          {(myGameLearnedWords /
+            (myGameLearnedWords + myGameIncorrectAnswers)) *
+            100 || 0}{" "}
+          %
+        </p>
+        <p></p>
       </>
       <>
         <LineChart

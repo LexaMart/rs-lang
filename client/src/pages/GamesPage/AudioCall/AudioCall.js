@@ -4,9 +4,25 @@ import { RS_LANG_API } from "../../../services/rs-lang-api";
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 import { WORDS_CONFIG } from "../../../shared/words-config";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setAudioCallLearnedWords,
+  setAudioCallIncorrectAnswers,
+  getStatistic,
+} from "../../../redux/statistics-reducer";
+import { sendStatistic } from "../GameUtilities/GameUtilities";
 
 export const AudioCall = () => {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const token = useSelector((store) => store.authStore.userData.token);
+  const userId = useSelector((store) => store.authStore.userData.userId);
+  const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
+  const optionalStatisticObject = useSelector(
+    (store) => store.statisticsStore.statisticsData.optional
+  );
+  const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
+  const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
+
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameLost, setIsGameLost] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -15,7 +31,7 @@ export const AudioCall = () => {
   const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
   const [activeCard, setActiveCard] = useState();
 
-const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
+  const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [cardsForSelection, setCardsForSelection] = useState(null);
 
   useEffect(() => {
@@ -28,6 +44,9 @@ const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
     setDefaultGameSettings();
     setIsGameStarted(!isGameStarted);
     setRandomActiveCardAndCardsForSelection();
+    if (isAuthenticated) {
+      dispatch(getStatistic(userId, token));
+    }
   };
 
   const setDefaultGameSettings = () => {
@@ -36,7 +55,7 @@ const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
     setLivesArray(GAME_DEFAULT_VALUES.LIVES_ARRAY);
     setIsGameLost(GAME_DEFAULT_VALUES.FALSE);
     setIsGameWon(GAME_DEFAULT_VALUES.FALSE);
-  }
+  };
 
   const getRandomValue = (value) => {
     return Math.floor(Math.random() * Math.floor(value));
@@ -49,13 +68,15 @@ const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
   };
 
   const getRandomCardsForSelect = (activeCard) => {
-    const arrayOfCardsForSelect = [...wordsArray].filter((card) => card.id !== activeCard.id)
+    const arrayOfCardsForSelect = [...wordsArray].filter(
+      (card) => card.id !== activeCard.id
+    );
 
     //TODO
     const length = 3;
     const result = [];
     for (let i = 0; i < length; i++) {
-      let index = getRandomValue(arrayOfCardsForSelect.length -1)
+      let index = getRandomValue(arrayOfCardsForSelect.length - 1);
       let curCard = arrayOfCardsForSelect[index];
       arrayOfCardsForSelect.splice(index, 1);
       result.push(curCard);
@@ -70,43 +91,67 @@ const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
   };
 
   const handleNextButtonClick = () => {
-      if (remainWordsArray.length) {
-          setRandomActiveCardAndCardsForSelection();
-      }
-      setIsImageShown(GAME_DEFAULT_VALUES.FALSE);
-  }
+    if (remainWordsArray.length) {
+      setRandomActiveCardAndCardsForSelection();
+    }
+    setIsImageShown(GAME_DEFAULT_VALUES.FALSE);
+  };
 
   const setRandomActiveCardAndCardsForSelection = () => {
     const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
-    const remainWordsArrayForSelection = [...remainWordsArray]
+    const remainWordsArrayForSelection = [...remainWordsArray];
 
     setActiveCard(remainWordsArray[activeCardIndex]);
-    setCardsForSelection(() => getRandomCardsForSelect(remainWordsArray[activeCardIndex]));
-    remainWordsArrayForSelection.splice(activeCardIndex, 1)
-    setRemainWordsArray(remainWordsArrayForSelection)
-  }
+    setCardsForSelection(() =>
+      getRandomCardsForSelect(remainWordsArray[activeCardIndex])
+    );
+    remainWordsArrayForSelection.splice(activeCardIndex, 1);
+    setRemainWordsArray(remainWordsArrayForSelection);
+  };
 
   const guessTheWord = () => {
-      setIsImageShown(GAME_DEFAULT_VALUES.TRUE);
-      if (!remainWordsArray.length) {
-        setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
-        setIsImageShown(GAME_DEFAULT_VALUES.FALSE);
-        setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
-        setActiveCard(null)
-      }
-  }
+    setIsImageShown(GAME_DEFAULT_VALUES.TRUE);
+    setNumberOfLearnedWords(numberOfLearnedWords + 1);
+    if (!remainWordsArray.length) {
+      setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
+      setIsImageShown(GAME_DEFAULT_VALUES.FALSE);
+      setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
+      setActiveCard(null);
+      dispatch(setAudioCallLearnedWords(numberOfLearnedWords));
+      dispatch(setAudioCallIncorrectAnswers(numberOfIncorrectAnswers));
+      sendStatistic(
+        isAuthenticated,
+        userId,
+        token,
+        optionalStatisticObject,
+        numberOfLearnedWords,
+        numberOfIncorrectAnswers
+      );
+    }
+  };
 
   const notGuessTheWord = () => {
-      const remainLivesArray = [...livesArray];
-      remainLivesArray.splice(0, 1);
-      setLivesArray(remainLivesArray);
+    const remainLivesArray = [...livesArray];
+    remainLivesArray.splice(0, 1);
+    setLivesArray(remainLivesArray);
+    setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1);
     if (!remainLivesArray.length) {
       setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
       setIsImageShown(GAME_DEFAULT_VALUES.FALSE);
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
-      setActiveCard(null)
+      setActiveCard(null);
+      dispatch(setAudioCallLearnedWords(numberOfLearnedWords));
+      dispatch(setAudioCallIncorrectAnswers(numberOfIncorrectAnswers));
+      sendStatistic(
+        isAuthenticated,
+        userId,
+        token,
+        optionalStatisticObject,
+        numberOfLearnedWords,
+        numberOfIncorrectAnswers
+      );
     }
-}
+  };
 
   return (
     <div className="savannah-container">
@@ -122,22 +167,16 @@ const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
         </div>
       )}
       {isGameStarted && (
-        <div >
+        <div>
           {activeCard.word}
-          {isImageShown && <img src={`${RS_LANG_API}${activeCard.image}`} alt="word_image"/>}
+          {isImageShown && (
+            <img src={`${RS_LANG_API}${activeCard.image}`} alt="word_image" />
+          )}
         </div>
       )}
-      {isGameStarted && <button
-        onClick={playActiveCardAudio}
-      >
-        PLAY
-      </button>}
-      {isGameStarted &&  <button
-        onClick={handleNextButtonClick}
-      >
-        Next
-      </button>}
-     
+      {isGameStarted && <button onClick={playActiveCardAudio}>PLAY</button>}
+      {isGameStarted && <button onClick={handleNextButtonClick}>Next</button>}
+
       {isGameStarted && (
         <div className="selection-container">
           {cardsForSelection.map((word) => {

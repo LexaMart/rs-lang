@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Savannah.scss";
-import { RS_LANG_API, rsLangApi } from "../../../services/rs-lang-api";
+import { RS_LANG_API } from "../../../services/rs-lang-api";
 
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 import { useHttp } from "../../../hooks/http.hook";
 import { useKey } from "../../../hooks/keyboardEvents.hook";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import urls from "../../../assets/constants/ursl";
 import { Select } from "react-materialize";
-import moment from "moment";
 import {
-  addLearnedWords,
-  setSavannahMaxSeries,
-  setTodaysStatistic,
+  setSavannahLearnedWords,
+  setSavannahIncorrectAnswers,
+  getStatistic,
 } from "../../../redux/statistics-reducer";
-import { useDispatch } from "react-redux";
+import { sendStatistic } from "../GameUtilities/GameUtilities";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -36,7 +35,9 @@ export const Savannah = () => {
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
-  const optionalStatisticObject = useSelector((store) => store.statisticsStore.statisticsData.optional);
+  const optionalStatisticObject = useSelector(
+    (store) => store.statisticsStore.statisticsData.optional
+  );
   const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -46,6 +47,7 @@ export const Savannah = () => {
   const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
   const [activeCard, setActiveCard] = useState(null);
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
+  const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
   const levelsArray = [];
   const pagesArray = [];
 
@@ -55,10 +57,6 @@ export const Savannah = () => {
   const [pageInputValue, setPageInputText] = useState(1);
 
   const dispatch = useDispatch();
-  //TODO separate it
-  const addNewWordsToStatistics = (wordsNumber) => {
-    dispatch(addLearnedWords(wordsNumber));
-  };
 
   useEffect(() => {
     if (activeCard) {
@@ -77,6 +75,9 @@ export const Savannah = () => {
     setDefaultGameSettings();
     setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
     setRandomActiveCardAndCardsForSelection();
+    if (isAuthenticated) {
+      dispatch(getStatistic(userId, token));
+    }
   };
 
   useEffect(
@@ -97,6 +98,7 @@ export const Savannah = () => {
 
   const setDefaultGameSettings = async () => {
     setNumberOfLearnedWords(0);
+    setNumberOfIncorrectAnswers(0);
     setLivesArray(GAME_DEFAULT_VALUES.LIVES_ARRAY);
     setIsGameLost(GAME_DEFAULT_VALUES.FALSE);
     setIsGameWon(GAME_DEFAULT_VALUES.FALSE);
@@ -132,7 +134,6 @@ export const Savannah = () => {
   };
 
   const handleCardClick = async (event, word) => {
-    console.log(word.wordTranslate);
     if (word.id === activeCard.id) {
       guessTheWord();
       setNumberOfLearnedWords(numberOfLearnedWords + 1);
@@ -172,86 +173,46 @@ export const Savannah = () => {
       setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
       setActiveCard(null);
-      addNewWordsToStatistics(numberOfLearnedWords);
-      dispatch(setSavannahMaxSeries(numberOfLearnedWords));
-      // sendStatistic();
+      //TODO is it necessary???
+      // dispatch(addLearnedWords(numberOfLearnedWords));
+
+      dispatch(setSavannahLearnedWords(numberOfLearnedWords));
+      dispatch(setSavannahIncorrectAnswers(numberOfIncorrectAnswers));
+      sendStatistic(
+        isAuthenticated,
+        userId,
+        token,
+        optionalStatisticObject,
+        numberOfLearnedWords,
+        numberOfIncorrectAnswers
+      );
     }
   };
-
-  // const sendStatistic = async () => {
-  //   if (isAuthenticated) {
-  //     const statistics = await request(
-  //       `${urls.API}/users/${userId}/statistics`,
-  //       "GET",
-  //       null,
-  //       {
-  //         Authorization: `Bearer ${token}`,
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       }
-  //     );
-  //     let now = moment().format("DD-MM-YYYY");
-  //     const optionalObject = statistics.optional || {};
-  //     const updatedLearnedWords = statistics.learnedWords + numberOfLearnedWords;
-  //     if (!optionalObject[now]) {
-  //       optionalObject[now] = {
-  //         date: now,
-  //         learnedWords: numberOfLearnedWords,
-  //         correctAnswers: numberOfLearnedWords,
-  //         incorrectAnswers: 5 - livesArray.length,
-  //       };
-  //     } else
-  //       optionalObject[now] = {
-  //         date: now,
-  //         learnedWords: updatedLearnedWords,
-  //         correctAnswers:
-  //           optionalObject[now].correctAnswers + numberOfLearnedWords,
-  //         incorrectAnswers:
-  //           optionalObject[now].incorrectAnswers + 5 - livesArray.length,
-  //       };
-  //     const statistics2 = await request(
-  //       `${urls.API}/users/${userId}/statistics`,
-  //       "PUT",
-  //       {
-  //         learnedWords: updatedLearnedWords,
-  //         optional: optionalObject,
-  //       },
-  //       {
-  //         Authorization: `Bearer ${token}`,
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       }
-  //     );
-  //     console.log(statistics);
-  //     console.log(statistics2);
-  //   }
-  // };
-
-  const sendStatistic = () => {
-    if (isAuthenticated) {
-    rsLangApi.sendStatistic(userId, token, numberOfLearnedWords, optionalStatisticObject);
-    }
-  }
 
   const notGuessTheWord = () => {
     const remainLivesArray = [...livesArray];
     remainLivesArray.splice(0, 1);
     setLivesArray(remainLivesArray);
+    setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1);
     if (!remainLivesArray.length) {
       setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
       setActiveCard(null);
-      addNewWordsToStatistics(numberOfLearnedWords);
-      dispatch(setSavannahMaxSeries(numberOfLearnedWords));
-      // let now = moment().format('DD-MM-YYYY');
-      // const optionalObject = {};
-      // optionalObject[now] = {date: now, correctAnswers: numberOfLearnedWords, incorrectAnswers: 5 - livesArray.length};
-      // dispatch(setTodaysStatistic(optionalObject))
-      sendStatistic();
+      //TODO is it necessary???
+      // dispatch(addLearnedWords(numberOfLearnedWords));
+
+      dispatch(setSavannahLearnedWords(numberOfLearnedWords));
+      dispatch(setSavannahIncorrectAnswers(numberOfIncorrectAnswers));
+      sendStatistic(
+        isAuthenticated,
+        userId,
+        token,
+        optionalStatisticObject,
+        numberOfLearnedWords,
+        numberOfIncorrectAnswers
+      );
     }
   };
-
-  // useKey(KEYBOARD_KEYS.RESTART_GAME, handleRestartGame);
 
   useKey(
     KEYBOARD_KEYS.FIRST_NUMBER,
@@ -282,14 +243,6 @@ export const Savannah = () => {
       handleCardClick(null, cardsForSelection[3])
   );
 
-  const handleLevelInputText = (event) => {
-    setLevelInputText(event.currentTarget.value);
-  };
-
-  const handlePageInputText = (event) => {
-    setPageInputText(event.currentTarget.value);
-  };
-
   return (
     <div className="savannah-container">
       <h2>Savannah</h2>
@@ -300,7 +253,7 @@ export const Savannah = () => {
           <Select
             id="select-level"
             multiple={false}
-            onChange={handleLevelInputText}
+            onChange={(event) => setLevelInputText(event.currentTarget.value)}
             value={levelInputValue}
           >
             {levelsArray.map((el) => {
@@ -310,7 +263,7 @@ export const Savannah = () => {
           <Select
             id="select-page"
             multiple={false}
-            onChange={handlePageInputText}
+            onChange={(event) => setPageInputText(event.currentTarget.value)}
             value={pageInputValue}
           >
             {pagesArray.map((el) => {
