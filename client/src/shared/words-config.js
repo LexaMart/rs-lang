@@ -104,4 +104,12 @@ export const WORDS_CONFIG = {
     foreign: 'Statistics',
     native: 'Статистика',
   },
+  GAME_DIFFICULT: {
+    foreign: 'Game difficult',
+    native: 'Сложность игры'
+  },
+  PROMO_PAGE: {
+    foreign: 'Promo',
+    native: 'Промо',
+  }
 };

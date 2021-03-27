@@ -1,10 +1,12 @@
 .dictionary {
-  /* height: 85vh; */
   background: linear-gradient(180deg, #f08a5d 11.57%, #b83b5e 88.96%);
+  padding-bottom: 1rem;
+}
+.dictionary .row {
+  margin-bottom: 0;
 }
 .dictionary__progress {
   min-height: 22vh;
-  padding: 0.1rem 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -16,7 +18,7 @@
   line-height: 1.4;
 }
 .dictionary__cards {
-  min-height: 56vh;
+  min-height: 58vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -36,34 +38,40 @@
   text-align: center;
 }
 .card__amount {
-  margin-top: 60px;
   font-size: 24px;
-}
-.card__btn {
-  margin-top: 100px;
+  margin-bottom: 5rem;
 }
 .card .card-title {
-  margin-top: 30px;
+  margin-bottom: 16px;
   font-size: 32px;
   height: 64px;
 }
 .card__btn .btn,
 .word_card__btn {
   border-radius: 15px;
-  height: 67px;
+  height: 48px;
   width: 100%;
   max-width: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 0;
 }
 
 .word_container__lists {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 54vh;
 }
-
+.word_card.word_card__dictionary {
+  border-color: transparent;
+}
+.word_card-hard {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
 .word_container__title {
   font-size: 32px;
   font-weight: 300;

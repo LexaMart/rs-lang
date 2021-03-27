@@ -19,6 +19,9 @@ export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
     return (
       <Switch>
+        <Route path="/promo">
+          <Promo />
+        </Route>
         <Route path="/main" exact>
           <Main />
         </Route>

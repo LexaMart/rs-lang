@@ -9,6 +9,36 @@ export const rsLangApi = {
     });
   },
 
+  getPageOfWords(page, group) {
+    return axios.get(`${RS_LANG_API}words?group=${group}&page=${page}`).then((response) => {
+      return response.data
+    });
+  },
+
+  removeUserDeleted(token, userId, wordId) {
+    return axios
+      .delete(`${RS_LANG_API}users/${userId}/words/${wordId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+  },
+
+  postUserWord(token, userId, wordId, difficult) {
+    return axios
+      .post(`${RS_LANG_API}users/${userId}/words/${wordId}`, {
+        "difficulty": `${difficult}`
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+  },
+
   login(email, password) {
     return axios
       .post(`${RS_LANG_API}signin`, {

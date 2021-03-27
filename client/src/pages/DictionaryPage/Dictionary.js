@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Row, Col, Button } from 'react-materialize';
+import { Row, Col } from 'react-materialize';
 
 import { getUserWord } from '../../services/getAllWords';
 import { DictionaryLoader } from '../../components/Loader';
@@ -25,7 +25,7 @@ export const Dictionary = () => {
   const [userDelWords, setUserDelWords] = useState([]);
   const [userWordsData, setUserWordsData] = useState([]);
 
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
 
   useEffect(() => {
     const { token, userId } = userData;
@@ -50,7 +50,7 @@ export const Dictionary = () => {
       });
     };
     words();
-  }, []);
+  }, [userData]);
   const cardTitle =
     language === LANGUAGE_CONFIG.native
       ? WORDS_CONFIG.DICTIONARY_CARD_TITLE.native
@@ -61,14 +61,14 @@ export const Dictionary = () => {
       : WORDS_CONFIG.DICTIONARY_TITLE.foreign;
 
   const handleClick = (index) => {
-    const level =
+    const data =
       index === 0
-        ? userLearningWords
+        ? [...userLearningWords, ...userHardWords]
         : index === 1
         ? userHardWords
         : userDelWords;
     const name = index === 0 ? 'learning' : index === 1 ? 'hard' : 'deleted';
-    setUserWordsData(level);
+    setUserWordsData([data, userHardWords]);
     setNameCards(name);
   };
   const totalWords =
@@ -98,7 +98,7 @@ export const Dictionary = () => {
                       handleClick={handleClick}
                       key={index}
                       number={[
-                        userLearningWords.length,
+                        userLearningWords.length + userHardWords.length,
                         userHardWords.length,
                         userDelWords.length,
                       ]}

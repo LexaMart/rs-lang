@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useParams, useRouteMatch, Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 
 import { LANGUAGE_CONFIG } from '../../../shared/words-config';
 import { DictionaryLoader } from '../../../components/Loader';
 
-import { Button, Card, Row, Col, Icon } from 'react-materialize';
+import { Card, Row, Col, Icon } from 'react-materialize';
 
 const styles = {
   btnGreen: {

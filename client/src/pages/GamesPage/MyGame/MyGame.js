@@ -2,11 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHttp } from '../../../hooks/http.hook';
 
-import urls from '../../../assets/constants/ursl'
-import './myGame.scss';
 import { Rules } from './components/Rules';
+import { rsLangApi } from '../../../services/rs-lang-api';
+import urls from '../../../assets/constants/ursl'
+
+import './myGame.scss';
 
 export const MyGame = () => {
+  const gameDifficult = useSelector((store) => store.settingsStore.gameDifficult)
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
@@ -22,19 +25,13 @@ export const MyGame = () => {
   const startGame = async () => {
     setLives([1, 1, 1, 1])
     setIsGameStarted(true)
-    setRandomInt([Math.floor(Math.random() * 6), Math.floor(Math.random() * 29)])
+    setRandomInt([Math.floor(Math.random() * 29)])
   }
   const choiceHandler = async (e) => {
     if (e.target.src === `${urls.API}/${winingCard.image}`) {
       console.log("WIN")
       if (isFirtsTry && isAuthenticated) {
-        await request(`${urls.API}/users/${userId}/words/${winingCard.id}`, "POST", {
-          "difficulty": "learned",
-        }, {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
+        rsLangApi.postUserWord(token,userId,winingCard.id, 'learned')
       }
       setRandomInt([Math.floor(Math.random() * 6), Math.floor(Math.random() * 29)])
     }
@@ -50,7 +47,7 @@ export const MyGame = () => {
   useEffect(useCallback(async () => {
     if (isGameStarted) {
       const arrayToPlay = [];
-      const cards = await request(`${urls.API}/words?group=${randomInt[0]}&page=${randomInt[1]}`, "GET")
+      const cards = await request(`${urls.API}/words?group=${gameDifficult - 1}&page=${randomInt[0]}`, "GET")
       for (let i = 0; i <= 3; i++) {
         let randChoice = (Math.floor(Math.random() * (cards.length - 1)))
         arrayToPlay.push(cards[randChoice]);
