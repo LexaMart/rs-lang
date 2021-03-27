@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import {
-  Button,
-  Card,
-  Row,
-  Col,
-  Icon,
-  Collapsible,
-  CollapsibleItem,
-  ProgressBar,
-} from 'react-materialize';
+import { Button, Card, Row, Col, Icon } from 'react-materialize';
+
+import { getUserWord } from '../../services/getAllWords';
+import { DictionaryLoader } from '../../components/Loader';
+import { Progress } from '../../components/Progress';
 
 import './Dictionary.css';
-import flagUK from '../../assets/images/united-kingdom-1.svg';
 
 const DictionaryCard = (theme) => {
   return (
@@ -46,43 +41,31 @@ const DictionaryCard = (theme) => {
   );
 };
 export const Dictionary = () => {
+  const language = useSelector((store) => store.settingsStore.activeLanguage);
+  const { userData } = useSelector((store) => store.authStore);
+
+  const [isLoadingWords, setLoadingWords] = useState(true);
+  const [userWords, setUserWords] = useState([]);
+
+  useEffect(() => {
+    const { token, userId } = userData;
+    const words = async () => {
+      await getUserWord({
+        token: token,
+        userId: userId,
+      }).then((res) => {
+        setUserWords(res);
+        setLoadingWords(false);
+      });
+    };
+    words();
+  }, []);
+
   return (
     <div className="dictionary valign-wrapper">
       <Row>
-        <Col s={12}>
-          <Row className="dictionary__progress">
-            <Col m={6} s={12}>
-              <Row className="center-align">
-                <Col s={12}>
-                  <h4 className="white-text">Прогресс изучения слов</h4>
-                </Col>
-                <Col s={12}>
-                  <img src={flagUK} alt="flagUK" />
-                </Col>
-              </Row>
-            </Col>
-
-            <Col m={6} s={12}>
-              <Row className="center-align">
-                <Col s={10}>
-                  <Row>
-                    <Col s={12}>
-                      <Col s={12}>
-                        <ProgressBar progress={37} />
-                      </Col>
-                    </Col>
-                    <Col s={12} className="dictionary__progress-number">
-                      <span className="white-text">1253 из 3600</span>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col s={2} className="dictionary__progress-number">
-                  <span style={{ color: '#FAFC96' }}>37%</span>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
+        {isLoadingWords && <DictionaryLoader />}
+        <Col s={12}>{!isLoadingWords && <Progress />}</Col>
 
         <Col s={12}>
           <Row>
