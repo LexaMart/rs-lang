@@ -12,6 +12,10 @@
   z-index: 2;
 }
 .menu-block {
+  transition: all 1s;
+  top:0;
+  left: 70%;
+  position: fixed;
   z-index: 3;
   height: 100vh;
   width: 30%;
