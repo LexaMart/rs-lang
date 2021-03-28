@@ -11,11 +11,11 @@ export const Menu = ({active, setActive}) => {
     </div>
     <div  style={ !active ? {left: "8000px"} : {left: "70%"}} className="menu-block">
         <ul className="menu-nav">
-          <Link className="menu-nav-link" to="/main">Main</Link>
-          <Link className="menu-nav-link" to="/settings">Settings</Link>
-          <Link className="menu-nav-link" to="/statistic">Statistics</Link>
-          <Link className="menu-nav-link" to="/dictionary">Dictionary</Link>
-          <Link className="menu-nav-link" to="/games">Games</Link>
+          <Link className="menu-nav-link" to="/main" onClick={() => setActive(!active)}>Main</Link>
+          <Link className="menu-nav-link" to="/settings" onClick={() => setActive(!active)}>Settings</Link>
+          <Link className="menu-nav-link" to="/statistic" onClick={() => setActive(!active)}>Statistics</Link>
+          <Link className="menu-nav-link" to="/dictionary" onClick={() => setActive(!active)}>Dictionary</Link>
+          <Link className="menu-nav-link" to="/games" onClick={() => setActive(!active)}>Games</Link>
         </ul>
       </div>
     </>
