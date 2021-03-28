@@ -52,6 +52,24 @@ export const useRoutes = (isAuthenticated) => {
       <Route path="/promo">
         <Promo />
       </Route>
+      <Route path="/main" exact>
+          <Main />
+        </Route>
+        <Route path="/games" exact>
+          <Games />
+        </Route>
+        <Route path="/savannah" exact>
+          <Savannah />
+        </Route>
+        <Route path="/mygame" exact>
+          <MyGame />
+        </Route>
+        <Route path="/audiocall" exact>
+          <AudioCall />
+        </Route>
+        <Route path="/settings" exact>
+          <Settings />
+        </Route>
       <Route path="/registration">
         <Registration />
       </Route>

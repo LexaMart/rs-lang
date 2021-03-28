@@ -9,6 +9,7 @@ import { Rules } from './components/Rules';
 export const MyGame = () => {
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
+  const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
   const { request } = useHttp()
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [isGameLost, setIsGameLost] = useState(false)
@@ -26,7 +27,7 @@ export const MyGame = () => {
   const choiceHandler = async (e) => {
     if (e.target.src === `${urls.API}/${winingCard.image}`) {
       console.log("WIN")
-      if (isFirtsTry) {
+      if (isFirtsTry && isAuthenticated) {
         await request(`${urls.API}/users/${userId}/words/${winingCard.id}`, "POST", {
           "difficulty": "learned",
         }, {
