@@ -13,6 +13,7 @@ import { Savannah } from './pages/GamesPage/Savannah/Savannah'
 import { MyGame } from './pages/GamesPage/MyGame/MyGame'
 import { AudioCall } from './pages/GamesPage/AudioCall/AudioCall'
 import { Dictionary } from './pages/DictionaryPage/Dictionary'
+import { Sprint } from './pages/GamesPage/Sprint/Sprint';
 
 export const useRoutes = (isAuthenticated) => {
   console.log(isAuthenticated);
@@ -33,6 +34,9 @@ export const useRoutes = (isAuthenticated) => {
         </Route>
         <Route path="/audiocall" exact>
           <AudioCall />
+        </Route>
+        <Route path="/sprint" exact>
+          <Sprint />
         </Route>
         <Route path="/settings" exact>
           <Settings />
@@ -57,6 +61,9 @@ export const useRoutes = (isAuthenticated) => {
         </Route>
         <Route path="/games" exact>
           <Games />
+        </Route>
+        <Route path="/sprint" exact>
+          <Sprint />
         </Route>
         <Route path="/savannah" exact>
           <Savannah />
