@@ -3,49 +3,21 @@ import { useSelector } from 'react-redux';
 
 import { Button, Card, Row, Col, Icon } from 'react-materialize';
 
-import { getUserWord } from '../../services/getAllWords';
+import { getUserWord, getUserWordID } from '../../services/getAllWords';
 import { DictionaryLoader } from '../../components/Loader';
 import { Progress } from '../../components/Progress';
+import { DictionaryCard } from './DictionaryCard';
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
 import './Dictionary.css';
 
-const DictionaryCard = (theme) => {
-  return (
-    <Row>
-      <Col s={12}>
-        <Card
-          className="darken-1 card__item"
-          closeIcon={<Icon>close</Icon>}
-          revealIcon={<Icon>more_vert</Icon>}
-          textClassName="black-text"
-          title="Изучаемые слова"
-        >
-          <Row>
-            <Col s={12} className="card__amount">
-              <span className="black-text">Кол-во : 13</span>
-            </Col>
-            <Col s={12} className="card__btn">
-              <Button
-                node="button"
-                waves="light"
-                style={theme}
-                className="black-text"
-              >
-                Просмотреть
-              </Button>
-            </Col>
-          </Row>
-        </Card>
-      </Col>
-    </Row>
-  );
-};
 export const Dictionary = () => {
   const language = useSelector((store) => store.settingsStore.activeLanguage);
   const { userData } = useSelector((store) => store.authStore);
 
   const [isLoadingWords, setLoadingWords] = useState(true);
   const [userWords, setUserWords] = useState([]);
+  const [userWordId, setUserWordId] = useState([]);
 
   useEffect(() => {
     const { token, userId } = userData;
@@ -60,7 +32,27 @@ export const Dictionary = () => {
     };
     words();
   }, []);
+  const title =
+    language === LANGUAGE_CONFIG.native
+      ? WORDS_CONFIG.DICTIONARY_CARD_TITLE.native
+      : WORDS_CONFIG.DICTIONARY_CARD_TITLE.foreign;
 
+  const handleClick = async (index) => {
+    const level = index === 0 ? 'studied' : index === 1 ? 'learned' : 'deleted';
+    const arr = userWords.filter((item) => item.difficulty === level);
+    const { wordId } = arr[0];
+    const { token, userId } = userData;
+
+    console.log(level, wordId, token, userId);
+    console.log(arr);
+    await getUserWordID({
+      token: token,
+      userId: userId,
+      wordId: wordId,
+    }).then((res) => {
+      setUserWordId(res);
+    });
+  };
   return (
     <div className="dictionary valign-wrapper">
       <Row>
@@ -68,25 +60,21 @@ export const Dictionary = () => {
         <Col s={12}>{!isLoadingWords && <Progress />}</Col>
 
         <Col s={12}>
-          <Row>
-            <Col s={4}>{DictionaryCard(styles.btnGreen)}</Col>
-            <Col s={4}>{DictionaryCard(styles.btnBlue)}</Col>
-            <Col s={4}>{DictionaryCard(styles.btnPink)}</Col>
+          <Row className="dictionary__cards">
+            {title.map((item, index) => {
+              return (
+                <DictionaryCard
+                  title={item}
+                  language={language}
+                  index={index}
+                  handleClick={handleClick}
+                  key={index}
+                />
+              );
+            })}
           </Row>
         </Col>
       </Row>
     </div>
   );
-};
-
-const styles = {
-  btnGreen: {
-    backgroundColor: '#95D97D',
-  },
-  btnBlue: {
-    backgroundColor: '#7FCEFB',
-  },
-  btnPink: {
-    backgroundColor: '#F4A4A4',
-  },
 };

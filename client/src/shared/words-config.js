@@ -1,83 +1,87 @@
 export const LANGUAGE_CONFIG = {
-  native: "ru",
-  foreign: "en",
+  native: 'ru',
+  foreign: 'en',
 };
 
 export const WORDS_CONFIG = {
   LOGIN_BUTTON: {
-    foreign: "Login",
-    native: "Авторизация",
+    foreign: 'Login',
+    native: 'Авторизация',
   },
   REGISTER_BUTTON: {
-    foreign: "Register",
-    native: "Регистрация",
+    foreign: 'Register',
+    native: 'Регистрация',
   },
   LOGOUT_BUTTON: {
-    foreign: "Logout",
-    native: "Выход",
+    foreign: 'Logout',
+    native: 'Выход',
   },
   AUTH_SUCCESS: {
-    foreign: "You were authorized as",
-    native: "Вы были авторизированы как",
+    foreign: 'You were authorized as',
+    native: 'Вы были авторизированы как',
   },
   AUTH_FAIL: {
-    foreign: "Please, login or register!",
-    native: "Пожалуйста, зарегистрируйтесь или авторизируйтесь!",
+    foreign: 'Please, login or register!',
+    native: 'Пожалуйста, зарегистрируйтесь или авторизируйтесь!',
   },
   AUTH_NAME: {
-    foreign: "Write your name here",
-    native: "Напишите здесь свое имя",
+    foreign: 'Write your name here',
+    native: 'Напишите здесь свое имя',
   },
   AUTH_EMAIL: {
-    foreign: "Write your email here",
-    native: "Напишите сюда свой адрес электронной почты",
+    foreign: 'Write your email here',
+    native: 'Напишите сюда свой адрес электронной почты',
   },
   AUTH_PASSWORD: {
-    foreign: "Write your password here",
-    native: "Напишите здесь свой пароль",
+    foreign: 'Write your password here',
+    native: 'Напишите здесь свой пароль',
   },
   BACK_BUTTON: {
-    foreign: "Back",
-    native: "Назад",
+    foreign: 'Back',
+    native: 'Назад',
   },
   SELECT_LANGUAGE: {
-    foreign: "Select language:",
-    native: "Выбрать язык:",
+    foreign: 'Select language:',
+    native: 'Выбрать язык:',
   },
   HIDE_MENU: {
-    foreign: "Hide menu",
-    native: "Скрыть меню",
+    foreign: 'Hide menu',
+    native: 'Скрыть меню',
   },
   SHOW_MENU: {
-    foreign: "Show menu",
-    native: "Показать меню",
+    foreign: 'Show menu',
+    native: 'Показать меню',
   },
   HIDE: {
-    foreign: "Hide",
-    native: "Скрыть",
+    foreign: 'Hide',
+    native: 'Скрыть',
   },
   SHOW: {
-    foreign: "Show",
-    native: "Показать",
+    foreign: 'Show',
+    native: 'Показать',
   },
   SHOW_ADDITIONAL_TRANSLATION: {
-    foreign: "Show additional translation",
-    native: "Показать дополнительный перевод",
+    foreign: 'Show additional translation',
+    native: 'Показать дополнительный перевод',
   },
   SHOW_ADDITIONAL_BUTTONS: {
-    foreign: "Show additional buttons",
-    native: "Показать дополнительные кнопки",
+    foreign: 'Show additional buttons',
+    native: 'Показать дополнительные кнопки',
   },
   FOREIGN_LANGUAGE: {
-    foreign: "English",
-    native: "Английский",
+    foreign: 'English',
+    native: 'Английский',
   },
   NATIVE_LANGUAGE: {
-    foreign: "Russhian",
-    native: "Русский",
+    foreign: 'Russhian',
+    native: 'Русский',
   },
   SETTINGS: {
-    foreign: "Settings",
-    native: "Настройки",
+    foreign: 'Settings',
+    native: 'Настройки',
+  },
+  DICTIONARY_CARD_TITLE: {
+    foreign: ['Studied words', 'Difficult words', 'Deleted words'],
+    native: ['Изучаемые слова', 'Сложные слова', 'Удалённые слова'],
   },
 };
