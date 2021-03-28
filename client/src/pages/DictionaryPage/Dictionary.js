@@ -16,8 +16,8 @@ export const Dictionary = () => {
   const { userData } = useSelector((store) => store.authStore);
 
   const [isLoadingWords, setLoadingWords] = useState(true);
+  const [userWordsId, setUserWordsId] = useState([]);
   const [userWords, setUserWords] = useState([]);
-  const [userWordId, setUserWordId] = useState([]);
 
   useEffect(() => {
     const { token, userId } = userData;
@@ -26,7 +26,7 @@ export const Dictionary = () => {
         token: token,
         userId: userId,
       }).then((res) => {
-        setUserWords(res);
+        setUserWordsId(res);
         setLoadingWords(false);
       });
     };
@@ -38,20 +38,23 @@ export const Dictionary = () => {
       : WORDS_CONFIG.DICTIONARY_CARD_TITLE.foreign;
 
   const handleClick = async (index) => {
-    const level = index === 0 ? 'studied' : index === 1 ? 'learned' : 'deleted';
-    const arr = userWords.filter((item) => item.difficulty === level);
-    const { wordId } = arr[0];
-    const { token, userId } = userData;
+    const level = index === 0 ? 'learned' : index === 1 ? 'hard' : 'deleted';
 
-    console.log(level, wordId, token, userId);
-    console.log(arr);
-    await getUserWordID({
-      token: token,
-      userId: userId,
-      wordId: wordId,
-    }).then((res) => {
-      setUserWordId(res);
-    });
+    const wordIdArr = userWordsId
+      .filter((item) => item.difficulty === level)
+      .map((item) => item.wordId);
+    const { token } = userData;
+    let wordArr = [];
+    console.log(wordIdArr);
+
+    for (const item of wordIdArr) {
+      const word = await getUserWordID({
+        token: token,
+        wordId: item,
+      });
+      wordArr.push(word);
+    }
+    setUserWords(wordArr);
   };
   return (
     <div className="dictionary valign-wrapper">
