@@ -1,23 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import urls from '../../assets/constants/ursl'
 import { AuthContext } from '../../context/AuthContext'
-import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
 import { login } from '../../redux/auth-reducer'
 
 import './auth.css'
 
 export const Auth = () => {
-  const auth = useContext(AuthContext)
   const dispatch = useDispatch()
-  const message = useMessage();
   const [form, setForm] = useState({
     "email": "", "password": '',
   })
-
 
   const isLoading = useSelector(
     (store) => store.authStore.isLoading
