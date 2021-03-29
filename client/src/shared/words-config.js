@@ -84,4 +84,8 @@ export const WORDS_CONFIG = {
     foreign: ['Studied words', 'Difficult words', 'Deleted words'],
     native: ['Изучаемые слова', 'Сложные слова', 'Удалённые слова'],
   },
+  DICTIONARY_TITLE: {
+    foreign: 'Word learning progress',
+    native: 'Прогресс изучения слов',
+  },
 };

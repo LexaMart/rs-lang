@@ -1,5 +1,6 @@
 import React from 'react';
 import { LANGUAGE_CONFIG } from '../../shared/words-config';
+import { DictionaryLoader } from '../../components/Loader';
 
 import { Button, Card, Row, Col, Icon } from 'react-materialize';
 
@@ -20,6 +21,8 @@ export const DictionaryCard = ({
   language = 'en',
   index = 0,
   handleClick,
+  number,
+  isLoader = false,
 }) => {
   const style =
     index === 0
@@ -27,7 +30,6 @@ export const DictionaryCard = ({
       : index === 1
       ? styles.btnBlue
       : styles.btnPink;
-
   return (
     <Row>
       <Col s={12}>
@@ -40,10 +42,13 @@ export const DictionaryCard = ({
         >
           <Row>
             <Col s={12} className="card__amount">
-              <span className="black-text">
-                {language === LANGUAGE_CONFIG.foreign ? 'Amount' : 'Кол-во'} :
-                13
-              </span>
+              {isLoader && <DictionaryLoader />}
+              {!isLoader && (
+                <span className="black-text">
+                  {language === LANGUAGE_CONFIG.foreign ? 'Amount' : 'Кол-во'} :{' '}
+                  {number[index]}
+                </span>
+              )}
             </Col>
             <Col s={12} className="card__btn">
               <Button
