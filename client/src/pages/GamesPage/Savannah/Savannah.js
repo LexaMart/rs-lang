@@ -1,9 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Savannah.scss";
 import {RS_LANG_API} from '../../../services/rs-lang-api'
 
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
+
+const KEYBOARD_KEYS = {
+  START_KEYBOARD_USE: 'NumpadDivide',
+  STOP_KEYBOARD_USE: 'NumpadMultiply',
+  RESTART_GAME: 'NumpadEnter',
+  FIRST_NUMBER: 'Numpad1',
+  SECOND_NUMBER: 'Numpad2',
+  THIRD_NUMBER: 'Numpad3',
+  FORTH_NUMBER: 'Numpad4',
+  // LEFT_CLICK: 'Numpad5',
+  // RIGHT_CLICK: 'Numpad0',
+};
+
+const useKey = (key, cb) => {
+  const callbackRef = useRef(cb);
+
+  useEffect(() => {
+      callbackRef.current = cb;
+  });
+
+  useEffect(() => {
+      const handle = (event) => {
+          if (event.code === key) {
+              callbackRef.current(event);
+          }
+      };
+      document.addEventListener('keypress', handle);
+      return () => document.removeEventListener('keypress', handle);
+  }, [key]);
+};
 
 export const Savannah = () => {
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -66,6 +96,7 @@ export const Savannah = () => {
   };
 
   const handleCardClick = (event, word) => {
+    console.log(word.wordTranslate);
     word.id === activeCard.id ? guessTheWord() : notGuessTheWord();
   };
 
@@ -101,6 +132,21 @@ export const Savannah = () => {
       setActiveCard(null);
     }
   };
+
+  // useKey(KEYBOARD_KEYS.RESTART_GAME, handleRestartGame);
+  // useKey(KEYBOARD_KEYS.START_KEYBOARD_USE, handleStartKeyboardUse);
+
+  // useKey(KEYBOARD_KEYS.STOP_KEYBOARD_USE, handleStopKeyboardUse);
+  // useKey(KEYBOARD_KEYS.MOVE_UP, handleMoveUp);
+  if (isGameStarted) {
+    
+  }
+
+  useKey(KEYBOARD_KEYS.FIRST_NUMBER,() => cardsForSelection && handleCardClick(null, cardsForSelection[0]));
+  useKey(KEYBOARD_KEYS.SECOND_NUMBER,() => cardsForSelection && handleCardClick(null, cardsForSelection[1]));
+  useKey(KEYBOARD_KEYS.THIRD_NUMBER,() => cardsForSelection && handleCardClick(null,  cardsForSelection[2]));
+  useKey(KEYBOARD_KEYS.FORTH_NUMBER,() => cardsForSelection && handleCardClick(null, cardsForSelection[3]));
+  // useKey(KEYBOARD_KEYS.RIGHT_CLICK,handleCardClick(cardsForSelection[0]));
 
   return (
     <div className="savannah-container">
