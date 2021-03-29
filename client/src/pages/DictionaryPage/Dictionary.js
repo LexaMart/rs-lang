@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { useSelector } from 'react-redux';
 
 import { Row, Col } from 'react-materialize';
@@ -7,6 +8,7 @@ import { getUserWord, getUserWordID } from '../../services/getAllWords';
 import { DictionaryLoader } from '../../components/Loader';
 import { Progress } from './Components/Progress';
 import { DictionaryCard } from './Components/DictionaryCard';
+import { DictionaryList } from './Components/DictionaryList';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
 import './Dictionary.css';
@@ -20,6 +22,8 @@ export const Dictionary = () => {
   const [userLearningWords, setUserLearningWords] = useState([]);
   const [userHardWords, setUserHardWords] = useState([]);
   const [userDelWords, setUserDelWords] = useState([]);
+  const [userWordsData, setUserWordsData] = useState([]);
+  // const [userLevel, setUserLevel] = useState('');
 
   useEffect(() => {
     const { token, userId } = userData;
@@ -55,21 +59,27 @@ export const Dictionary = () => {
       : WORDS_CONFIG.DICTIONARY_TITLE.foreign;
 
   const handleClick = (index) => {
-    const level = index === 0 ? 'learned' : index === 1 ? 'hard' : 'deleted';
+    // setUserLevel(index);
+    const level =
+      index === 0
+        ? userLearningWords
+        : index === 1
+        ? userHardWords
+        : userDelWords;
 
-    console.log(level);
+    setUserWordsData(level);
   };
   const totalWords =
     userLearningWords.length + userHardWords.length + userDelWords.length;
   return (
     <div className="dictionary valign-wrapper">
       <Row>
-        {isLoadingWords && <DictionaryLoader />}
-        <Col s={12}>
-          {!isLoadingWords && (
+        {isLoadingWords && <DictionaryLoader color="white" />}
+        {!isLoadingWords && (
+          <Col s={12}>
             <Progress title={title} language={language} total={totalWords} />
-          )}
-        </Col>
+          </Col>
+        )}
 
         <Col s={12}>
           <Row className="dictionary__cards">
@@ -91,6 +101,9 @@ export const Dictionary = () => {
               );
             })}
           </Row>
+        </Col>
+        <Col s={12}>
+          <DictionaryList data={userWordsData} token={userData.token} />
         </Col>
       </Row>
     </div>

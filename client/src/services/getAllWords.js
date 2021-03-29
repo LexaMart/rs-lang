@@ -32,5 +32,5 @@ export const getUserWordID = async ({ token, wordId }) => {
     }
   );
   const content = await rawResponse.json();
-  return content.word;
+  return content;
 };
