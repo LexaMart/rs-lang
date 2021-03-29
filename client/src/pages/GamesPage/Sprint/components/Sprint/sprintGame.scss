@@ -1,5 +1,5 @@
 .game-block {
-  width: 100%;
+  width: 80%;
   height: 85vh;
   display: flex;
   align-items: center;
@@ -7,6 +7,7 @@
 }
 
 .sprint-card {
+  min-width: 250px;
   width: 60%;
   height: 500px;
   background: rgba(233, 230, 230, 0.938);

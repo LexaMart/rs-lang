@@ -7,8 +7,11 @@ import { useHttp } from '../../../hooks/http.hook';
 import { RS_LANG_API } from '../../../services/rs-lang-api';
 import { Timer } from './components/Timer/Timer';
 import { sprintStates } from '../../../assets/constants/sprintStates';
+import { Score } from './components/Score/Score';
+import { Finish } from './components/Finish/Finish';
 
 
+import './sprint.scss'
 
 export const Sprint = () => {
 
@@ -16,6 +19,7 @@ export const Sprint = () => {
   const [isGameStarted, setIsGameStarted] = useState(sprintStates.started)
   const [gameArr, setGameArr] = useState([])
   const [randomNum, setRandomNum] = useState([null, null])
+  const [score, setScore] = useState(0);
 
   useEffect(useCallback(async () => {
     if (isGameStarted === sprintStates.pending) {
@@ -24,18 +28,21 @@ export const Sprint = () => {
     }
   }, [isGameStarted, randomNum, setGameArr, request]), [isGameStarted, randomNum])
   return (
-    <div className="game-block">
-      {isGameStarted === sprintStates.started && <SprintRules setGameStarted={setIsGameStarted} isGameStarted={isGameStarted} rand={randomNum} setRand={setRandomNum} />
+    <div className="game-container">
+      {isGameStarted === sprintStates.started && <SprintRules setScore={setScore} setGameStarted={setIsGameStarted} isGameStarted={isGameStarted} rand={randomNum} setRand={setRandomNum} />
       }
       {isGameStarted === sprintStates.pending && gameArr.length &&
         <>
-          <SprintGame gameArr={gameArr} />
-          <Timer setIsGameStarted={setIsGameStarted} />
+          <Score score={score} />
+          <div className="game-handler">
+            <SprintGame gameArr={gameArr} score={score} setScore={setScore} />
+            <Timer setIsGameStarted={setIsGameStarted} />
+          </div>
         </>
       }
-      {isGameStarted === sprintStates.finished && 
-      <div onClick={() => setIsGameStarted(sprintStates.started)}> GG </div>
-       }
+      {isGameStarted === sprintStates.finished &&
+        <Finish score={score} setIsGameStarted={setIsGameStarted} />
+      }
     </div>
   )
 }

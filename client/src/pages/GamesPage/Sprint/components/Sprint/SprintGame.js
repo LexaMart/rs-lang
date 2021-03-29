@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
 import './sprintGame.scss'
 
-export const SprintGame = ({ gameArr }) => {
+export const SprintGame = ({ gameArr, score, setScore }) => {
   const [rand, setRand] = useState(Math.floor(Math.random() * (gameArr.length - 1)))
   const [toChoose, setToChoose] = useState([null, null])
   const [isCorrect, setIsCorrect] = useState(null)
+  const [seria, setSeria] = useState(0)
 
   useEffect(()=> {
     console.log(gameArr.length)
@@ -22,9 +23,13 @@ export const SprintGame = ({ gameArr }) => {
 
   const choiceHandler = (answer) => {
     if (answer === isCorrect) {
-      console.log('win')
+      setSeria(seria + 1)
+      if (seria / 4 >= 1) {
+        setScore(score +(20 * (Math.floor(seria / 4) + 1)))
+      }else setScore(score + 20 )
     } else {
-      console.log("lox")
+      setSeria(0)
+      setScore(score - 10)
     }
     setRand(Math.floor(Math.random() * (gameArr.length - 1)));
 

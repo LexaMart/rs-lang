@@ -5,10 +5,11 @@ import { RS_LANG_API } from '../../../../../services/rs-lang-api';
 
 
 import './sprintRules.scss'
-export const SprintRules = ({ isGameStarted, setGameStarted, rand, setRand }) => {
+export const SprintRules = ({ setScore, setGameStarted, setRand }) => {
   const startSprint = () => {
     setGameStarted(sprintStates.pending)
     setRand([Math.floor(Math.random() * 3), Math.floor(Math.random() * 29)])
+    setScore(0)
   }
   return (
     <div className="sprint-rules">
