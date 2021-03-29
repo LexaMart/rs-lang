@@ -5,8 +5,8 @@ import { Row, Col } from 'react-materialize';
 
 import { getUserWord, getUserWordID } from '../../services/getAllWords';
 import { DictionaryLoader } from '../../components/Loader';
-import { Progress } from '../../components/Progress';
-import { DictionaryCard } from './DictionaryCard';
+import { Progress } from './Components/Progress';
+import { DictionaryCard } from './Components/DictionaryCard';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
 import './Dictionary.css';

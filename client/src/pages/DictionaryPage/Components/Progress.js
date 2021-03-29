@@ -1,5 +1,5 @@
 import { Row, Col, ProgressBar } from 'react-materialize';
-import flagUK from '../assets/images/united-kingdom-1.svg';
+import flagUK from '../../../assets/images/united-kingdom-1.svg';
 
 const TOTAL_WORDS = 100;
 export const Progress = ({ title, language, total = 0 }) => {
@@ -13,7 +13,7 @@ export const Progress = ({ title, language, total = 0 }) => {
             <h4 className="white-text">{title}</h4>
           </Col>
           <Col s={12}>
-            <img src={flagUK} alt="flagUK" />
+            <img src={flagUK} alt="flag UK" />
           </Col>
         </Row>
       </Col>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { LANGUAGE_CONFIG } from '../../shared/words-config';
-import { DictionaryLoader } from '../../components/Loader';
+import { LANGUAGE_CONFIG } from '../../../shared/words-config';
+import { DictionaryLoader } from '../../../components/Loader';
 
 import { Button, Card, Row, Col, Icon } from 'react-materialize';
 
