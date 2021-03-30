@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Row, Col } from 'react-materialize';
+import { Row, Col, Button } from 'react-materialize';
 
-import { getUserWord, getUserWordID } from '../../services/getAllWords';
+import { getUserWord } from '../../services/getAllWords';
 import { DictionaryLoader } from '../../components/Loader';
 import { Progress } from './Components/Progress';
 import { DictionaryCard } from './Components/DictionaryCard';
@@ -18,12 +18,14 @@ export const Dictionary = () => {
   const { userData } = useSelector((store) => store.authStore);
 
   const [isLoadingWords, setLoadingWords] = useState(true);
+  const [nameCards, setNameCards] = useState('');
 
   const [userLearningWords, setUserLearningWords] = useState([]);
   const [userHardWords, setUserHardWords] = useState([]);
   const [userDelWords, setUserDelWords] = useState([]);
   const [userWordsData, setUserWordsData] = useState([]);
-  // const [userLevel, setUserLevel] = useState('');
+
+  let { path, url } = useRouteMatch();
 
   useEffect(() => {
     const { token, userId } = userData;
@@ -59,51 +61,62 @@ export const Dictionary = () => {
       : WORDS_CONFIG.DICTIONARY_TITLE.foreign;
 
   const handleClick = (index) => {
-    // setUserLevel(index);
     const level =
       index === 0
         ? userLearningWords
         : index === 1
         ? userHardWords
         : userDelWords;
-
+    const name = index === 0 ? 'learning' : index === 1 ? 'hard' : 'deleted';
     setUserWordsData(level);
+    setNameCards(name);
   };
   const totalWords =
     userLearningWords.length + userHardWords.length + userDelWords.length;
+
   return (
     <div className="dictionary valign-wrapper">
       <Row>
-        {isLoadingWords && <DictionaryLoader color="white" />}
-        {!isLoadingWords && (
-          <Col s={12}>
-            <Progress title={title} language={language} total={totalWords} />
-          </Col>
-        )}
-
         <Col s={12}>
-          <Row className="dictionary__cards">
-            {cardTitle.map((item, index) => {
-              return (
-                <DictionaryCard
-                  title={item}
-                  language={language}
-                  index={index}
-                  handleClick={handleClick}
-                  key={index}
-                  number={[
-                    userLearningWords.length,
-                    userHardWords.length,
-                    userDelWords.length,
-                  ]}
-                  isLoader={isLoadingWords}
-                />
-              );
-            })}
-          </Row>
+          <div className="dictionary__progress">
+            {isLoadingWords && <DictionaryLoader color="white" />}
+            {!isLoadingWords && (
+              <Progress title={title} language={language} total={totalWords} />
+            )}
+          </div>
         </Col>
         <Col s={12}>
-          <DictionaryList data={userWordsData} token={userData.token} />
+          <Switch>
+            <Route exact path={path}>
+              <div className="dictionary__cards">
+                {cardTitle.map((item, index) => {
+                  return (
+                    <DictionaryCard
+                      title={item}
+                      language={language}
+                      index={index}
+                      handleClick={handleClick}
+                      key={index}
+                      number={[
+                        userLearningWords.length,
+                        userHardWords.length,
+                        userDelWords.length,
+                      ]}
+                      isLoader={isLoadingWords}
+                    />
+                  );
+                })}
+              </div>
+            </Route>
+            <Route path={`${path}/:list`}>
+              <DictionaryList
+                data={userWordsData}
+                token={userData.token}
+                language={language}
+                nameList={nameCards}
+              />
+            </Route>
+          </Switch>
         </Col>
       </Row>
     </div>
