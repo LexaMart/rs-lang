@@ -59,7 +59,7 @@ export const login = (email, password) => async (dispatch) => {
   const response = await rsLangApi.login(email, password);
   if (response) {
     dispatch(setUserData(response.data));
-  }
+  } else alert("Wrong email or password")
 
   dispatch(setIsLoadingInProgress(false));
 };
