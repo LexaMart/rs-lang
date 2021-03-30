@@ -37,8 +37,8 @@ export const SprintGame = ({ gameArr, score, setScore }) => {
     }
     setRand(Math.floor(Math.random() * (gameArr.length - 1)));
   }
-  useKey("ArrowRight", () => choiceHandler(true))
-  useKey("ArrowLeft", () => choiceHandler(false))
+  useKey("ArrowRight", () => choiceHandler(false))
+  useKey("ArrowLeft", () => choiceHandler(true))
   return (
     
     <div className="game-block">
