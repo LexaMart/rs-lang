@@ -18,3 +18,16 @@
   justify-content: space-around;
   align-items: center;
 }
+.buttons-image-handler, .buttons-handler {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.button-image {
+  width: 10%;
+}
+
+.reverse {
+  transform: rotate(180deg);
+}
