@@ -1,5 +1,6 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux';
 
 
 import {logout} from '../../../../redux/auth-reducer'
@@ -8,6 +9,7 @@ import { Link } from 'react-router-dom'
 import "./menu.scss"
 
 export const Menu = ({active, setActive}) => {
+  const dispatch = useDispatch()
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
 
   return (
@@ -22,7 +24,7 @@ export const Menu = ({active, setActive}) => {
           <Link className="menu-nav-link" to="/settings">Settings</Link>
           <Link style={isAuthenticated ? {opacity: "1"} : {opacity: "0.4"}} className="menu-nav-link" to="/dictionary">Dictionary</Link>
           <Link style={isAuthenticated ? {opacity: "1"} : {opacity: "0.4"}} className="menu-nav-link" to="/statistic">Statistics</Link>
-          { isAuthenticated ? <Link onClick={logout} className="menu-nav-link" to="/promo">Logout</Link> : <Link className="menu-nav-link" to="/login">Sign In</Link> }
+          { isAuthenticated ? <Link onClick={() => dispatch(logout())} className="menu-nav-link" to="/promo">Logout</Link> : <Link className="menu-nav-link" to="/login">Sign In</Link> }
           
         </ul>
       </div>
