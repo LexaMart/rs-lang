@@ -1,3 +1,4 @@
+import React, { Fragment } from 'react';
 import { Row, Col, ProgressBar } from 'react-materialize';
 import flagUK from '../../../assets/images/united-kingdom-1.svg';
 
@@ -6,7 +7,7 @@ export const Progress = ({ title, language, total = 0 }) => {
   const translate = language === 'en' ? 'of' : 'из';
   const percent = Math.floor((total / TOTAL_WORDS) * 100);
   return (
-    <Row className="dictionary__progress">
+    <Fragment>
       <Col m={6} s={12}>
         <Row className="center-align">
           <Col s={12}>
@@ -20,7 +21,7 @@ export const Progress = ({ title, language, total = 0 }) => {
 
       <Col m={6} s={12}>
         <Row className="center-align">
-          <Col s={10}>
+          <Col s={9}>
             <Row>
               <Col s={12}>
                 <Col s={12}>
@@ -34,11 +35,11 @@ export const Progress = ({ title, language, total = 0 }) => {
               </Col>
             </Row>
           </Col>
-          <Col s={2} className="dictionary__progress-number">
+          <Col s={3} className="dictionary__progress-number">
             <span style={{ color: '#FAFC96' }}>{percent} %</span>
           </Col>
         </Row>
       </Col>
-    </Row>
+    </Fragment>
   );
 };

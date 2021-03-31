@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { useParams, useRouteMatch, Link } from 'react-router-dom';
+
 import { LANGUAGE_CONFIG } from '../../../shared/words-config';
 import { DictionaryLoader } from '../../../components/Loader';
 
@@ -30,6 +33,9 @@ export const DictionaryCard = ({
       : index === 1
       ? styles.btnBlue
       : styles.btnPink;
+
+  const name = index === 0 ? 'learning' : index === 1 ? 'hard' : 'deleted';
+  let { url } = useRouteMatch();
   return (
     <Row>
       <Col s={12}>
@@ -40,28 +46,25 @@ export const DictionaryCard = ({
           textClassName="black-text"
           title={title}
         >
-          <Row>
-            <Col s={12} className="card__amount">
-              {isLoader && <DictionaryLoader />}
-              {!isLoader && (
-                <span className="black-text">
-                  {language === LANGUAGE_CONFIG.foreign ? 'Amount' : 'Кол-во'} :{' '}
-                  {number[index]}
-                </span>
-              )}
-            </Col>
-            <Col s={12} className="card__btn">
-              <Button
-                node="button"
-                waves="light"
-                style={style}
-                className="black-text"
-                onClick={() => handleClick(index)}
-              >
-                {language === LANGUAGE_CONFIG.foreign ? 'View' : 'Просмотреть'}
-              </Button>
-            </Col>
-          </Row>
+          <Col s={12} className="card__amount">
+            {isLoader && <DictionaryLoader />}
+            {!isLoader && (
+              <span className="black-text">
+                {language === LANGUAGE_CONFIG.foreign ? 'Amount' : 'Кол-во'} :{' '}
+                {number[index]}
+              </span>
+            )}
+          </Col>
+          <Col s={12} className="card__btn">
+            <Link
+              to={`${url}/${name}`}
+              className="btn waves-effect waves-light black-text"
+              onClick={() => handleClick(index)}
+              style={style}
+            >
+              {language === LANGUAGE_CONFIG.foreign ? 'View' : 'Просмотреть'}
+            </Link>
+          </Col>
         </Card>
       </Col>
     </Row>
