@@ -66,6 +66,11 @@
 .word_card.word_card__dictionary {
   border-color: transparent;
 }
+.word_card-hard {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
 .word_container__title {
   font-size: 32px;
   font-weight: 300;

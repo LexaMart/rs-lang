@@ -7,7 +7,7 @@ import urls from '../../../assets/constants/ursl';
 import { DictionaryLoader } from '../../../components/Loader';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../../shared/words-config';
 
-const DictionaryWordCard = ({ element, token }) => {
+const DictionaryWordCard = ({ element, token, hard = false }) => {
   const [userWord, setUserWord] = useState('');
   const [isLoader, setLoader] = useState(true);
 
@@ -19,13 +19,10 @@ const DictionaryWordCard = ({ element, token }) => {
       })
         .then((res) => {
           setUserWord(res);
-          return res;
-        })
-        .then((res) => {
           setLoader(false);
         })
         .catch((err) => {
-          console.log('Something went wrong');
+          console.log('Something went wrong', err);
           setLoader(true);
         });
     };
@@ -64,6 +61,9 @@ const DictionaryWordCard = ({ element, token }) => {
             className="word_card_bg"
           />
           <div className="word">{userWord.word}</div>
+          {hard && (
+            <i className="material-icons red-text word_card-hard">warning</i>
+          )}
         </React.Fragment>
       )}
     </div>
@@ -77,7 +77,6 @@ export const DictionaryList = ({
 }) => {
   let { list } = useParams();
   let { path } = useRouteMatch();
-
   const style =
     nameList === 'learning'
       ? styles.btnGreen
@@ -96,15 +95,29 @@ export const DictionaryList = ({
       ? arrName[1]
       : arrName[2];
   };
+
+  const wordsLearning = data[0];
+  const wordsHard = data[1];
   const pageBack = path.replace(/\/:list/g, '');
 
+  const getItemHard = (el) => {
+    return wordsHard.includes(el);
+  };
   return (
     <div className="word_container__lists">
       <h3 className="word_container__title white-text">{getTitle()}</h3>
       <div className="word_container">
-        {data &&
-          data.map((el) => {
-            return <DictionaryWordCard element={el} token={token} key={el} />;
+        {wordsLearning &&
+          wordsLearning.map((el) => {
+            const hard = getItemHard(el);
+            return (
+              <DictionaryWordCard
+                element={el}
+                token={token}
+                key={el}
+                hard={hard}
+              />
+            );
           })}
       </div>
 

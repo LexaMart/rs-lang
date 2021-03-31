@@ -61,14 +61,14 @@ export const Dictionary = () => {
       : WORDS_CONFIG.DICTIONARY_TITLE.foreign;
 
   const handleClick = (index) => {
-    const level =
+    const data =
       index === 0
-        ? userLearningWords
+        ? [...userLearningWords, ...userHardWords]
         : index === 1
         ? userHardWords
         : userDelWords;
     const name = index === 0 ? 'learning' : index === 1 ? 'hard' : 'deleted';
-    setUserWordsData(level);
+    setUserWordsData([data, userHardWords]);
     setNameCards(name);
   };
   const totalWords =
@@ -98,7 +98,7 @@ export const Dictionary = () => {
                       handleClick={handleClick}
                       key={index}
                       number={[
-                        userLearningWords.length,
+                        userLearningWords.length + userHardWords.length,
                         userHardWords.length,
                         userDelWords.length,
                       ]}
