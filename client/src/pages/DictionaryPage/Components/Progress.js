@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Row, Col, ProgressBar } from 'react-materialize';
 import flagUK from '../../../assets/images/united-kingdom-1.svg';
 
-const TOTAL_WORDS = 100;
+const TOTAL_WORDS = 3600;
 export const Progress = ({ title, language, total = 0 }) => {
   const translate = language === 'en' ? 'of' : 'из';
   const percent = Math.floor((total / TOTAL_WORDS) * 100);
