@@ -32,7 +32,6 @@ export const Menu = ({active, setActive}) => {
           <Link onClick={() => setActive(!active)} style={isAuthenticated ? {opacity: "1"} : {opacity: "0.4"}} className="menu-nav-link" to="/statistic">{activeLang === LANGUAGE_CONFIG.foreign ? WORDS_CONFIG.STATISTICS_PAGE.foreign : WORDS_CONFIG.STATISTICS_PAGE.native}</Link>
           { isAuthenticated ? <Link onClick={() =>logoutHandler()} className="menu-nav-link" to="/promo">{activeLang === LANGUAGE_CONFIG.foreign ? WORDS_CONFIG.LOGOUT_BUTTON.foreign : WORDS_CONFIG.LOGOUT_BUTTON.native}</Link> :
            <Link onClick={() => setActive(!active)} className="menu-nav-link" to="/login">{activeLang === LANGUAGE_CONFIG.foreign ? WORDS_CONFIG.LOGIN_BUTTON.foreign : WORDS_CONFIG.LOGIN_BUTTON.native}</Link> }
-          
         </ul>
       </div>
     </>
