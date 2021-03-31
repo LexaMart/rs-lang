@@ -38,6 +38,20 @@
   align-items: center;
   justify-content: center;
 }
+.arrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-color: rgba(226, 150, 91, 0.45);
+  border-radius: 50%;
+}
+.page_number {
+  margin: 0 10px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

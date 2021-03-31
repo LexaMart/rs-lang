@@ -77,6 +77,15 @@ export const DictionaryList = ({
 }) => {
   let { list } = useParams();
   let { path } = useRouteMatch();
+
+  const wordsCurrentData = data[0] ? data[0].slice(0, 20) : [];
+  const wordsNextDataLength = data[0] ? data[0].length - 20 : 0;
+  const wordsHard = data[1];
+
+  const [page, setPage] = useState(1);
+  const [currentData, setCurrentData] = useState(wordsCurrentData);
+  const [nextDataLength, setNextData] = useState(wordsNextDataLength);
+
   const style =
     nameList === 'learning'
       ? styles.btnGreen
@@ -96,19 +105,38 @@ export const DictionaryList = ({
       : arrName[2];
   };
 
-  const wordsLearning = data[0];
-  const wordsHard = data[1];
   const pageBack = path.replace(/\/:list/g, '');
 
   const getItemHard = (el) => {
     return wordsHard.includes(el);
   };
+
+  const getCurrentDataWords = () => {
+    const startIndexDataWords = 20 * (page - 1);
+    const wordsNextDataLength =
+      data[0].length > 20 ? data[0].length - startIndexDataWords : 0;
+    const arrayCurrentWords = data[0].slice(
+      startIndexDataWords,
+      startIndexDataWords + 20
+    );
+    setCurrentData(arrayCurrentWords);
+    setNextData(wordsNextDataLength);
+  };
+
+  const changePage = (incr) => {
+    if (page + incr < 0 || page + incr > 29) {
+      return;
+    }
+    setPage(page + incr);
+    getCurrentDataWords();
+  };
+  console.log(currentData.length, wordsNextDataLength);
   return (
     <div className="word_container__lists">
       <h3 className="word_container__title white-text">{getTitle()}</h3>
       <div className="word_container">
-        {wordsLearning &&
-          wordsLearning.map((el) => {
+        {currentData &&
+          currentData.map((el) => {
             const hard = getItemHard(el);
             return (
               <DictionaryWordCard
@@ -120,7 +148,25 @@ export const DictionaryList = ({
             );
           })}
       </div>
-
+      <div className="navigation">
+        {page > 1 ? (
+          <i
+            className="arrow material-icons white-text btn"
+            onClick={() => changePage(-1)}
+          >
+            keyboard_arrow_left
+          </i>
+        ) : null}
+        <div className="page_number white-text">{page}</div>
+        {nextDataLength > 0 && (
+          <i
+            className="arrow material-icons white-text btn"
+            onClick={() => changePage(1)}
+          >
+            keyboard_arrow_right
+          </i>
+        )}
+      </div>
       <Link
         to={`${pageBack}`}
         style={style}
