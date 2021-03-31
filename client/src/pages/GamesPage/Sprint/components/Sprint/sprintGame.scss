@@ -1,0 +1,33 @@
+.game-block {
+  width: 80%;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sprint-card {
+  min-width: 250px;
+  width: 60%;
+  height: 500px;
+  background: rgba(233, 230, 230, 0.938);
+  border-radius: 15px;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.buttons-image-handler, .buttons-handler {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.button-image {
+  width: 10%;
+}
+
+.reverse {
+  transform: rotate(180deg);
+}

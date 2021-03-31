@@ -1,20 +1,37 @@
 .dictionary {
-  /* height: 100vh; */
+  /* height: 85vh; */
   background: linear-gradient(180deg, #f08a5d 11.57%, #b83b5e 88.96%);
 }
 .dictionary__progress {
+  min-height: 22vh;
+  padding: 0.1rem 0;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 }
 .dictionary__progress-number {
-  font-size: 36px;
+  font-size: 24px;
   line-height: 1.4;
 }
+.dictionary__cards {
+  min-height: 56vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.dictionary__cards .col {
+  float: none;
+}
+
+.dictionary__cards .row {
+  height: 100%;
+}
 .card__item {
-  max-width: 450px;
-  max-height: 430px;
+  width: 280px;
   border-radius: 10px;
   text-align: center;
 }
@@ -28,9 +45,26 @@
 .card .card-title {
   margin-top: 30px;
   font-size: 32px;
+  height: 64px;
 }
-.card__btn .btn {
+.card__btn .btn,
+.word_card__btn {
   border-radius: 15px;
   height: 67px;
-  width: 320px;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.word_container__lists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.word_container__title {
+  font-size: 32px;
+  font-weight: 300;
 }

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useMessage } from '../../hooks/message.hook'
 import { register } from '../../redux/auth-reducer'
 
 import './registration.css'
@@ -10,7 +9,6 @@ import './registration.css'
 export const Registration = () => {
 
   const dispatch = useDispatch();
-  const message = useMessage();
   const [form, setForm] = useState({
     name: "", email: "", password: '', avatar: ''
   })
@@ -31,7 +29,6 @@ export const Registration = () => {
   const registerHandler = () => {
     dispatch(register(form.name, form.email, form.password, form.avatar))
   }
-
 
   return (
     <div className="row reg_container">

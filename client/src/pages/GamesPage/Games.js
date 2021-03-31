@@ -17,7 +17,7 @@ export const Games = () => {
         <img className="game-icon" src={savannah} alt="savannah" />
         <span className="game-name">Savannah</span>
       </NavLink>
-      <NavLink to="/savannah" className="game-card">
+      <NavLink to="/audiocall" className="game-card">
         <img className="game-icon" src={audio} alt="audio" />
         <span className="game-name">Auido game</span>
       </NavLink>

@@ -16,3 +16,21 @@ export const getUserWord = async ({ userId, token }) => {
   const content = await rawResponse.json();
   return content;
 };
+
+export const getUserWordID = async ({ token, wordId }) => {
+  const rawResponse = await fetch(
+    // `https://<your-app-name>.herokuapp.com/words/{id}`,
+
+    `${RS_LANG_API}words/${wordId}`,
+    {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    }
+  );
+  const content = await rawResponse.json();
+  return content;
+};
