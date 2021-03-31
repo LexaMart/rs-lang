@@ -47,7 +47,7 @@ export const DictionaryList = ({
   nameList,
 }) => {
   let { list } = useParams();
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
 
   const style =
     nameList === 'learning'
@@ -67,8 +67,8 @@ export const DictionaryList = ({
       ? arrName[1]
       : arrName[2];
   };
-  const pageBack = path.replace(/\/\:list/g, '');
-  console.log(path, url, pageBack, list);
+  const pageBack = path.replace(/\/:list/g, '');
+
   return (
     <div className="word_container__lists">
       <h3 className="word_container__title white-text">{getTitle()}</h3>
