@@ -14,3 +14,13 @@
   display: flex !important;
   justify-content: center !important;
 }
+
+.reg_card {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.reg_container {
+    height: 81.7vh;
+    display: flex;
+    align-items: center;
+}

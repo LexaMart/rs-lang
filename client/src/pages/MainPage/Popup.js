@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import audioImage from '../../assets/images/audio.svg'
+import audioImage from '../../assets/images/audio.svg';
 import 'materialize-css';
 import './popup.scss';
 
