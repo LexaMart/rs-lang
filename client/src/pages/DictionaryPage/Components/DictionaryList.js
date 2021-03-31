@@ -30,7 +30,7 @@ const DictionaryWordCard = ({ element, token }) => {
       {!isLoader && (
         <React.Fragment>
           <img
-            src={urls.IMAGE + userWord.image}
+            src={urls.API + '/' + userWord.image}
             alt="wordimage"
             className="word_card_bg"
           />
