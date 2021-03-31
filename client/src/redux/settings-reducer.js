@@ -4,7 +4,7 @@ const ACTION_CONST = {
   SET_ACTIVE_LANGUAGE: "SET_ACTIVE_LANGUAGE",
 };
 
-const DEFAULT_VALUES = {
+export const DEFAULT_VALUES = {
   EMPTY: "",
   TRUE: true,
   FALSE: false,
@@ -17,7 +17,7 @@ let initialState = {
   activeLanguage: DEFAULT_VALUES.LANGUAGE,
 };
 
-const settingsReducer = (state = initialState, action) => {
+export const settingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_CONST.SET_IS_ADDITIONAL_TRANSLATION_SHOWS: {
       return {

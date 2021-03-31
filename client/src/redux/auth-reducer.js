@@ -6,7 +6,7 @@ const ACTION_CONST = {
   SET_IS_LOADING_PROGRESS: "AUTH_REDUCER_TOGGLE_IS_LOADING_PROGRESS",
 };
 
-const DEFAULT_VALUES = {
+export const DEFAULT_VALUES = {
   EMPTY: "",
   TRUE: true,
   FALSE: false,
@@ -18,7 +18,7 @@ let initialState = {
   isLoading: DEFAULT_VALUES.FALSE,
 };
 
-const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_CONST.SET_USER_DATA: {
       return {
