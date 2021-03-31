@@ -16,16 +16,45 @@ const DictionaryWordCard = ({ element, token }) => {
       await getUserWordID({
         token: token,
         wordId: element,
-      }).then((res) => {
-        setUserWord(res);
-        setLoader(false);
-      });
+      })
+        .then((res) => {
+          setUserWord(res);
+          return res;
+        })
+        .then((res) => {
+          setLoader(false);
+        })
+        .catch((err) => {
+          console.log('Something went wrong');
+          setLoader(true);
+        });
     };
     words();
   }, [element, token]);
 
+  const addGroupClascsName = () => {
+    const { group } = userWord;
+    switch (group) {
+      case 0:
+        return 'group_1';
+      case 1:
+        return 'group_2';
+      case 2:
+        return 'group_3';
+      case 3:
+        return 'group_4';
+      case 4:
+        return 'group_5';
+      case 5:
+        return 'group_6';
+
+      default:
+        break;
+    }
+  };
+
   return (
-    <div className="word_card">
+    <div className={`word_card word_card__dictionary ${addGroupClascsName()}`}>
       {isLoader && <DictionaryLoader />}
       {!isLoader && (
         <React.Fragment>
