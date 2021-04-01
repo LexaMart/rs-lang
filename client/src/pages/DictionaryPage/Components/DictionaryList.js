@@ -15,6 +15,7 @@ const DictionaryWordCard = ({
   hard = false,
   currentWord,
   modalActive,
+  isWordRecovery,
 }) => {
   const [userWord, setUserWord] = useState('');
   const [isLoader, setLoader] = useState(true);
@@ -64,6 +65,7 @@ const DictionaryWordCard = ({
       onClick={() => {
         currentWord(userWord);
         modalActive(true);
+        isWordRecovery(hard ? true : false);
       }}
     >
       {isLoader && <DictionaryLoader />}
@@ -101,6 +103,7 @@ export const DictionaryList = ({
   const [currentData, setCurrentData] = useState(wordsCurrentData);
   const [nextDataLength, setNextDataLength] = useState(dataLength);
   const [modalActive, setModalActive] = useState(false);
+  const [isWordRecovery, setWordRecovery] = useState(false);
   const [currWord, setCurrWord] = useState({
     word: '',
     textMeaning: '',
@@ -176,6 +179,7 @@ export const DictionaryList = ({
                 hard={hard}
                 currentWord={setCurrWord}
                 modalActive={setModalActive}
+                isWordRecovery={setWordRecovery}
               />
             );
           })}
@@ -216,7 +220,7 @@ export const DictionaryList = ({
         active={modalActive}
         setActive={setModalActive}
         currElement={currWord}
-        isDeleted={list === 'deleted'}
+        isDeleted={list === 'deleted' || isWordRecovery}
       />
     </div>
   );
