@@ -109,7 +109,7 @@ export const DictionaryList = ({
 
   useEffect(() => {
     getCurrentDataWords();
-  }, [page]);
+  });
 
   const style =
     nameList === 'learning'
