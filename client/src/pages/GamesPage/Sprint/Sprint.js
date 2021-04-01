@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-
+import { useSelector } from 'react-redux';
 
 import { SprintGame } from './components/Sprint/SprintGame'
 import { SprintRules } from './components/SprintRules/SprintRules'
@@ -15,15 +15,16 @@ import './sprint.scss'
 
 export const Sprint = () => {
 
+  const gameDifficult = useSelector((store) => store.settingsStore.gameDifficult)
   const { request } = useHttp()
   const [isGameStarted, setIsGameStarted] = useState(sprintStates.started)
   const [gameArr, setGameArr] = useState([])
-  const [randomNum, setRandomNum] = useState([null, null])
+  const [randomNum, setRandomNum] = useState([null])
   const [score, setScore] = useState(0);
 
   useEffect(useCallback(async () => {
     if (isGameStarted === sprintStates.pending) {
-      const fetched = await request(`${RS_LANG_API}words?group=${randomNum[0]}&page=${randomNum[1]}`)
+      const fetched = await request(`${RS_LANG_API}words?group=${gameDifficult - 1}&page=${randomNum[0]}`)
       setGameArr(fetched)
     }
   }, [isGameStarted, randomNum, setGameArr, request]), [isGameStarted, randomNum])

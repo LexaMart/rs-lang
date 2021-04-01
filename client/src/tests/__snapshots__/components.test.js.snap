@@ -1,0 +1,2335 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Verify footer snapshot 1`] = `
+initialize {
+  "0": Node {
+    "attribs": Object {
+      "class": "footer_container",
+    },
+    "children": Array [
+      Node {
+        "attribs": Object {
+          "class": "course_link",
+          "href": "https://rs.school",
+        },
+        "children": Array [
+          Node {
+            "attribs": Object {
+              "alt": "git",
+              "class": "course_logo",
+              "src": "https://rs.school/images/rs_school_js.svg",
+            },
+            "children": Array [],
+            "name": "img",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "alt": undefined,
+              "class": undefined,
+              "src": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "alt": undefined,
+              "class": undefined,
+              "src": undefined,
+            },
+          },
+        ],
+        "name": "a",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Node {
+          "attribs": Object {
+            "class": "white-text year",
+          },
+          "children": Array [
+            Node {
+              "data": "2021",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Node {
+            "attribs": Object {
+              "class": "links",
+            },
+            "children": Array [
+              Node {
+                "attribs": Object {
+                  "href": "https://github.com/LexaMart",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/burik84",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Node {
+                    "attribs": Object {
+                      "href": "https://github.com/AnAtoliyAK",
+                    },
+                    "children": Array [
+                      Node {
+                        "attribs": Object {
+                          "alt": "git",
+                          "class": "link",
+                          "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Node {
+                      "attribs": Object {
+                        "href": "https://github.com/Nerbet",
+                      },
+                      "children": Array [
+                        Node {
+                          "attribs": Object {
+                            "alt": "git",
+                            "class": "link",
+                            "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "alt": undefined,
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "alt": undefined,
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "href": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "href": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "href": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "href": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              Node {
+                "attribs": Object {
+                  "href": "https://github.com/burik84",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/AnAtoliyAK",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Node {
+                    "attribs": Object {
+                      "href": "https://github.com/Nerbet",
+                    },
+                    "children": Array [
+                      Node {
+                        "attribs": Object {
+                          "alt": "git",
+                          "class": "link",
+                          "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "href": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "href": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/LexaMart",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              Node {
+                "attribs": Object {
+                  "href": "https://github.com/AnAtoliyAK",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/Nerbet",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/burik84",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Node {
+                    "attribs": Object {
+                      "href": "https://github.com/LexaMart",
+                    },
+                    "children": Array [
+                      Node {
+                        "attribs": Object {
+                          "alt": "git",
+                          "class": "link",
+                          "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "href": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "href": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              Node {
+                "attribs": Object {
+                  "href": "https://github.com/Nerbet",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/AnAtoliyAK",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Node {
+                    "attribs": Object {
+                      "href": "https://github.com/burik84",
+                    },
+                    "children": Array [
+                      Node {
+                        "attribs": Object {
+                          "alt": "git",
+                          "class": "link",
+                          "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": Node {
+                      "attribs": Object {
+                        "href": "https://github.com/LexaMart",
+                      },
+                      "children": Array [
+                        Node {
+                          "attribs": Object {
+                            "alt": "git",
+                            "class": "link",
+                            "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "alt": undefined,
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "alt": undefined,
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "href": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "href": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "href": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "href": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+          "href": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+          "href": undefined,
+        },
+      },
+      Node {
+        "attribs": Object {
+          "class": "white-text year",
+        },
+        "children": Array [
+          Node {
+            "data": "2021",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Node {
+          "attribs": Object {
+            "class": "links",
+          },
+          "children": Array [
+            Node {
+              "attribs": Object {
+                "href": "https://github.com/LexaMart",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Node {
+                "attribs": Object {
+                  "href": "https://github.com/burik84",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/AnAtoliyAK",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Node {
+                    "attribs": Object {
+                      "href": "https://github.com/Nerbet",
+                    },
+                    "children": Array [
+                      Node {
+                        "attribs": Object {
+                          "alt": "git",
+                          "class": "link",
+                          "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "href": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "href": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            Node {
+              "attribs": Object {
+                "href": "https://github.com/burik84",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Node {
+                "attribs": Object {
+                  "href": "https://github.com/AnAtoliyAK",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/Nerbet",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": Node {
+                "attribs": Object {
+                  "href": "https://github.com/LexaMart",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            Node {
+              "attribs": Object {
+                "href": "https://github.com/AnAtoliyAK",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Node {
+                "attribs": Object {
+                  "href": "https://github.com/Nerbet",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": Node {
+                "attribs": Object {
+                  "href": "https://github.com/burik84",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/LexaMart",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            Node {
+              "attribs": Object {
+                "href": "https://github.com/Nerbet",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": Node {
+                "attribs": Object {
+                  "href": "https://github.com/AnAtoliyAK",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/burik84",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Node {
+                    "attribs": Object {
+                      "href": "https://github.com/LexaMart",
+                    },
+                    "children": Array [
+                      Node {
+                        "attribs": Object {
+                          "alt": "git",
+                          "class": "link",
+                          "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "alt": undefined,
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "href": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "href": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "parent": [Circular],
+        "prev": Node {
+          "attribs": Object {
+            "class": "course_link",
+            "href": "https://rs.school",
+          },
+          "children": Array [
+            Node {
+              "attribs": Object {
+                "alt": "git",
+                "class": "course_logo",
+                "src": "https://rs.school/images/rs_school_js.svg",
+              },
+              "children": Array [],
+              "name": "img",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "alt": undefined,
+                "class": undefined,
+                "src": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "alt": undefined,
+                "class": undefined,
+                "src": undefined,
+              },
+            },
+          ],
+          "name": "a",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+            "href": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+            "href": undefined,
+          },
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+      Node {
+        "attribs": Object {
+          "class": "links",
+        },
+        "children": Array [
+          Node {
+            "attribs": Object {
+              "href": "https://github.com/LexaMart",
+            },
+            "children": Array [
+              Node {
+                "attribs": Object {
+                  "alt": "git",
+                  "class": "link",
+                  "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                },
+                "children": Array [],
+                "name": "img",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+              },
+            ],
+            "name": "a",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Node {
+              "attribs": Object {
+                "href": "https://github.com/burik84",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Node {
+                "attribs": Object {
+                  "href": "https://github.com/AnAtoliyAK",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/Nerbet",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "href": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "href": undefined,
+            },
+          },
+          Node {
+            "attribs": Object {
+              "href": "https://github.com/burik84",
+            },
+            "children": Array [
+              Node {
+                "attribs": Object {
+                  "alt": "git",
+                  "class": "link",
+                  "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                },
+                "children": Array [],
+                "name": "img",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+              },
+            ],
+            "name": "a",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Node {
+              "attribs": Object {
+                "href": "https://github.com/AnAtoliyAK",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Node {
+                "attribs": Object {
+                  "href": "https://github.com/Nerbet",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": Node {
+              "attribs": Object {
+                "href": "https://github.com/LexaMart",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "href": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "href": undefined,
+            },
+          },
+          Node {
+            "attribs": Object {
+              "href": "https://github.com/AnAtoliyAK",
+            },
+            "children": Array [
+              Node {
+                "attribs": Object {
+                  "alt": "git",
+                  "class": "link",
+                  "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                },
+                "children": Array [],
+                "name": "img",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+              },
+            ],
+            "name": "a",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Node {
+              "attribs": Object {
+                "href": "https://github.com/Nerbet",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": Node {
+              "attribs": Object {
+                "href": "https://github.com/burik84",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": Node {
+                "attribs": Object {
+                  "href": "https://github.com/LexaMart",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "href": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "href": undefined,
+            },
+          },
+          Node {
+            "attribs": Object {
+              "href": "https://github.com/Nerbet",
+            },
+            "children": Array [
+              Node {
+                "attribs": Object {
+                  "alt": "git",
+                  "class": "link",
+                  "src": "https://avatars.githubusercontent.com/u/60988912?s=400&v=4",
+                },
+                "children": Array [],
+                "name": "img",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+              },
+            ],
+            "name": "a",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": Node {
+              "attribs": Object {
+                "href": "https://github.com/AnAtoliyAK",
+              },
+              "children": Array [
+                Node {
+                  "attribs": Object {
+                    "alt": "git",
+                    "class": "link",
+                    "src": "https://avatars.githubusercontent.com/u/58717777?s=460&u=7f8f28255c70e32abef722dbc8fed59da5d55482&v=4",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "alt": undefined,
+                    "class": undefined,
+                    "src": undefined,
+                  },
+                },
+              ],
+              "name": "a",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": Node {
+                "attribs": Object {
+                  "href": "https://github.com/burik84",
+                },
+                "children": Array [
+                  Node {
+                    "attribs": Object {
+                      "alt": "git",
+                      "class": "link",
+                      "src": "https://avatars.githubusercontent.com/u/32265200?s=460&v=4",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "alt": undefined,
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": Node {
+                  "attribs": Object {
+                    "href": "https://github.com/LexaMart",
+                  },
+                  "children": Array [
+                    Node {
+                      "attribs": Object {
+                        "alt": "git",
+                        "class": "link",
+                        "src": "https://avatars.githubusercontent.com/u/56229270?s=460&v=4",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "alt": undefined,
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "href": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "href": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "href": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "href": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "href": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "href": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "href": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "href": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": Node {
+          "attribs": Object {
+            "class": "white-text year",
+          },
+          "children": Array [
+            Node {
+              "data": "2021",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": Node {
+            "attribs": Object {
+              "class": "course_link",
+              "href": "https://rs.school",
+            },
+            "children": Array [
+              Node {
+                "attribs": Object {
+                  "alt": "git",
+                  "class": "course_logo",
+                  "src": "https://rs.school/images/rs_school_js.svg",
+                },
+                "children": Array [],
+                "name": "img",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "alt": undefined,
+                  "class": undefined,
+                  "src": undefined,
+                },
+              },
+            ],
+            "name": "a",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+              "href": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+              "href": undefined,
+            },
+          },
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": Node {
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+    },
+    "prev": null,
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "xml": false,
+  },
+}
+`;

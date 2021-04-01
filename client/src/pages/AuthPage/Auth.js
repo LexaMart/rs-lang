@@ -1,9 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import { AuthContext } from '../../context/AuthContext'
-import { useMessage } from '../../hooks/message.hook'
 import { login } from '../../redux/auth-reducer'
 
 import './auth.css'
