@@ -55,6 +55,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 0;
 }
 
 .word_container__lists {

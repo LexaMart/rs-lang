@@ -7,7 +7,16 @@ import urls from '../../../assets/constants/ursl';
 import { DictionaryLoader } from '../../../components/Loader';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../../shared/words-config';
 
-const DictionaryWordCard = ({ element, token, hard = false }) => {
+import Popup from '../../MainPage/Popup';
+
+const DictionaryWordCard = ({
+  element,
+  token,
+  hard = false,
+  currentWord,
+  modalActive,
+  isWordRecovery,
+}) => {
   const [userWord, setUserWord] = useState('');
   const [isLoader, setLoader] = useState(true);
 
@@ -51,7 +60,14 @@ const DictionaryWordCard = ({ element, token, hard = false }) => {
   };
 
   return (
-    <div className={`word_card word_card__dictionary ${addGroupClascsName()}`}>
+    <div
+      className={`word_card word_card__dictionary ${addGroupClascsName()}`}
+      onClick={() => {
+        currentWord(userWord);
+        modalActive(true);
+        isWordRecovery(hard ? true : false);
+      }}
+    >
       {isLoader && <DictionaryLoader />}
       {!isLoader && (
         <React.Fragment>
@@ -78,13 +94,31 @@ export const DictionaryList = ({
   let { list } = useParams();
   let { path } = useRouteMatch();
 
+  const dataLength = data[0] ? data[0].length : 0;
   const wordsCurrentData = data[0] ? data[0].slice(0, 20) : [];
-  const wordsNextDataLength = data[0] ? data[0].length - 20 : 0;
+
   const wordsHard = data[1];
 
   const [page, setPage] = useState(1);
   const [currentData, setCurrentData] = useState(wordsCurrentData);
-  const [nextDataLength, setNextData] = useState(wordsNextDataLength);
+  const [nextDataLength, setNextDataLength] = useState(dataLength);
+  const [modalActive, setModalActive] = useState(false);
+  const [isWordRecovery, setWordRecovery] = useState(false);
+  const [currWord, setCurrWord] = useState({
+    word: '',
+    textMeaning: '',
+    textExample: '',
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      setCurrentData((prev) => getCurrentDataWords());
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [page]);
 
   const style =
     nameList === 'learning'
@@ -113,24 +147,23 @@ export const DictionaryList = ({
 
   const getCurrentDataWords = () => {
     const startIndexDataWords = 20 * (page - 1);
-    const wordsNextDataLength =
-      data[0].length > 20 ? data[0].length - startIndexDataWords : 0;
-    const arrayCurrentWords = data[0].slice(
-      startIndexDataWords,
-      startIndexDataWords + 20
-    );
-    setCurrentData(arrayCurrentWords);
-    setNextData(wordsNextDataLength);
+
+    const arrayCurrentWords = data[0]
+      ? data[0].slice(startIndexDataWords, startIndexDataWords + 20)
+      : [];
+    return arrayCurrentWords;
   };
 
   const changePage = (incr) => {
-    if (page + incr < 0 || page + incr > 29) {
-      return;
-    }
-    setPage(page + incr);
-    getCurrentDataWords();
+    const nextPage = page + incr;
+
+    const wordsNextDataLength =
+      dataLength > 20 ? dataLength - 20 * (nextPage - 1) : 0;
+
+    setNextDataLength(wordsNextDataLength);
+    setPage(nextPage);
   };
-  console.log(currentData.length, wordsNextDataLength);
+
   return (
     <div className="word_container__lists">
       <h3 className="word_container__title white-text">{getTitle()}</h3>
@@ -144,6 +177,9 @@ export const DictionaryList = ({
                 token={token}
                 key={el}
                 hard={hard}
+                currentWord={setCurrWord}
+                modalActive={setModalActive}
+                isWordRecovery={setWordRecovery}
               />
             );
           })}
@@ -157,8 +193,14 @@ export const DictionaryList = ({
             keyboard_arrow_left
           </i>
         ) : null}
-        <div className="page_number white-text">{page}</div>
-        {nextDataLength > 0 && (
+        <div className="page_number white-text">
+          {dataLength === 0
+            ? language === 'en'
+              ? 'No Words'
+              : 'Нет слов'
+            : page}
+        </div>
+        {nextDataLength > 20 && (
           <i
             className="arrow material-icons white-text btn"
             onClick={() => changePage(1)}
@@ -174,6 +216,12 @@ export const DictionaryList = ({
       >
         {language === 'en' ? 'Back' : 'Назад'}
       </Link>
+      <Popup
+        active={modalActive}
+        setActive={setModalActive}
+        currElement={currWord}
+        isDeleted={list === 'deleted' || isWordRecovery}
+      />
     </div>
   );
 };
