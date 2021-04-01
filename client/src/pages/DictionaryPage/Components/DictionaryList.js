@@ -78,13 +78,18 @@ export const DictionaryList = ({
   let { list } = useParams();
   let { path } = useRouteMatch();
 
+  const dataLength = data[0].length;
   const wordsCurrentData = data[0] ? data[0].slice(0, 20) : [];
-  const wordsNextDataLength = data[0] ? data[0].length - 20 : 0;
+
   const wordsHard = data[1];
 
   const [page, setPage] = useState(1);
   const [currentData, setCurrentData] = useState(wordsCurrentData);
-  const [nextDataLength, setNextData] = useState(wordsNextDataLength);
+  const [nextDataLength, setNextDataLength] = useState(dataLength);
+
+  useEffect(() => {
+    getCurrentDataWords();
+  }, [page]);
 
   const style =
     nameList === 'learning'
@@ -113,24 +118,24 @@ export const DictionaryList = ({
 
   const getCurrentDataWords = () => {
     const startIndexDataWords = 20 * (page - 1);
-    const wordsNextDataLength =
-      data[0].length > 20 ? data[0].length - startIndexDataWords : 0;
+
     const arrayCurrentWords = data[0].slice(
       startIndexDataWords,
       startIndexDataWords + 20
     );
     setCurrentData(arrayCurrentWords);
-    setNextData(wordsNextDataLength);
   };
 
   const changePage = (incr) => {
-    if (page + incr < 0 || page + incr > 29) {
-      return;
-    }
-    setPage(page + incr);
-    getCurrentDataWords();
+    const nextPage = page + incr;
+
+    const wordsNextDataLength =
+      dataLength > 20 ? dataLength - 20 * (nextPage - 1) : 0;
+
+    setNextDataLength(wordsNextDataLength);
+    setPage(nextPage);
   };
-  console.log(currentData.length, wordsNextDataLength);
+
   return (
     <div className="word_container__lists">
       <h3 className="word_container__title white-text">{getTitle()}</h3>
@@ -158,7 +163,7 @@ export const DictionaryList = ({
           </i>
         ) : null}
         <div className="page_number white-text">{page}</div>
-        {nextDataLength > 0 && (
+        {nextDataLength > 20 && (
           <i
             className="arrow material-icons white-text btn"
             onClick={() => changePage(1)}
