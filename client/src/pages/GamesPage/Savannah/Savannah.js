@@ -1,18 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Savannah.scss";
-import {RS_LANG_API} from '../../../services/rs-lang-api'
+import { RS_LANG_API } from "../../../services/rs-lang-api";
 
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
+import { useHttp } from "../../../hooks/http.hook";
+import { useSelector } from "react-redux";
+import urls from "../../../assets/constants/ursl";
+import { Select } from "react-materialize";
 
 const KEYBOARD_KEYS = {
-  START_KEYBOARD_USE: 'NumpadDivide',
-  STOP_KEYBOARD_USE: 'NumpadMultiply',
-  RESTART_GAME: 'NumpadEnter',
-  FIRST_NUMBER: 'Numpad1',
-  SECOND_NUMBER: 'Numpad2',
-  THIRD_NUMBER: 'Numpad3',
-  FORTH_NUMBER: 'Numpad4',
+  START_KEYBOARD_USE: "NumpadDivide",
+  STOP_KEYBOARD_USE: "NumpadMultiply",
+  RESTART_GAME: "NumpadEnter",
+  FIRST_NUMBER: "Numpad1",
+  SECOND_NUMBER: "Numpad2",
+  THIRD_NUMBER: "Numpad3",
+  FORTH_NUMBER: "Numpad4",
   // LEFT_CLICK: 'Numpad5',
   // RIGHT_CLICK: 'Numpad0',
 };
@@ -21,30 +25,44 @@ const useKey = (key, cb) => {
   const callbackRef = useRef(cb);
 
   useEffect(() => {
-      callbackRef.current = cb;
+    callbackRef.current = cb;
   });
 
   useEffect(() => {
-      const handle = (event) => {
-          if (event.code === key) {
-              callbackRef.current(event);
-          }
-      };
-      document.addEventListener('keypress', handle);
-      return () => document.removeEventListener('keypress', handle);
+    const handle = (event) => {
+      if (event.code === key) {
+        callbackRef.current(event);
+      }
+    };
+    document.addEventListener("keypress", handle);
+    return () => document.removeEventListener("keypress", handle);
   }, [key]);
 };
 
+export const MAX_NUMBER = {
+  LEVEL: 6,
+  PAGE: 30,
+};
+
 export const Savannah = () => {
+  const token = useSelector((store) => store.authStore.userData.token);
+  const userId = useSelector((store) => store.authStore.userData.userId);
+  const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
+  const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameLost, setIsGameLost] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [livesArray, setLivesArray] = useState(GAME_DEFAULT_VALUES.LIVES_ARRAY);
   const [wordsArray, setWordsArray] = useState(wordsMockData);
   const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
-  const [activeCard, setActiveCard] = useState();
+  const [activeCard, setActiveCard] = useState(null);
+  const levelsArray = [];
+  const pagesArray = [];
 
   const [cardsForSelection, setCardsForSelection] = useState(null);
+
+  const [levelInputValue, setLevelInputText] = useState(1);
+  const [pageInputValue, setPageInputText] = useState(1);
 
   useEffect(() => {
     if (activeCard) {
@@ -52,15 +70,27 @@ export const Savannah = () => {
     }
   }, [activeCard]);
 
+  for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
+    levelsArray.push(i + 1);
+  }
+  for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
+    pagesArray.push(i + 1);
+  }
+
   const startGame = () => {
     setDefaultGameSettings();
-    setIsGameStarted(!isGameStarted);
+    setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
     setRandomActiveCardAndCardsForSelection();
   };
+  useEffect(useCallback(async () => {
+    if (isGameStarted) {
+      const cards = await request(`${urls.API}/words?group=${levelInputValue}}&page=${pageInputValue}`, "GET")
+      setWordsArray(cards);
+      setRemainWordsArray(cards);
+    }
+  }, [isGameStarted, levelInputValue, pageInputValue, request]), [isGameStarted])
 
-  const setDefaultGameSettings = () => {
-    setWordsArray(wordsMockData);
-    setRemainWordsArray(wordsMockData);
+  const setDefaultGameSettings = async () => {
     setLivesArray(GAME_DEFAULT_VALUES.LIVES_ARRAY);
     setIsGameLost(GAME_DEFAULT_VALUES.FALSE);
     setIsGameWon(GAME_DEFAULT_VALUES.FALSE);
@@ -95,9 +125,25 @@ export const Savannah = () => {
     return result;
   };
 
-  const handleCardClick = (event, word) => {
+  const handleCardClick = async (event, word) => {
     console.log(word.wordTranslate);
-    word.id === activeCard.id ? guessTheWord() : notGuessTheWord();
+    if (word.id === activeCard.id) {
+      guessTheWord();
+      if (isAuthenticated) {
+        await request(
+          `${urls.API}/users/${userId}/words/${word.id}`,
+          "POST",
+          {
+            difficulty: "learned",
+          },
+          {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          }
+        );
+      } else notGuessTheWord();
+    }
   };
 
   const setRandomActiveCardAndCardsForSelection = () => {
@@ -114,8 +160,8 @@ export const Savannah = () => {
 
   const guessTheWord = () => {
     if (remainWordsArray.length) {
-          setRandomActiveCardAndCardsForSelection();
-        } else {
+      setRandomActiveCardAndCardsForSelection();
+    } else {
       setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
       setActiveCard(null);
@@ -139,20 +185,100 @@ export const Savannah = () => {
   // useKey(KEYBOARD_KEYS.STOP_KEYBOARD_USE, handleStopKeyboardUse);
   // useKey(KEYBOARD_KEYS.MOVE_UP, handleMoveUp);
   if (isGameStarted) {
-    
   }
 
-  useKey(KEYBOARD_KEYS.FIRST_NUMBER,() => cardsForSelection && handleCardClick(null, cardsForSelection[0]));
-  useKey(KEYBOARD_KEYS.SECOND_NUMBER,() => cardsForSelection && handleCardClick(null, cardsForSelection[1]));
-  useKey(KEYBOARD_KEYS.THIRD_NUMBER,() => cardsForSelection && handleCardClick(null,  cardsForSelection[2]));
-  useKey(KEYBOARD_KEYS.FORTH_NUMBER,() => cardsForSelection && handleCardClick(null, cardsForSelection[3]));
-  // useKey(KEYBOARD_KEYS.RIGHT_CLICK,handleCardClick(cardsForSelection[0]));
+  useKey(
+    KEYBOARD_KEYS.FIRST_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[0])
+  );
+  useKey(
+    KEYBOARD_KEYS.SECOND_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[1])
+  );
+  useKey(
+    KEYBOARD_KEYS.THIRD_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[2])
+  );
+  useKey(
+    KEYBOARD_KEYS.FORTH_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[3])
+  );
 
   return (
     <div className="savannah-container">
       <h2>Savannah</h2>
       {isGameWon && <div className="win-screen">WIN</div>}
       {isGameLost && <div className="lost-screen">LOST</div>}
+      {!isGameStarted && (
+        <>
+        <Select
+          id="select-level"
+          multiple={false}
+          onChange={setLevelInputText}
+          options={{
+            classes: "",
+            dropdownOptions: {
+              alignment: "left",
+              autoTrigger: true,
+              closeOnClick: true,
+              constrainWidth: true,
+              coverTrigger: true,
+              hover: false,
+              inDuration: 150,
+              onCloseEnd: null,
+              onCloseStart: null,
+              onOpenEnd: null,
+              onOpenStart: null,
+              outDuration: 250,
+            },
+          }}
+          value={levelInputValue}
+        >
+          {levelsArray.map((el) => {
+            return <option value={el}>{el}</option>;
+          })}
+        </Select>
+         <Select
+         id="select-level"
+         multiple={false}
+         onChange={setPageInputText}
+         options={{
+           classes: "",
+           dropdownOptions: {
+             alignment: "left",
+             autoTrigger: true,
+             closeOnClick: true,
+             constrainWidth: true,
+             coverTrigger: true,
+             hover: false,
+             inDuration: 150,
+             onCloseEnd: null,
+             onCloseStart: null,
+             onOpenEnd: null,
+             onOpenStart: null,
+             outDuration: 250,
+           },
+         }}
+         value={pageInputValue}
+       >
+         {pagesArray.map((el) => {
+           return <option value={el}>{el}</option>;
+         })}
+       </Select>
+       </>
+      )}
       {!isGameStarted && <button onClick={startGame}>Start</button>}
       {isGameStarted && (
         <div className="lives-container">
@@ -162,7 +288,9 @@ export const Savannah = () => {
         </div>
       )}
       {isGameStarted && (
-        <div className="savannah-card_active activeCardFall">{activeCard.word}</div>
+        <div className="savannah-card_active activeCardFall">
+          {activeCard.word}
+        </div>
       )}
       {isGameStarted && (
         <div className="selection-container">
