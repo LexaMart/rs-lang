@@ -7,7 +7,15 @@ import urls from '../../../assets/constants/ursl';
 import { DictionaryLoader } from '../../../components/Loader';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../../shared/words-config';
 
-const DictionaryWordCard = ({ element, token, hard = false }) => {
+import Popup from '../../MainPage/Popup';
+
+const DictionaryWordCard = ({
+  element,
+  token,
+  hard = false,
+  currentWord,
+  modalActive,
+}) => {
   const [userWord, setUserWord] = useState('');
   const [isLoader, setLoader] = useState(true);
 
@@ -51,7 +59,13 @@ const DictionaryWordCard = ({ element, token, hard = false }) => {
   };
 
   return (
-    <div className={`word_card word_card__dictionary ${addGroupClascsName()}`}>
+    <div
+      className={`word_card word_card__dictionary ${addGroupClascsName()}`}
+      onClick={() => {
+        currentWord(userWord);
+        modalActive(true);
+      }}
+    >
       {isLoader && <DictionaryLoader />}
       {!isLoader && (
         <React.Fragment>
@@ -86,6 +100,12 @@ export const DictionaryList = ({
   const [page, setPage] = useState(1);
   const [currentData, setCurrentData] = useState(wordsCurrentData);
   const [nextDataLength, setNextDataLength] = useState(dataLength);
+  const [modalActive, setModalActive] = useState(false);
+  const [currWord, setCurrWord] = useState({
+    word: '',
+    textMeaning: '',
+    textExample: '',
+  });
 
   useEffect(() => {
     getCurrentDataWords();
@@ -149,6 +169,8 @@ export const DictionaryList = ({
                 token={token}
                 key={el}
                 hard={hard}
+                currentWord={setCurrWord}
+                modalActive={setModalActive}
               />
             );
           })}
@@ -179,6 +201,11 @@ export const DictionaryList = ({
       >
         {language === 'en' ? 'Back' : 'Назад'}
       </Link>
+      <Popup
+        active={modalActive}
+        setActive={setModalActive}
+        currElement={currWord}
+      />
     </div>
   );
 };
