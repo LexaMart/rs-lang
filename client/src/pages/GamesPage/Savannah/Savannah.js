@@ -82,15 +82,32 @@ export const Savannah = () => {
     setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
     setRandomActiveCardAndCardsForSelection();
   };
-  useEffect(useCallback(async () => {
-    if (isGameStarted) {
-      const cards = await request(`${urls.API}/words?group=${levelInputValue}}&page=${pageInputValue}`, "GET")
-      setWordsArray(cards);
-      setRemainWordsArray(cards);
-    }
-  }, [isGameStarted, levelInputValue, pageInputValue, request]), [isGameStarted])
+  
+  useEffect(
+    useCallback(async () => {
+      if (isGameStarted) {
+        const cards = await request(
+          `${urls.API}/words?group=${levelInputValue - 1}}&page=${
+            pageInputValue - 1
+          }`,
+          "GET"
+        );
+        setWordsArray(cards);
+        setRemainWordsArray(cards);
+      }
+    }, [isGameStarted, levelInputValue, pageInputValue, request]),
+    [isGameStarted]
+  );
 
   const setDefaultGameSettings = async () => {
+    // const cards = await request(
+    //   `${urls.API}/words?group=${levelInputValue - 1}}&page=${
+    //     pageInputValue - 1
+    //   }`,
+    //   "GET"
+    // );
+    // setWordsArray(cards);
+    // setRemainWordsArray(cards);
     setLivesArray(GAME_DEFAULT_VALUES.LIVES_ARRAY);
     setIsGameLost(GAME_DEFAULT_VALUES.FALSE);
     setIsGameWon(GAME_DEFAULT_VALUES.FALSE);
@@ -180,12 +197,6 @@ export const Savannah = () => {
   };
 
   // useKey(KEYBOARD_KEYS.RESTART_GAME, handleRestartGame);
-  // useKey(KEYBOARD_KEYS.START_KEYBOARD_USE, handleStartKeyboardUse);
-
-  // useKey(KEYBOARD_KEYS.STOP_KEYBOARD_USE, handleStopKeyboardUse);
-  // useKey(KEYBOARD_KEYS.MOVE_UP, handleMoveUp);
-  if (isGameStarted) {
-  }
 
   useKey(
     KEYBOARD_KEYS.FIRST_NUMBER,
@@ -216,6 +227,14 @@ export const Savannah = () => {
       handleCardClick(null, cardsForSelection[3])
   );
 
+  const handleLevelInputText = (event) => {
+    setLevelInputText(event.currentTarget.value);
+  };
+
+  const handlePageInputText = (event) => {
+    setPageInputText(event.currentTarget.value);
+  };
+
   return (
     <div className="savannah-container">
       <h2>Savannah</h2>
@@ -223,89 +242,53 @@ export const Savannah = () => {
       {isGameLost && <div className="lost-screen">LOST</div>}
       {!isGameStarted && (
         <>
-        <Select
-          id="select-level"
-          multiple={false}
-          onChange={setLevelInputText}
-          options={{
-            classes: "",
-            dropdownOptions: {
-              alignment: "left",
-              autoTrigger: true,
-              closeOnClick: true,
-              constrainWidth: true,
-              coverTrigger: true,
-              hover: false,
-              inDuration: 150,
-              onCloseEnd: null,
-              onCloseStart: null,
-              onOpenEnd: null,
-              onOpenStart: null,
-              outDuration: 250,
-            },
-          }}
-          value={levelInputValue}
-        >
-          {levelsArray.map((el) => {
-            return <option value={el}>{el}</option>;
-          })}
-        </Select>
-         <Select
-         id="select-level"
-         multiple={false}
-         onChange={setPageInputText}
-         options={{
-           classes: "",
-           dropdownOptions: {
-             alignment: "left",
-             autoTrigger: true,
-             closeOnClick: true,
-             constrainWidth: true,
-             coverTrigger: true,
-             hover: false,
-             inDuration: 150,
-             onCloseEnd: null,
-             onCloseStart: null,
-             onOpenEnd: null,
-             onOpenStart: null,
-             outDuration: 250,
-           },
-         }}
-         value={pageInputValue}
-       >
-         {pagesArray.map((el) => {
-           return <option value={el}>{el}</option>;
-         })}
-       </Select>
-       </>
+          <Select
+            id="select-level"
+            multiple={false}
+            onChange={handleLevelInputText}
+            value={levelInputValue}
+          >
+            {levelsArray.map((el) => {
+              return <option value={el}>{el}</option>;
+            })}
+          </Select>
+          <Select
+            id="select-page"
+            multiple={false}
+            onChange={handlePageInputText}
+            value={pageInputValue}
+          >
+            {pagesArray.map((el) => {
+              return <option value={el}>{el}</option>;
+            })}
+          </Select>
+        </>
       )}
       {!isGameStarted && <button onClick={startGame}>Start</button>}
       {isGameStarted && (
-        <div className="lives-container">
-          {livesArray.map((live) => {
-            return <div>X</div>;
-          })}
-        </div>
-      )}
-      {isGameStarted && (
-        <div className="savannah-card_active activeCardFall">
-          {activeCard.word}
-        </div>
-      )}
-      {isGameStarted && (
-        <div className="selection-container">
-          {cardsForSelection.map((word) => {
-            return (
-              <div
-                key={word.id}
-                onClick={(event) => handleCardClick(event, word)}
-                className="savannah-card"
-              >
-                {word.wordTranslate}
-              </div>
-            );
-          })}
-        </div>
+        <>
+          <div className="lives-container">
+            {livesArray.map((live) => {
+              return <div>X</div>;
+            })}
+          </div>
+          <div className="savannah-card_active activeCardFall">
+            {activeCard.word}
+          </div>
+          <div className="selection-container">
+            {cardsForSelection.map((word) => {
+              return (
+                <div
+                  key={word.id}
+                  onClick={(event) => handleCardClick(event, word)}
+                  className="savannah-card"
+                >
+                  {word.wordTranslate}
+                </div>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );
