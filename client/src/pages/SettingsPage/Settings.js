@@ -7,6 +7,7 @@ import {
   setActiveLanguage,
   setIsAdditionalButtonsShows,
   setIsAdditionalTranslationsShows,
+  setGameDifficult,
 } from "../../redux/settings-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
@@ -23,6 +24,10 @@ export const Settings = () => {
   const activeLanguage = useSelector(
     (store) => store.settingsStore.activeLanguage
   );
+
+  const gameDifficult = useSelector(
+    (store) => store.settingsStore.gameDifficult
+  )
 
   //TODO if settings saves at backend
   const [inputValue, setInputText] = useState(activeLanguage);
@@ -132,6 +137,14 @@ export const Settings = () => {
               : WORDS_CONFIG.NATIVE_LANGUAGE.foreign}
           </option>
         </Select>
+        <div className="switch-label">
+          {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.GAME_DIFFICULT.native
+            : WORDS_CONFIG.GAME_DIFFICULT.foreign}
+        </div>
+        <input onChange={(e) => dispatch(setGameDifficult(e.target.value))} type="range" id="rate" name="Rate"
+          min="1" max="6" />
+        <span style={{ marginBottom: "15px", color: "white" }}>{gameDifficult}</span>
       </div>
     </div>
   );
