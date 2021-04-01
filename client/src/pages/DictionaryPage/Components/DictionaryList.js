@@ -92,7 +92,7 @@ export const DictionaryList = ({
   let { list } = useParams();
   let { path } = useRouteMatch();
 
-  const dataLength = data[0].length;
+  const dataLength = data[0] ? data[0].length : 0;
   const wordsCurrentData = data[0] ? data[0].slice(0, 20) : [];
 
   const wordsHard = data[1];
@@ -139,10 +139,9 @@ export const DictionaryList = ({
   const getCurrentDataWords = () => {
     const startIndexDataWords = 20 * (page - 1);
 
-    const arrayCurrentWords = data[0].slice(
-      startIndexDataWords,
-      startIndexDataWords + 20
-    );
+    const arrayCurrentWords = data[0]
+      ? data[0].slice(startIndexDataWords, startIndexDataWords + 20)
+      : [];
     setCurrentData(arrayCurrentWords);
   };
 
@@ -184,7 +183,13 @@ export const DictionaryList = ({
             keyboard_arrow_left
           </i>
         ) : null}
-        <div className="page_number white-text">{page}</div>
+        <div className="page_number white-text">
+          {dataLength === 0
+            ? language === 'en'
+              ? 'No Words'
+              : 'Нет слов'
+            : page}
+        </div>
         {nextDataLength > 20 && (
           <i
             className="arrow material-icons white-text btn"
@@ -205,6 +210,7 @@ export const DictionaryList = ({
         active={modalActive}
         setActive={setModalActive}
         currElement={currWord}
+        isDeleted={list === 'deleted'}
       />
     </div>
   );
