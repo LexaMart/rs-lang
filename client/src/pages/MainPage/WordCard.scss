@@ -10,6 +10,12 @@
     border: 1px solid #ccc;
     background-color: rgb(255, 255, 255);
     transition: box-shadow .25s;
+    cursor: pointer;
+}
+
+.word_card:hover {
+    box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
+    transition: .2s;
 }
 
 .word_card_bg {

@@ -84,4 +84,24 @@ export const WORDS_CONFIG = {
     foreign: ['Studied words', 'Difficult words', 'Deleted words'],
     native: ['Изучаемые слова', 'Сложные слова', 'Удалённые слова'],
   },
+  DICTIONARY_TITLE: {
+    foreign: 'Word learning progress',
+    native: 'Прогресс изучения слов',
+  },
+  MAIN_PAGE: {
+    foreign: 'Main page',
+    native: 'Главная страница',
+  },
+  GAMES_PAGE: {
+    foreign: 'Games',
+    native: 'Игры',
+  },
+  DICTIONARY_PAGE: {
+    foreign: 'Dictionary',
+    native: 'Словарь',
+  },
+  STATISTICS_PAGE: {
+    foreign: 'Statistics',
+    native: 'Статистика',
+  },
 };

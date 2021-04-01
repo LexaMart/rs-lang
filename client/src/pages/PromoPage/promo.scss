@@ -1,0 +1,30 @@
+.promo_container {
+    height: 84.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.decription {
+    width: 40%;
+}
+
+.feature_card {
+    background-color: rgba( #000000, 0);
+    color: white;
+}
+
+.head_card {
+    font-size: 22px;
+    margin-bottom: 1%;
+}
+
+.sign_in_btn {
+    margin-right: 4%;
+}
+
+.btn_container {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+}

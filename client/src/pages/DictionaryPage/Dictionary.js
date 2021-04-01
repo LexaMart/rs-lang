@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Button, Card, Row, Col, Icon } from 'react-materialize';
+import { Row, Col, Button } from 'react-materialize';
 
-import { getUserWord, getUserWordID } from '../../services/getAllWords';
+import { getUserWord } from '../../services/getAllWords';
 import { DictionaryLoader } from '../../components/Loader';
-import { Progress } from '../../components/Progress';
-import { DictionaryCard } from './DictionaryCard';
+import { Progress } from './Components/Progress';
+import { DictionaryCard } from './Components/DictionaryCard';
+import { DictionaryList } from './Components/DictionaryList';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
 import './Dictionary.css';
@@ -16,8 +18,14 @@ export const Dictionary = () => {
   const { userData } = useSelector((store) => store.authStore);
 
   const [isLoadingWords, setLoadingWords] = useState(true);
-  const [userWordsId, setUserWordsId] = useState([]);
-  const [userWords, setUserWords] = useState([]);
+  const [nameCards, setNameCards] = useState('');
+
+  const [userLearningWords, setUserLearningWords] = useState([]);
+  const [userHardWords, setUserHardWords] = useState([]);
+  const [userDelWords, setUserDelWords] = useState([]);
+  const [userWordsData, setUserWordsData] = useState([]);
+
+  let { path, url } = useRouteMatch();
 
   useEffect(() => {
     const { token, userId } = userData;
@@ -26,56 +34,89 @@ export const Dictionary = () => {
         token: token,
         userId: userId,
       }).then((res) => {
-        setUserWordsId(res);
+        const arrLearnWords = res
+          .filter((item) => item.difficulty === 'learned')
+          .map((item) => item.wordId);
+        const arrHardWords = res
+          .filter((item) => item.difficulty === 'hard')
+          .map((item) => item.wordId);
+        const arrDelWords = res
+          .filter((item) => item.difficulty === 'deleted')
+          .map((item) => item.wordId);
+        setUserLearningWords(arrLearnWords);
+        setUserHardWords(arrHardWords);
+        setUserDelWords(arrDelWords);
         setLoadingWords(false);
       });
     };
     words();
   }, []);
-  const title =
+  const cardTitle =
     language === LANGUAGE_CONFIG.native
       ? WORDS_CONFIG.DICTIONARY_CARD_TITLE.native
       : WORDS_CONFIG.DICTIONARY_CARD_TITLE.foreign;
+  const title =
+    language === LANGUAGE_CONFIG.native
+      ? WORDS_CONFIG.DICTIONARY_TITLE.native
+      : WORDS_CONFIG.DICTIONARY_TITLE.foreign;
 
-  const handleClick = async (index) => {
-    const level = index === 0 ? 'learned' : index === 1 ? 'hard' : 'deleted';
-
-    const wordIdArr = userWordsId
-      .filter((item) => item.difficulty === level)
-      .map((item) => item.wordId);
-    const { token } = userData;
-    let wordArr = [];
-    console.log(wordIdArr);
-
-    for (const item of wordIdArr) {
-      const word = await getUserWordID({
-        token: token,
-        wordId: item,
-      });
-      wordArr.push(word);
-    }
-    setUserWords(wordArr);
+  const handleClick = (index) => {
+    const level =
+      index === 0
+        ? userLearningWords
+        : index === 1
+        ? userHardWords
+        : userDelWords;
+    const name = index === 0 ? 'learning' : index === 1 ? 'hard' : 'deleted';
+    setUserWordsData(level);
+    setNameCards(name);
   };
+  const totalWords =
+    userLearningWords.length + userHardWords.length + userDelWords.length;
+
   return (
     <div className="dictionary valign-wrapper">
       <Row>
-        {isLoadingWords && <DictionaryLoader />}
-        <Col s={12}>{!isLoadingWords && <Progress />}</Col>
-
         <Col s={12}>
-          <Row className="dictionary__cards">
-            {title.map((item, index) => {
-              return (
-                <DictionaryCard
-                  title={item}
-                  language={language}
-                  index={index}
-                  handleClick={handleClick}
-                  key={index}
-                />
-              );
-            })}
-          </Row>
+          <div className="dictionary__progress">
+            {isLoadingWords && <DictionaryLoader color="white" />}
+            {!isLoadingWords && (
+              <Progress title={title} language={language} total={totalWords} />
+            )}
+          </div>
+        </Col>
+        <Col s={12}>
+          <Switch>
+            <Route exact path={path}>
+              <div className="dictionary__cards">
+                {cardTitle.map((item, index) => {
+                  return (
+                    <DictionaryCard
+                      title={item}
+                      language={language}
+                      index={index}
+                      handleClick={handleClick}
+                      key={index}
+                      number={[
+                        userLearningWords.length,
+                        userHardWords.length,
+                        userDelWords.length,
+                      ]}
+                      isLoader={isLoadingWords}
+                    />
+                  );
+                })}
+              </div>
+            </Route>
+            <Route path={`${path}/:list`}>
+              <DictionaryList
+                data={userWordsData}
+                token={userData.token}
+                language={language}
+                nameList={nameCards}
+              />
+            </Route>
+          </Switch>
         </Col>
       </Row>
     </div>

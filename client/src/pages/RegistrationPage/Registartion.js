@@ -31,12 +31,9 @@ export const Registration = () => {
   }
 
   return (
-    <div className="row">
+    <div className="row reg_container">
       <div className="col s6 offset-s3">
-        <h1 className="form-title">
-          Registartion
-        </h1>
-        <div className="card blue darken-1">
+        <div className="card reg_card">
           <div className="card-content white-text">
             <span className="card-title" style={{ textAlign: 'center' }}>Sign up</span>
           </div>
@@ -44,19 +41,19 @@ export const Registration = () => {
             <div className="row">
               <div className="input-field col s12">
                 <input onChange={changeHandler} name="name" id="name" type="text" placeholder="Enter name" />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name" className="active">Name</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
                 <input onChange={changeHandler} name="email" id="email" type="email" className="validate" placeholder="Enter email" />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="active">Email</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
                 <input onChange={changeHandler} name="password" id="password" type="password" className="validate" placeholder="Enter password" />
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password" className="active">Password</label>
               </div>
             </div>
             <div className="input-field">
@@ -76,7 +73,7 @@ export const Registration = () => {
             </button>
           </div>
           <div className="link-block">
-            <NavLink className="auth-link" to="/login">Sign in</NavLink>
+            <NavLink className="btn" to="/login">Sign in</NavLink>
           </div>
         </div>
 

@@ -5,6 +5,16 @@
   align-items: center;
 }
 
+.auth_card {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.auth_container {
+  height: 81.7vh;
+  display: flex;
+  align-items: center;
+}
+
 .auth-link {
   margin-top: 10px;
   color: black;
