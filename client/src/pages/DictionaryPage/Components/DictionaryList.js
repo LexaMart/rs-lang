@@ -108,8 +108,14 @@ export const DictionaryList = ({
   });
 
   useEffect(() => {
-    getCurrentDataWords();
-  });
+    let isMounted = true;
+    if (isMounted) {
+      setCurrentData((prev) => getCurrentDataWords());
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [page]);
 
   const style =
     nameList === 'learning'
@@ -142,7 +148,7 @@ export const DictionaryList = ({
     const arrayCurrentWords = data[0]
       ? data[0].slice(startIndexDataWords, startIndexDataWords + 20)
       : [];
-    setCurrentData(arrayCurrentWords);
+    return arrayCurrentWords;
   };
 
   const changePage = (incr) => {
