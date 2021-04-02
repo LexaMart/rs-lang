@@ -108,4 +108,8 @@ export const WORDS_CONFIG = {
     foreign: 'Game difficult',
     native: 'Сложность игры'
   },
+  PROMO_PAGE: {
+    foreign: 'Promo',
+    native: 'Промо',
+  }
 };
