@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHttp } from '../../../hooks/http.hook';
 
-import urls from '../../../assets/constants/ursl'
-import './myGame.scss';
 import { Rules } from './components/Rules';
+import { rsLangApi } from '../../../services/rs-lang-api';
+import urls from '../../../assets/constants/ursl'
+
+import './myGame.scss';
 
 export const MyGame = () => {
   const gameDifficult = useSelector((store) => store.settingsStore.gameDifficult)
@@ -29,13 +31,7 @@ export const MyGame = () => {
     if (e.target.src === `${urls.API}/${winingCard.image}`) {
       console.log("WIN")
       if (isFirtsTry && isAuthenticated) {
-        await request(`${urls.API}/users/${userId}/words/${winingCard.id}`, "POST", {
-          "difficulty": "learned",
-        }, {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
+        rsLangApi.postUserWord(token,userId,winingCard.id, 'learned')
       }
       setRandomInt([Math.floor(Math.random() * 6), Math.floor(Math.random() * 29)])
     }

@@ -5,10 +5,10 @@ import { useHttp } from '../../../../../hooks/http.hook'
 import { useKey } from '../../../../../hooks/keyboardEvents.hook'
 
 import arrow from '../../../../../assets/images/left.svg'
-import urls from '../../../../../assets/constants/ursl'
+import { rsLangApi } from '../../../../../services/rs-lang-api'
 
 import './sprintGame.scss'
-import { rsLangApi } from '../../../../../services/rs-lang-api'
+
 
 
 
