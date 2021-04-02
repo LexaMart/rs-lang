@@ -8,6 +8,7 @@ import arrow from '../../../../../assets/images/left.svg'
 import urls from '../../../../../assets/constants/ursl'
 
 import './sprintGame.scss'
+import { rsLangApi } from '../../../../../services/rs-lang-api'
 
 
 
@@ -40,13 +41,7 @@ export const SprintGame = ({ gameArr, score, setScore }) => {
     if (answer === isCorrect) {
       setSeria(seria + 1)
       if (isAuthenticated) {
-        request(`${urls.API}/users/${userId}/words/${winId}`, "POST", {
-          "difficulty": "learned",
-        }, {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
+        rsLangApi.postUserWord(token, userId, winId, 'learned')
       }
       else if (seria / 4 >= 1) {
         setScore(score + (20 * (Math.floor(seria / 4) + 1)))
@@ -55,13 +50,7 @@ export const SprintGame = ({ gameArr, score, setScore }) => {
       }
     } else {
       if (isAuthenticated) {
-        request(`${urls.API}/users/${userId}/words/${winId}`, "POST", {
-          "difficulty": "hard",
-        }, {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
+        rsLangApi.postUserWord(token, userId, winId, 'hard')
       }
       setSeria(0)
       setScore(score - 10)
