@@ -4,10 +4,12 @@ import authReducer from "./auth-reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import settingsReducer from "./settings-reducer";
 import thunkMiddleware from "redux-thunk";
+import statisticsReducer from "./statistics-reducer";
 
 let reducers = combineReducers({
   authStore: authReducer,
   settingsStore: settingsReducer,
+  statisticsStore: statisticsReducer,
 });
 
 let initialState = {};

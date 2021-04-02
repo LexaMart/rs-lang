@@ -1,13 +1,21 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Savannah.scss";
 import { RS_LANG_API } from "../../../services/rs-lang-api";
 
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 import { useHttp } from "../../../hooks/http.hook";
+import { useKey } from "../../../hooks/keyboardEvents.hook";
 import { useSelector } from "react-redux";
 import urls from "../../../assets/constants/ursl";
 import { Select } from "react-materialize";
+import moment from "moment";
+import {
+  addLearnedWords,
+  setSavannahMaxSeries,
+  setTodaysStatistic,
+} from "../../../redux/statistics-reducer";
+import { useDispatch } from "react-redux";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -17,26 +25,6 @@ const KEYBOARD_KEYS = {
   SECOND_NUMBER: "Numpad2",
   THIRD_NUMBER: "Numpad3",
   FORTH_NUMBER: "Numpad4",
-  // LEFT_CLICK: 'Numpad5',
-  // RIGHT_CLICK: 'Numpad0',
-};
-
-const useKey = (key, cb) => {
-  const callbackRef = useRef(cb);
-
-  useEffect(() => {
-    callbackRef.current = cb;
-  });
-
-  useEffect(() => {
-    const handle = (event) => {
-      if (event.code === key) {
-        callbackRef.current(event);
-      }
-    };
-    document.addEventListener("keypress", handle);
-    return () => document.removeEventListener("keypress", handle);
-  }, [key]);
 };
 
 export const MAX_NUMBER = {
@@ -56,6 +44,7 @@ export const Savannah = () => {
   const [wordsArray, setWordsArray] = useState(wordsMockData);
   const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
   const [activeCard, setActiveCard] = useState(null);
+  const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const levelsArray = [];
   const pagesArray = [];
 
@@ -63,6 +52,12 @@ export const Savannah = () => {
 
   const [levelInputValue, setLevelInputText] = useState(1);
   const [pageInputValue, setPageInputText] = useState(1);
+
+  const dispatch = useDispatch();
+  //TODO separate it
+  const addNewWordsToStatistics = (wordsNumber) => {
+    dispatch(addLearnedWords(wordsNumber));
+  };
 
   useEffect(() => {
     if (activeCard) {
@@ -82,7 +77,7 @@ export const Savannah = () => {
     setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
     setRandomActiveCardAndCardsForSelection();
   };
-  
+
   useEffect(
     useCallback(async () => {
       if (isGameStarted) {
@@ -100,14 +95,7 @@ export const Savannah = () => {
   );
 
   const setDefaultGameSettings = async () => {
-    // const cards = await request(
-    //   `${urls.API}/words?group=${levelInputValue - 1}}&page=${
-    //     pageInputValue - 1
-    //   }`,
-    //   "GET"
-    // );
-    // setWordsArray(cards);
-    // setRemainWordsArray(cards);
+    setNumberOfLearnedWords(0);
     setLivesArray(GAME_DEFAULT_VALUES.LIVES_ARRAY);
     setIsGameLost(GAME_DEFAULT_VALUES.FALSE);
     setIsGameWon(GAME_DEFAULT_VALUES.FALSE);
@@ -129,9 +117,9 @@ export const Savannah = () => {
     );
 
     //TODO
-    const length = 3;
+    const numberOfCards = 3;
     const result = [];
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < numberOfCards; i++) {
       let index = getRandomValue(arrayOfCardsForSelect.length - 1);
       let curCard = arrayOfCardsForSelect[index];
       arrayOfCardsForSelect.splice(index, 1);
@@ -146,6 +134,7 @@ export const Savannah = () => {
     console.log(word.wordTranslate);
     if (word.id === activeCard.id) {
       guessTheWord();
+      setNumberOfLearnedWords(numberOfLearnedWords + 1);
       if (isAuthenticated) {
         await request(
           `${urls.API}/users/${userId}/words/${word.id}`,
@@ -159,8 +148,8 @@ export const Savannah = () => {
             "Content-Type": "application/json",
           }
         );
-      } else notGuessTheWord();
-    }
+      }
+    } else notGuessTheWord();
   };
 
   const setRandomActiveCardAndCardsForSelection = () => {
@@ -182,6 +171,58 @@ export const Savannah = () => {
       setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
       setActiveCard(null);
+      addNewWordsToStatistics(numberOfLearnedWords);
+      dispatch(setSavannahMaxSeries(numberOfLearnedWords));
+      // sendStatistic();
+    }
+  };
+
+  const sendStatistic = async () => {
+    if (isAuthenticated) {
+      const statistics = await request(
+        `${urls.API}/users/${userId}/statistics`,
+        "GET",
+        null,
+        {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        }
+      );
+      let now = moment().format("DD-MM-YYYY");
+      const optionalObject = statistics.optional || {};
+      const updatedLearnedWords = statistics.learnedWords + numberOfLearnedWords;
+      if (!optionalObject[now]) {
+        optionalObject[now] = {
+          date: now,
+          learnedWords: numberOfLearnedWords,
+          correctAnswers: numberOfLearnedWords,
+          incorrectAnswers: 5 - livesArray.length,
+        };
+      } else
+        optionalObject[now] = {
+          date: now,
+          learnedWords: updatedLearnedWords,
+          correctAnswers:
+            optionalObject[now].correctAnswers + numberOfLearnedWords,
+          incorrectAnswers:
+            optionalObject[now].incorrectAnswers + 5 - livesArray.length,
+        };
+      const statistics2 = await request(
+        `${urls.API}/users/${userId}/statistics`,
+        "PUT",
+        {
+          learnedWords: updatedLearnedWords,
+          optional: optionalObject,
+        },
+        {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        }
+      );
+      console.log(statistics);
+      console.log(statistics2);
     }
   };
 
@@ -193,6 +234,13 @@ export const Savannah = () => {
       setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
       setActiveCard(null);
+      addNewWordsToStatistics(numberOfLearnedWords);
+      dispatch(setSavannahMaxSeries(numberOfLearnedWords));
+      // let now = moment().format('DD-MM-YYYY');
+      // const optionalObject = {};
+      // optionalObject[now] = {date: now, correctAnswers: numberOfLearnedWords, incorrectAnswers: 5 - livesArray.length};
+      // dispatch(setTodaysStatistic(optionalObject))
+      sendStatistic();
     }
   };
 
