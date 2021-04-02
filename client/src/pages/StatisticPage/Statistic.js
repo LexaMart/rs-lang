@@ -8,8 +8,11 @@ import {
   Tooltip,
 } from "recharts";
 import { useHttp } from "../../hooks/http.hook";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import urls from "../../assets/constants/ursl";
+import {
+  getStatistic
+} from "../../redux/statistics-reducer";
 
 export const Statistic = () => {
   const token = useSelector((store) => store.authStore.userData.token);
@@ -18,10 +21,13 @@ export const Statistic = () => {
   const wholeLearnedWords = useSelector((store) => store.statisticsStore.learnedWords);
   const { request } = useHttp();
   const [rechartsData, setRechartsData] = useState();
+  const dispatch = useDispatch();
+
 
   useEffect(
     useCallback(async () => {
       if (isAuthenticated) {
+        dispatch(getStatistic(userId, token))
         const statistics = await request(
           `${urls.API}/users/${userId}/statistics`,
           "GET",
@@ -33,7 +39,7 @@ export const Statistic = () => {
           }
         );
         const data = Object.values(statistics.optional);
-         
+
         setRechartsData(data);
       }
     }, [isAuthenticated, request, token, userId]),

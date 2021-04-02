@@ -1,10 +1,12 @@
 import moment from 'moment';
+import { rsLangApi } from "../services/rs-lang-api";
 const ACTION_CONST = {
    ADD_LEARNED_WORDS_NUMBER: "ADD_LEARNED_WORDS_NUMBER",
    ADD_DAYS_STATISTIC: 'ADD_DAYS_STATISTIC',
     ADD_CORRECT_WORDS: "ADD_CORRECT_WORDS",
     ADD_INCORRECT_WORDS: "ADD_INCORRECT_WORDS",
     SET_SAVANNAH_LEARNED_WORDS_NUMBER: 'SET_SAVANNAH_LEARNED_WORDS_NUMBER',
+    SET_STATISTICS_DATA: 'SET_STATISTICS_DATA',
   };
 
   
@@ -19,6 +21,7 @@ const ACTION_CONST = {
   let initialState = {
     learnedWords: DEFAULT_VALUES.ZERO,
     savannahMaxSeries: DEFAULT_VALUES.ZERO,
+    statisticsData: DEFAULT_VALUES.EMPTY,
     optional: {}
   };
   
@@ -42,6 +45,12 @@ const ACTION_CONST = {
           savannahMaxSeries: Math.max(state.savannahMaxSeries, action.learnedWords),
         };
       }
+      case ACTION_CONST.SET_STATISTICS_DATA: {
+        return {
+          ...state,
+          statisticsData: action.statisticsData,
+        };
+      }
       default:
         return state;
     }
@@ -61,16 +70,19 @@ const ACTION_CONST = {
     type: ACTION_CONST.ADD_DAYS_STATISTIC,
     todaysStatistic,
   });
+
+  export const setStatistics = (statisticsData) => ({
+    type: ACTION_CONST.SET_STATISTICS_DATA,
+    statisticsData,
+  });
+
   
-  // export const setIsAdditionalButtonsShows = (isAdditionalButtonsShown) => ({
-  //   type: ACTION_CONST.SET_IS_ADDITIONAL_BUTTONS_SHOWS,
-  //   isAdditionalButtonsShown,
-  // });
-  
-  // export const setActiveLanguage = (activeLanguage) => ({
-  //   type: ACTION_CONST.SET_ACTIVE_LANGUAGE,
-  //   activeLanguage,
-  // });
+  export const getStatistic = (userId, token) => async (dispatch) => {
+    const response = await rsLangApi.getStatistic(userId, token);
+    if (response) {
+      dispatch(setStatistics(response.data));
+    } else alert("Wrong userID")
+  };
   
   export default statisticsReducer;
   

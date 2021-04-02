@@ -45,9 +45,11 @@ export const rsLangApi = {
   getStatistic(userId, token) {
     return axios
       .get(`${RS_LANG_API}users/${userId}/statistics`,{
-        Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+       headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        }
       })
       .then((response) => {
         return response;
@@ -59,16 +61,17 @@ export const rsLangApi = {
 
   sendStatistic(userId, token, numberOfLearnedWords, optionalObject) {
     return axios
-      .put(`${RS_LANG_API}users/${userId}/statistics`,
-      {
+      .put(`${RS_LANG_API}users/${userId}/statistics`,{
         learnedWords: numberOfLearnedWords,
-        optional: optionalObject
+          optional: optionalObject
       },
       {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      })
+        headers: {
+           Authorization: `Bearer ${token}`,
+           Accept: "application/json",
+           "Content-Type": "application/json",
+         }
+       })
       .then((response) => {
         return response;
       })

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Savannah.scss";
-import { RS_LANG_API } from "../../../services/rs-lang-api";
+import { RS_LANG_API, rsLangApi } from "../../../services/rs-lang-api";
 
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
@@ -36,6 +36,7 @@ export const Savannah = () => {
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
+  const optionalStatisticObject = useSelector((store) => store.statisticsStore.statisticsData.optional);
   const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -177,54 +178,60 @@ export const Savannah = () => {
     }
   };
 
-  const sendStatistic = async () => {
+  // const sendStatistic = async () => {
+  //   if (isAuthenticated) {
+  //     const statistics = await request(
+  //       `${urls.API}/users/${userId}/statistics`,
+  //       "GET",
+  //       null,
+  //       {
+  //         Authorization: `Bearer ${token}`,
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       }
+  //     );
+  //     let now = moment().format("DD-MM-YYYY");
+  //     const optionalObject = statistics.optional || {};
+  //     const updatedLearnedWords = statistics.learnedWords + numberOfLearnedWords;
+  //     if (!optionalObject[now]) {
+  //       optionalObject[now] = {
+  //         date: now,
+  //         learnedWords: numberOfLearnedWords,
+  //         correctAnswers: numberOfLearnedWords,
+  //         incorrectAnswers: 5 - livesArray.length,
+  //       };
+  //     } else
+  //       optionalObject[now] = {
+  //         date: now,
+  //         learnedWords: updatedLearnedWords,
+  //         correctAnswers:
+  //           optionalObject[now].correctAnswers + numberOfLearnedWords,
+  //         incorrectAnswers:
+  //           optionalObject[now].incorrectAnswers + 5 - livesArray.length,
+  //       };
+  //     const statistics2 = await request(
+  //       `${urls.API}/users/${userId}/statistics`,
+  //       "PUT",
+  //       {
+  //         learnedWords: updatedLearnedWords,
+  //         optional: optionalObject,
+  //       },
+  //       {
+  //         Authorization: `Bearer ${token}`,
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       }
+  //     );
+  //     console.log(statistics);
+  //     console.log(statistics2);
+  //   }
+  // };
+
+  const sendStatistic = () => {
     if (isAuthenticated) {
-      const statistics = await request(
-        `${urls.API}/users/${userId}/statistics`,
-        "GET",
-        null,
-        {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        }
-      );
-      let now = moment().format("DD-MM-YYYY");
-      const optionalObject = statistics.optional || {};
-      const updatedLearnedWords = statistics.learnedWords + numberOfLearnedWords;
-      if (!optionalObject[now]) {
-        optionalObject[now] = {
-          date: now,
-          learnedWords: numberOfLearnedWords,
-          correctAnswers: numberOfLearnedWords,
-          incorrectAnswers: 5 - livesArray.length,
-        };
-      } else
-        optionalObject[now] = {
-          date: now,
-          learnedWords: updatedLearnedWords,
-          correctAnswers:
-            optionalObject[now].correctAnswers + numberOfLearnedWords,
-          incorrectAnswers:
-            optionalObject[now].incorrectAnswers + 5 - livesArray.length,
-        };
-      const statistics2 = await request(
-        `${urls.API}/users/${userId}/statistics`,
-        "PUT",
-        {
-          learnedWords: updatedLearnedWords,
-          optional: optionalObject,
-        },
-        {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        }
-      );
-      console.log(statistics);
-      console.log(statistics2);
+    rsLangApi.sendStatistic(userId, token, numberOfLearnedWords, optionalStatisticObject);
     }
-  };
+  }
 
   const notGuessTheWord = () => {
     const remainLivesArray = [...livesArray];
