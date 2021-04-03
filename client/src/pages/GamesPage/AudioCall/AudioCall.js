@@ -126,6 +126,7 @@ export const AudioCall = () => {
         isAuthenticated,
         userId,
         token,
+        wholeLearnedWords,
         optionalStatisticObject,
         numberOfLearnedWords,
         numberOfIncorrectAnswers

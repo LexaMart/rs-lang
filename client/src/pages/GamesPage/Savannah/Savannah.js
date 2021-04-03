@@ -185,6 +185,7 @@ export const Savannah = () => {
         isAuthenticated,
         userId,
         token,
+        wholeLearnedWords,
         optionalStatisticObject,
         numberOfLearnedWords,
         numberOfIncorrectAnswers
