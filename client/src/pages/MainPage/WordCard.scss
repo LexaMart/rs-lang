@@ -1,0 +1,32 @@
+.word_card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 240px;
+    height: 206.8px;
+    border-radius: 10%;
+    margin: 30px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    background-color: rgb(255, 255, 255);
+    transition: box-shadow .25s;
+    cursor: pointer;
+}
+
+.word_card:hover {
+    box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
+    transition: .2s;
+}
+
+.word_card_bg {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10%;
+    height: 180px;
+    top: 0;
+}
+
+.word {
+    text-align: center;
+    font-size: 18px;
+}

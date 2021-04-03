@@ -1,0 +1,26 @@
+.link-block {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-link {
+  margin-top: 10px;
+  color: black;
+  font-size: 30px;
+}
+.card-action {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.reg_card {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.reg_container {
+    height: 81.7vh;
+    display: flex;
+    align-items: center;
+}

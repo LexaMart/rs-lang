@@ -1,0 +1,101 @@
+.group {
+    width: 16.65%;
+    height: 40px;
+    font-size: 22px;
+    background-color: rgba(226, 150, 91, 0.45);
+    user-select: none; 
+}
+
+.group:hover {
+    background-color: rgba(226, 150, 91, 0.6);
+}
+
+.group_1 {
+    background-color: rgba(21, 255, 0, 0.45);
+}
+
+.group_1:hover {
+    background-color: rgba(21, 255, 0, 0.5);
+}
+
+.group_2 {
+    background-color: rgba(157, 255, 0, 0.45);
+}
+
+.group_2:hover {
+    background-color: rgba(157, 255, 0, 0.5);
+}
+
+.group_3 {
+    background-color: rgba(255, 255, 0, 0.45);
+}
+
+.group_3:hover {
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+.group_4 {
+    background-color: rgba(255, 142, 0, 0.45);
+}
+
+.group_4:hover {
+    background-color: rgba(255, 142, 0, 0.5);
+}
+
+.group_5 {
+    background-color: rgba(255, 71, 0, 0.45);
+}
+
+.group_5:hover {
+    background-color: rgba(255, 71, 0, 0.5);
+}
+
+.group_6 {
+    background-color: rgba(255, 0, 0, 0.45);
+}
+
+.group_6:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.paginator {
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+  
+.carosel_part:active, .carosel_part:focus {
+    outline: none;
+}
+  
+.carosel_part::-moz-focus-inner {
+    border: 0;
+}
+
+.word_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    user-select: none; 
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 1%;
+}
+
+#arrow {
+    margin: 0 2%;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background-color: rgba(226, 150, 91, 0.45);
+    border-radius: 50%;
+}
+
+.arrow:hover {
+    background-color: rgba(226, 150, 91, 0.6);
+}

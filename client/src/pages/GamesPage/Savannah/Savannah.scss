@@ -1,0 +1,59 @@
+.savannah-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    background: linear-gradient(180deg, #F08A5D 0%, #B83B5E 100%)
+}
+
+.selection-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30vh;
+    width: 70vw;
+}
+
+.lives-container {
+    display: flex;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.savannah-card {
+    font-size: 2rem;
+    color: #fff;
+    /* border: 2px solid #000;
+    border-radius: 1vh; */
+}
+
+.savannah-card_active {
+    font-size: 2rem;
+    color: #fff;
+    position: absolute;
+      font-size: 2em;
+      font-weight: bold;
+      text-transform: capitalize;
+      animation: active-card-fall 5s ease infinite;
+  
+      @keyframes active-card-fall {
+        0% {
+          top: 20vh;
+        }
+    
+        100% {
+          top: 80vh;
+        }
+      }
+}
+
+.win-screen {
+    font-size: 5rem;
+    color: #fff;
+}
+
+.lost-screen {
+    font-size: 5rem;
+    color: #fff;
+}
