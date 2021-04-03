@@ -71,4 +71,42 @@ export const rsLangApi = {
         console.log("error: ", er.message);
       });
   },
+
+  getStatistic(userId, token) {
+    return axios
+      .get(`${RS_LANG_API}users/${userId}/statistics`,{
+       headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        }
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((er) => {
+        console.log("error: ", er.message);
+      });
+  },
+
+  sendStatistic(userId, token, numberOfLearnedWords, optionalObject) {
+    return axios
+      .put(`${RS_LANG_API}users/${userId}/statistics`,{
+        learnedWords: numberOfLearnedWords,
+          optional: optionalObject
+      },
+      {
+        headers: {
+           Authorization: `Bearer ${token}`,
+           Accept: "application/json",
+           "Content-Type": "application/json",
+         }
+       })
+      .then((response) => {
+        return response;
+      })
+      .catch((er) => {
+        console.log("error: ", er.message);
+      });
+  },
 };
