@@ -1,0 +1,13 @@
+.user-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px;
+}
+.user-name {
+  color:rgb(199, 193, 193);
+  font-size: 20px;
+}
+.image-handler {
+  width: fit-content;
+}

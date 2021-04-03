@@ -8,6 +8,7 @@ import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../../../shared/words-config'
 import { setCurrentPage } from '../../../../redux/settings-reducer'
 
 import "./menu.scss"
+import { UserInfo } from '../UserInfo/UserInfo'
 
 export const Menu = ({ active, setActive }) => {
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ export const Menu = ({ active, setActive }) => {
           {isAuthenticated ? <Link onClick={() => logoutHandler()} className="menu-nav-link" to="/promo">{activeLang === LANGUAGE_CONFIG.foreign ? WORDS_CONFIG.LOGOUT_BUTTON.foreign : WORDS_CONFIG.LOGOUT_BUTTON.native}</Link> :
             <Link onClick={() => setActive(!active)} className="menu-nav-link" to="/login">{activeLang === LANGUAGE_CONFIG.foreign ? WORDS_CONFIG.LOGIN_BUTTON.foreign : WORDS_CONFIG.LOGIN_BUTTON.native}</Link>}
         </ul>
+        {isAuthenticated && <UserInfo />}
       </div>
     </>
   )
