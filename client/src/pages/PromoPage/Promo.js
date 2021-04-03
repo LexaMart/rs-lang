@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentPage } from '../../redux/settings-reducer';
+
 import { Link } from 'react-router-dom';
 import Lion from '../../assets/images/lion.svg';
 import Sprint from '../../assets/images/sprint.svg';
@@ -6,7 +9,12 @@ import Joystick from '../../assets/images/joystick.svg';
 import Audio from '../../assets/images/audio.svg';
 import './promo.scss';
 
+
 export const Promo = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setCurrentPage('promo'))
+  })
   return (
     <div className="promo_container">
       <div>

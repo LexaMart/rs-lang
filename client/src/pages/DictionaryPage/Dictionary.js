@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Row, Col } from 'react-materialize';
 
@@ -12,8 +12,10 @@ import { DictionaryList } from './Components/DictionaryList';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
 import './Dictionary.css';
+import { setCurrentPage } from '../../redux/settings-reducer';
 
 export const Dictionary = () => {
+  const dispatch = useDispatch()
   const language = useSelector((store) => store.settingsStore.activeLanguage);
   const { userData } = useSelector((store) => store.authStore);
 
@@ -28,6 +30,7 @@ export const Dictionary = () => {
   let { path } = useRouteMatch();
 
   useEffect(() => {
+    dispatch(setCurrentPage('dictionary'))
     const { token, userId } = userData;
     const words = async () => {
       await getUserWord({
