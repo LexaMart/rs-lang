@@ -3,17 +3,20 @@ const ACTION_CONST = {
   SET_IS_ADDITIONAL_BUTTONS_SHOWS: "SET_IS_ADDITIONAL_BUTTONS_SHOWS",
   SET_ACTIVE_LANGUAGE: "SET_ACTIVE_LANGUAGE",
   SET_GAME_DIFFICULT: "SET_GAME_DIFFICULT",
+  SET_CURRENT_PAGE: "SET_CURRENT_PAGE",
 };
 
 export const DEFAULT_VALUES = {
+  CURRENT_PAGE: "promo",
   EMPTY: "",
   TRUE: true,
   FALSE: false,
   LANGUAGE: "en",
-  DIFFICULT: 1,
+  DIFFICULT: 6,
 };
 
 let initialState = {
+  currentPage: DEFAULT_VALUES.CURRENT_PAGE,
   isTranslationShown: DEFAULT_VALUES.TRUE,
   isAdditionalButtonsShown: DEFAULT_VALUES.TRUE,
   activeLanguage: DEFAULT_VALUES.LANGUAGE,
@@ -46,6 +49,12 @@ export const settingsReducer = (state = initialState, action) => {
           gameDifficult : action.gameDifficult
         }
       }
+      case ACTION_CONST.SET_CURRENT_PAGE: {
+        return {
+          ...state,
+          currentPage: action.page
+        }
+      }
     default:
       return state;
   }
@@ -69,6 +78,11 @@ export const setActiveLanguage = (activeLanguage) => ({
 export const setGameDifficult = (gameDifficult) => ({
   type: ACTION_CONST.SET_GAME_DIFFICULT,
   gameDifficult
-})
+});
+
+export const setCurrentPage = (page) => ({
+  type: ACTION_CONST.SET_CURRENT_PAGE,
+  page
+});
 
 export default settingsReducer;

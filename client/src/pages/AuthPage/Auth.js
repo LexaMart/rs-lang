@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import { login } from '../../redux/auth-reducer'
+import { setCurrentPage } from '../../redux/settings-reducer'
 
 import './auth.css'
 
@@ -21,11 +22,11 @@ export const Auth = () => {
   }
 
   const loginHandler = () => {
-
     dispatch(login(form.email, form.password));
-
-
   }
+  useEffect(() => {
+    dispatch(setCurrentPage(''))
+  })
   return (
     <div className="row auth_container">
       <div className="col s6 offset-s3">

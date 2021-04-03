@@ -6,7 +6,6 @@ import { useKey } from '../../../../../hooks/keyboardEvents.hook'
 
 import arrow from '../../../../../assets/images/left.svg'
 import { rsLangApi } from '../../../../../services/rs-lang-api'
-
 import './sprintGame.scss'
 
 
@@ -39,13 +38,13 @@ export const SprintGame = ({ gameArr, score, setScore }) => {
 
   const choiceHandler = (answer) => {
     if (answer === isCorrect) {
-      setSeria(seria + 1)
-      if (isAuthenticated) {
-        rsLangApi.postUserWord(token, userId, winId, 'learned')
-      }
-      else if (seria / 4 >= 1) {
+      console.log(score)
+      console.log(seria)
+      if (seria / 4 >= 1) {
         setScore(score + (20 * (Math.floor(seria / 4) + 1)))
+        if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, 'learned')
       } else {
+        if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, 'learned')
         setScore(score + 20)
       }
     } else {

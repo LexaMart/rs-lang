@@ -1,19 +1,23 @@
 import "materialize-css";
 import "./Settings.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Select, Switch } from "react-materialize";
 import {
   setActiveLanguage,
   setIsAdditionalButtonsShows,
   setIsAdditionalTranslationsShows,
   setGameDifficult,
+  setCurrentPage,
 } from "../../redux/settings-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
 
 export const Settings = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCurrentPage('settings'))
+  })
 
   const isAdditionalButtonsShown = useSelector(
     (store) => store.settingsStore.isAdditionalButtonsShown
