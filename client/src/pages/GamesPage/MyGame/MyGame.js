@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHttp } from '../../../hooks/http.hook';
 
 import { Rules } from './components/Rules';
 import { rsLangApi } from '../../../services/rs-lang-api';
 import urls from '../../../assets/constants/ursl'
-
+import { setMyGameLearnedWords, setMyGameIncorrectAnswers, getStatistic } from '../../../redux/statistics-reducer'
+import { sendStatistic } from '../GameUtilities/GameUtilities'
 import './myGame.scss';
 
 export const MyGame = () => {
+  const dispatch = useDispatch()
   const gameDifficult = useSelector((store) => store.settingsStore.gameDifficult)
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
@@ -21,17 +23,28 @@ export const MyGame = () => {
   const [gameCards, setGameCards] = useState([])
   const [lives, setLives] = useState([])
   const [isFirtsTry, setFirstTry] = useState(true);
+  const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
+  const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
+
+  const optionalStatisticObject = useSelector(
+    (store) => store.statisticsStore.statisticsData.optional
+  );
+  const wholeLearnedWords = useSelector(
+    (store) => store.statisticsStore.learnedWords
+  );
 
   const startGame = async () => {
     setLives([1, 1, 1, 1])
     setIsGameStarted(true)
     setRandomInt([Math.floor(Math.random() * 29)])
+    if (isAuthenticated) dispatch(getStatistic(userId, token))
   }
   const choiceHandler = async (e) => {
     if (e.target.src === `${urls.API}/${winingCard.image}`) {
       console.log("WIN")
+      setNumberOfLearnedWords(numberOfLearnedWords + 1)
       if (isFirtsTry && isAuthenticated) {
-        rsLangApi.postUserWord(token,userId,winingCard.id, 'learned')
+        rsLangApi.postUserWord(token, userId, winingCard.id, 'learned')
       }
       setRandomInt([Math.floor(Math.random() * 6), Math.floor(Math.random() * 29)])
     }
@@ -39,9 +52,21 @@ export const MyGame = () => {
       if (lives.length === 0) {
         setIsGameLost(true)
         setIsGameStarted(false)
+        dispatch(setMyGameLearnedWords(numberOfLearnedWords))
+        dispatch(setMyGameIncorrectAnswers(numberOfIncorrectAnswers))
+        sendStatistic(
+          isAuthenticated,
+          userId,
+          token,
+          wholeLearnedWords,
+          optionalStatisticObject,
+          numberOfLearnedWords,
+          numberOfIncorrectAnswers
+        )
       }
       setFirstTry(false);
       setLives(lives.splice(0, (lives.length - 1)))
+      setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1)
     }
   }
   useEffect(useCallback(async () => {

@@ -11,7 +11,7 @@ import './sprintGame.scss'
 
 
 
-export const SprintGame = ({ gameArr, score, setScore }) => {
+export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorrect, setNumberOfIncorrect, gameArr, score, setScore }) => {
   const token = useSelector((store) => store.authStore.userData.token)
   const userId = useSelector((store) => store.authStore.userData.userId)
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
@@ -42,17 +42,18 @@ export const SprintGame = ({ gameArr, score, setScore }) => {
       console.log(seria)
       if (seria / 4 >= 1) {
         setScore(score + (20 * (Math.floor(seria / 4) + 1)))
-        if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, 'learned')
       } else {
-        if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, 'learned')
         setScore(score + 20)
       }
+      if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, 'learned')
+      setNumberOfLearned(numberOfLearned + 1)
     } else {
       if (isAuthenticated) {
         rsLangApi.postUserWord(token, userId, winId, 'hard')
       }
       setSeria(0)
       setScore(score - 10)
+      setNumberOfIncorrect(numberOfIncorrect + 1)
     }
     setRand(Math.floor(Math.random() * (gameArr.length - 1)));
   }

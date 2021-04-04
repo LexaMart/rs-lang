@@ -186,21 +186,21 @@ export const setAudioCallIncorrectAnswers = (audioCallIncorrectAnswers) => ({
 });
 
 export const setSprintLearnedWords = (sprintLearnedWords) => ({
-  type: ACTION_CONST.SET_AUDIO_CALL_LEARNED_WORDS_NUMBER,
+  type: ACTION_CONST.SET_SPRINT_LEARNED_WORDS_NUMBER,
   sprintLearnedWords,
 });
 
 export const setSprintIncorrectAnswers = (sprintIncorrectAnswers) => ({
-  type: ACTION_CONST.SET_AUDIO_CALL_INCORRECT_ANSWERS_NUMBER,
+  type: ACTION_CONST.SET_SPRINT_INCORRECT_ANSWERS_NUMBER,
   sprintIncorrectAnswers,
 });
 export const setMyGameLearnedWords = (myGameLearnedWords) => ({
-  type: ACTION_CONST.SET_AUDIO_CALL_LEARNED_WORDS_NUMBER,
+  type: ACTION_CONST.SET_MY_GAME_LEARNED_WORDS_NUMBER,
   myGameLearnedWords,
 });
 
 export const setMyGameIncorrectAnswers = (myGameIncorrectAnswers) => ({
-  type: ACTION_CONST.SET_AUDIO_CALL_INCORRECT_ANSWERS_NUMBER,
+  type: ACTION_CONST.SET_MY_GAME_INCORRECT_ANSWERS_NUMBER,
   myGameIncorrectAnswers,
 });
 // export const setTodaysStatistic = (todaysStatistic) => ({

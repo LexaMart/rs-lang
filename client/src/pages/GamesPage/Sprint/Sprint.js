@@ -21,6 +21,8 @@ export const Sprint = () => {
   const [gameArr, setGameArr] = useState([])
   const [randomNum, setRandomNum] = useState([null])
   const [score, setScore] = useState(0);
+  const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
+  const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
 
   useEffect(useCallback(async () => {
     if (isGameStarted === sprintStates.pending) {
@@ -36,8 +38,14 @@ export const Sprint = () => {
         <>
           <Score score={score} />
           <div className="game-handler">
-            <SprintGame gameArr={gameArr} score={score} setScore={setScore} />
-            <Timer setIsGameStarted={setIsGameStarted} />
+            <SprintGame numberOfLearned={numberOfLearnedWords}
+              numberOfIncorrect={numberOfLearnedWords}
+              setNumberOfLearned={setNumberOfLearnedWords}
+              setNumberOfIncorrect={setNumberOfIncorrectAnswers}
+              gameArr={gameArr} score={score} setScore={setScore} />
+            <Timer numOfIncorrect={numberOfIncorrectAnswers}
+              numOfLearned={numberOfLearnedWords}
+              setIsGameStarted={setIsGameStarted} />
           </div>
         </>
       }
