@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
 } from "recharts";
-import { useHttp } from "../../hooks/http.hook";
 import { useSelector, useDispatch } from "react-redux";
-import urls from "../../assets/constants/ursl";
 import { getStatistic } from "../../redux/statistics-reducer";
-import { setCurrentPage } from '../../redux/settings-reducer'
+import { setCurrentPage } from "../../redux/settings-reducer";
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
 
 export const Statistic = () => {
+  const activeLanguage = useSelector(
+    (store) => store.settingsStore.activeLanguage
+  );
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
@@ -65,10 +67,10 @@ export const Statistic = () => {
   const [rechartsData, setRechartsData] = useState();
   const dispatch = useDispatch();
 
-  //TODO if you never played it brokes
+  //TODO if you never played it broken
   useEffect(
     useCallback(async () => {
-      dispatch(setCurrentPage('statistic'))
+      dispatch(setCurrentPage("statistic"));
       if (isAuthenticated) {
         dispatch(getStatistic(userId, token));
         const data = Object.values(statisticsOptionalData);
@@ -80,84 +82,140 @@ export const Statistic = () => {
 
   return (
     <div>
-      <h1> Statistic Page</h1>
+      <h1>
+        {" "}
+        {activeLanguage === LANGUAGE_CONFIG.native
+          ? WORDS_CONFIG.STATISTICS_PAGE.native
+          : WORDS_CONFIG.STATISTICS_PAGE.foreign}
+      </h1>
       <>
         <p>Whole learned words: {wholeLearnedWords}</p>
         <p>
           Percents of wins:{" "}
-          {(wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
-            100 || 0}{" "}
+          {(
+            (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
+            100
+          ).toFixed(2) || 0}{" "}
           %
         </p>
         <p>savannahMaxSeries: {savannahMaxSeries}</p>
         <p>savannahLearnedWords: {savannahLearnedWords}</p>
         <p>
           Savannah Percents of wins:{" "}
-          {(savannahLearnedWords /
-            (savannahLearnedWords + savannahIncorrectAnswers)) *
-            100 || 0}{" "}
+          {(
+            (savannahLearnedWords /
+              (savannahLearnedWords + savannahIncorrectAnswers)) *
+            100
+          ).toFixed(2) || 0}{" "}
           %
         </p>
         <p>audioCallMaxSeries: {audioCallMaxSeries}</p>
         <p>audioCallLearnedWords: {audioCallLearnedWords}</p>
         <p>
           AudioCall Percents of wins:{" "}
-          {(audioCallLearnedWords /
-            (audioCallLearnedWords + audioCallIncorrectAnswers)) *
-            100 || 0}{" "}
+          {(
+            (audioCallLearnedWords /
+              (audioCallLearnedWords + audioCallIncorrectAnswers)) *
+            100
+          ).toFixed(2) || 0}{" "}
           %
         </p>
         <p>sprintMaxSeries: {sprintMaxSeries}</p>
         <p>sprintLearnedWords: {sprintLearnedWords}</p>
         <p>
           sprint Percents of wins:{" "}
-          {(sprintLearnedWords /
-            (sprintLearnedWords + sprintIncorrectAnswers)) *
-            100 || 0}{" "}
+          {(
+            (sprintLearnedWords /
+              (sprintLearnedWords + sprintIncorrectAnswers)) *
+            100
+          ).toFixed(2) || 0}{" "}
           %
         </p>
         <p>myGameMaxSeries: {myGameMaxSeries}</p>
         <p>myGameLearnedWords: {myGameLearnedWords}</p>
         <p>
           myGame Percents of wins:{" "}
-          {(myGameLearnedWords /
-            (myGameLearnedWords + myGameIncorrectAnswers)) *
-            100 || 0}{" "}
+          {(
+            (myGameLearnedWords /
+              (myGameLearnedWords + myGameIncorrectAnswers)) *
+            100
+          ).toFixed(2) || 0}{" "}
           %
         </p>
         <p></p>
       </>
       <>
-        <LineChart
-          width={400}
-          height={400}
+        <AreaChart
+          width={730}
+          height={250}
           data={rechartsData}
-          margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
-          <XAxis dataKey="date" />
-          <YAxis />
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="date" stroke="#fff" />
+          <YAxis stroke="#fff" />
+          <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
-          <CartesianGrid stroke="#fff" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="correctAnswers" stroke="#ccc" />
-          <Line type="monotone" dataKey="incorrectAnswers" stroke="#fff" />
-        </LineChart>
-        <p>Correct answers each day</p>
+          <Area
+            type="monotone"
+            dataKey="correctAnswers"
+            stroke="#8884d8"
+            fillOpacity={1}
+            fill="url(#colorUv)"
+          />
+          <Area
+            type="monotone"
+            dataKey="incorrectAnswers"
+            stroke="#82ca9d"
+            fillOpacity={1}
+            fill="url(#colorPv)"
+          />
+        </AreaChart>
+        <p>
+          {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.FIRST_STATISTIC_CHART_NAME.native
+            : WORDS_CONFIG.FIRST_STATISTIC_CHART_NAME.foreign}
+        </p>
       </>
       <>
-        <LineChart
-          width={400}
-          height={400}
+        <AreaChart
+          width={730}
+          height={250}
           data={rechartsData}
-          // data={data}
-          margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
-          <XAxis dataKey="date" />
-          <YAxis />
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="date" stroke="#fff" />
+          <YAxis stroke="#fff" />
+          <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
-          <CartesianGrid stroke="#f5f5f5" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="learnedWords" stroke="#fff" />
-        </LineChart>
-        <p>Correct answers whole period</p>
+          <Area
+            type="monotone"
+            dataKey="learnedWords"
+            stroke="#8884d8"
+            fillOpacity={1}
+            fill="url(#colorUv)"
+          />
+        </AreaChart>
+        <p>
+          {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.native
+            : WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.foreign}
+        </p>
       </>
     </div>
   );
