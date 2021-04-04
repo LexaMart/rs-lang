@@ -7,7 +7,7 @@ export const Finish = ({score, setIsGameStarted}) => {
       <p className="finish-text">
         Game is Over your score is <b>{score}</b>
       </p>
-      <button onClick={() => setIsGameStarted(sprintStates.started)} className="finish-button">
+      <button className="btn red" onClick={() => setIsGameStarted(sprintStates.started)}>
         Restart
       </button>
     </div>

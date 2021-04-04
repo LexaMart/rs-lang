@@ -1,8 +1,10 @@
 .promo_container {
-    height: 84.5vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin-bottom: 3%;
 }
 
 .decription {
@@ -12,6 +14,15 @@
 .feature_card {
     background-color: rgba( #000000, 0);
     color: white;
+    width: 70%;
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feature_img {
+    height: 60px;
 }
 
 .head_card {
@@ -27,4 +38,36 @@
     width: 40%;
     display: flex;
     justify-content: space-around;
+}
+
+.head_promo_img {
+    height: 400px;
+}
+
+.promo_first_block {
+    display: flex;
+    width: 60%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.info_promo {
+    width: 35%;
+    font-size: 20px;
+    color: white;
+}
+
+.caption_promo {
+    font-size: 42px;
+    text-align: center;
+}
+
+@media (max-width: 860px) and (min-width: 500px) {
+    .promo_first_block {
+        flex-direction:column-reverse;
+        margin-bottom: 5%;
+    }
+    .info_promo {
+        width: 90%;
+    }
 }

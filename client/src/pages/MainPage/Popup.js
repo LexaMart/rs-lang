@@ -30,8 +30,11 @@ const Popup = ({ active, setActive, currElement, isDeleted = false }) => {
 
   const playAudio = () => {
     const audio = new Audio();
+    const audio1 = new Audio();
+    const audio2 = new Audio();
     audio.src = `${RS_LANG_API}${currElement.audio}`;
-    audio.play();
+    audio1.src = `${RS_LANG_API}${currElement.audioMeaning}`;
+    audio2.src = `${RS_LANG_API}${currElement.audioExample}`;
   };
 
   return (

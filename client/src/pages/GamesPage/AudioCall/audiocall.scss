@@ -1,0 +1,42 @@
+.audiocall-card {
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    text-transform: lowercase;
+}
+
+.selection-audio-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20vh;
+    margin-bottom: 5vh;
+    width: 70vw;
+}
+
+.selection-audio-container-end {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    width: 70vw;
+}
+
+.play {
+    border-radius: 100%;
+    text-align: center;
+}
+
+.word_text {
+    font-size: 22px;
+}
+
+.correct_word_image {
+    width: 40vh;
+    border-radius: 20%;
+}
+
+@media (max-width: 600px) {
+    .audiocall-card {
+      font-size: 1.5rem;
+  }
+  }

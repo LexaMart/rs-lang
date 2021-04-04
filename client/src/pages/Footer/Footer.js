@@ -1,6 +1,6 @@
 import React from 'react';
 import 'materialize-css';
-import './Footer.css';
+import './Footer.scss';
 
 const Footer = () => {
   return (

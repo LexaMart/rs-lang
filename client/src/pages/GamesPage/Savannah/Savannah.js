@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Savannah.scss";
+import 'materialize-css';
 import {RS_LANG_API} from '../../../services/rs-lang-api'
-
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 
@@ -105,14 +105,13 @@ export const Savannah = () => {
   return (
     <div className="savannah-container">
       <h2>Savannah</h2>
-      {isGameWon && <div className="win-screen">WIN</div>}
+      {!isGameStarted && !isGameLost && <div className="rules">In this game you should choose correct translation of given word</div>}
+      {isGameWon && <div className="win-screen">WON</div>}
       {isGameLost && <div className="lost-screen">LOST</div>}
-      {!isGameStarted && <button onClick={startGame}>Start</button>}
+      {!isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button>}
       {isGameStarted && (
         <div className="lives-container">
-          {livesArray.map((live) => {
-            return <div>X</div>;
-          })}
+          <div><i className="material-icons">favorite </i> x {livesArray.length}</div>
         </div>
       )}
       {isGameStarted && (
@@ -125,7 +124,7 @@ export const Savannah = () => {
               <div
                 key={word.id}
                 onClick={(event) => handleCardClick(event, word)}
-                className="savannah-card"
+                className="savannah-card btn red"
               >
                 {word.wordTranslate}
               </div>

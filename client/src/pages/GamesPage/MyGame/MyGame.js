@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHttp } from '../../../hooks/http.hook';
-
 import { Rules } from './components/Rules';
 import { rsLangApi } from '../../../services/rs-lang-api';
 import urls from '../../../assets/constants/ursl'
-
 import './myGame.scss';
+import 'materialize-css';
 
 export const MyGame = () => {
   const gameDifficult = useSelector((store) => store.settingsStore.gameDifficult)
@@ -60,18 +59,22 @@ export const MyGame = () => {
   }, [isGameStarted, gameCards, request, randomInt]), [isGameStarted, randomInt])
   return (
     <div className="our-game-container">
-      {
+       <h2>Our game</h2>
+       {!isGameStarted && !isGameLost && <p className="rules">In this mini-game you should guess what picture describes the following word</p>}
+       {isGameLost && !isGameStarted && <div className="lost-screen">LOST</div>}
+       {!isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button>}
+      {/* {
         !isGameStarted && !isGameLost &&
         <Rules startGame={startGame} />
       }
       {
         isGameLost &&
         <>Lost</>
-      }
+      } */}
       {isGameStarted && winingCard &&
         <div className="word-to-guess-block">
-          <span className="guess-word">{winingCard.word}</span>
-          <span className="lives">{lives.map(el => `X`)}</span>
+          <span className="guess-word white-text  ">{winingCard.word}</span>
+          <div className="lives-container"><div><i className="material-icons">favorite </i> x {lives.length + 1}</div></div>
           <div className="image-handler">
             {gameCards.map((el, key) => <div onClick={(el) => choiceHandler(el)} className="my-game-word-image" key={key}><img src={`${urls.API}/${el.image}`} alt="word_image" /></div>)}
           </div>

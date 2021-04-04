@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-
 import { useHttp } from '../../../../../hooks/http.hook'
 import { useKey } from '../../../../../hooks/keyboardEvents.hook'
-
 import arrow from '../../../../../assets/images/left.svg'
 import { rsLangApi } from '../../../../../services/rs-lang-api'
-
 import './sprintGame.scss'
 
 
@@ -64,20 +61,20 @@ export const SprintGame = ({ gameArr, score, setScore }) => {
     <div className="game-block">
       <div className="sprint-card">
         <div className="answers-handler">
-          correct or incorrect
+          Correct or Incorrect
         </div>
         <div className="word-to-guess">
           <p className="english">{toChoose[0]}</p>
           <p className="russian">{toChoose[1]}</p>
         </div>
         <div className="buttons-handler">
-          <button onClick={() => choiceHandler(true)} className="right">YES</button>
-          <button onClick={() => choiceHandler(false)} className="incorrect">NO</button>
+          <button onClick={() => choiceHandler(true)} className="btn right">YES</button>
+          <button onClick={() => choiceHandler(false)} className="btn red incorrect">NO</button>
         </div>
-        <div className="buttons-image-handler">
+        {/* <div className="buttons-image-handler">
           <img className="button-image" src={arrow} alt="btn img" />
           <img className="button-image reverse" src={arrow} alt="btn img" />
-        </div>
+        </div> */}
       </div>
     </div>
   )

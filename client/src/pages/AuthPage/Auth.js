@@ -21,10 +21,7 @@ export const Auth = () => {
   }
 
   const loginHandler = () => {
-
     dispatch(login(form.email, form.password));
-
-
   }
   return (
     <div className="row auth_container">
@@ -49,16 +46,15 @@ export const Auth = () => {
               </div>
             </div>
           </div>
-          <div className="card-action">
+          <div className="sign_in_btn_area">
             <button onClick={loginHandler} disabled={isLoading} className="btn waves-effect red waves-light" type="submit" name="action">Sign in!
             <i className="material-icons right">send</i>
             </button>
           </div>
           <div className="link-block">
-            <NavLink className="btn" to="/registration">Sign Up</NavLink>
+            <NavLink className="btn sign_in_button" to="/registration">Sign Up</NavLink>
           </div>
         </div>
-
       </div>
     </div>
   )

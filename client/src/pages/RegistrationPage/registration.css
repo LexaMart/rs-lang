@@ -16,11 +16,23 @@
 }
 
 .reg_card {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .reg_container {
     height: 81.7vh;
     display: flex;
     align-items: center;
+}
+
+.photo_field {
+  margin-left: 4% !important;
+}
+
+.sign_in_button {
+  margin-bottom: 3% !important;
+}
+
+.card-title {
+  height: 5% !important;
 }
