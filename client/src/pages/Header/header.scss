@@ -15,6 +15,11 @@
     font-weight: bold;
     font-size: 44px;
 }
+
+.app_logo:hover {
+    text-shadow: 0 4px 4px rgba(255, 255, 255, 0.25), 0 4px 4px rgba(255, 255, 255, 0.22);
+}
+
 .burger-image {
     transition: all 0.5s;
     width: 50%;
@@ -47,6 +52,11 @@
 .game_link {
     width: 45px;
     height: 45px;
+    transition: 0.8s;
+}
+
+.game_link:hover {
+    transform: scale(1.1);
 }
 
 .link_container {

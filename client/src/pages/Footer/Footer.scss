@@ -21,6 +21,11 @@
     height: 42px;   
     padding-top: 4px;
     margin-right: 60%;
+    transition: 0.8s;
+}
+
+.course_logo:hover {
+    transform: scale(1.1);
 }
 
 .link {
@@ -28,6 +33,11 @@
     height: 42px;
     width: 42px;
     border-radius: 50%;
+    transition: 0.5s;
+}
+
+.link:hover {
+    transform: scale(1.1);
 }
 
 @media (max-width: 464px) {
