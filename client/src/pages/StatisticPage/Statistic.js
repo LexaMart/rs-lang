@@ -11,6 +11,7 @@ import { useHttp } from "../../hooks/http.hook";
 import { useSelector, useDispatch } from "react-redux";
 import urls from "../../assets/constants/ursl";
 import { getStatistic } from "../../redux/statistics-reducer";
+import { setCurrentPage } from '../../redux/settings-reducer'
 
 export const Statistic = () => {
   const token = useSelector((store) => store.authStore.userData.token);
@@ -67,6 +68,7 @@ export const Statistic = () => {
   //TODO if you never played it brokes
   useEffect(
     useCallback(async () => {
+      dispatch(setCurrentPage('statistic'))
       if (isAuthenticated) {
         dispatch(getStatistic(userId, token));
         const data = Object.values(statisticsOptionalData);
