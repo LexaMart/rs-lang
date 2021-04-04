@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import Header from './pages/Header/Header';
 import Footer from './pages/Footer/Footer';
 
-import './App.css';
+import './App.scss';
 import 'materialize-css';
 
 function App() {

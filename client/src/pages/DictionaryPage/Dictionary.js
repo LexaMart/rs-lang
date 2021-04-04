@@ -11,7 +11,7 @@ import { DictionaryCard } from './Components/DictionaryCard';
 import { DictionaryList } from './Components/DictionaryList';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
-import './Dictionary.css';
+import './Dictionary.scss';
 import { setCurrentPage } from '../../redux/settings-reducer';
 
 export const Dictionary = () => {

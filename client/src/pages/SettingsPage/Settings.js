@@ -1,5 +1,5 @@
 import "materialize-css";
-import "./Settings.css";
+import "./Settings.scss";
 
 import React, { useEffect, useState } from "react";
 import { Select, Switch } from "react-materialize";

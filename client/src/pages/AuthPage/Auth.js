@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { login } from '../../redux/auth-reducer'
 import { setCurrentPage } from '../../redux/settings-reducer'
 
-import './auth.css'
+import './auth.scss'
 
 export const Auth = () => {
   const dispatch = useDispatch()

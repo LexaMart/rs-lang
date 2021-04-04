@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { register } from '../../redux/auth-reducer'
 
-import './registration.css'
+import './registration.scss'
 
 export const Registration = () => {
 
