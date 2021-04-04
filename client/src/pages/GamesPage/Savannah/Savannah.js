@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Savannah.scss";
-import 'materialize-css';
-import { RS_LANG_API } from '../../../services/rs-lang-api';
+import "materialize-css";
+import { RS_LANG_API } from "../../../services/rs-lang-api";
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 import { useHttp } from "../../../hooks/http.hook";
@@ -40,6 +40,13 @@ export const Savannah = () => {
   );
   const wholeLearnedWords = useSelector(
     (store) => store.statisticsStore.learnedWords
+  );
+  const currentPage = useSelector((store) => store.settingsStore.currentPage);
+  const currentWordsPage = useSelector(
+    (store) => store.settingsStore.currentWordsPage
+  );
+  const currentWordsGroup = useSelector(
+    (store) => store.settingsStore.currentWordsGroup
   );
   const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -87,7 +94,10 @@ export const Savannah = () => {
     useCallback(async () => {
       if (isGameStarted) {
         const cards = await request(
-          `${urls.API}/words?group=${levelInputValue - 1}}&page=${pageInputValue - 1
+          `${urls.API}/words?group=${
+            currentPage !== "main" ? levelInputValue - 1 : currentWordsPage
+          }&page=${
+            currentPage !== "main" ? pageInputValue - 1 : currentWordsGroup
           }`,
           "GET"
         );
@@ -250,61 +260,67 @@ export const Savannah = () => {
   return (
     <div className="savannah-container">
       <h2>Savannah</h2>
-      {!isGameStarted && !isGameLost && <div className="rules">In this game you should choose correct translation of given word</div>}
+      {!isGameStarted && !isGameLost && (
+        <div className="rules">
+          In this game you should choose correct translation of given word
+        </div>
+      )}
       {isGameWon && <div className="win-screen">WON</div>}
       {isGameLost && <div className="lost-screen">LOST</div>}
-  {
-    !isGameStarted && (
-      <>
-        <Select
-          id="select-level"
-          multiple={false}
-          onChange={(event) => setLevelInputText(event.currentTarget.value)}
-          value={levelInputValue}
-        >
-          {levelsArray.map((el) => {
-            return <option value={el}>{el}</option>;
-          })}
-        </Select>
-        <Select
-          id="select-page"
-          multiple={false}
-          onChange={(event) => setPageInputText(event.currentTarget.value)}
-          value={pageInputValue}
-        >
-          {pagesArray.map((el) => {
-            return <option value={el}>{el}</option>;
-          })}
-        </Select>
-      </>
-    )
-  }
-  { !isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button> }
-  {
-    isGameStarted && (
-      <>
-        <div className="lives-container">
-          <div><i className="material-icons">favorite </i> x {livesArray.length}</div>
-        </div>
-        <div className="savannah-card_active activeCardFall">
-          {activeCard.word}
-        </div>
-        <div className="selection-container">
-          {cardsForSelection.map((word) => {
-            return (
-              <div
-                key={word.id}
-                onClick={(event) => handleCardClick(event, word)}
-                className="savannah-card btn red"
-              >
-                {word.wordTranslate}
-              </div>
-            );
-          })}
-        </div>
-      </>
-    )
-  }
-    </div >
+      {!isGameStarted && currentPage !== "main" && (
+        <>
+          <Select
+            id="select-level"
+            multiple={false}
+            onChange={(event) => setLevelInputText(event.currentTarget.value)}
+            value={levelInputValue}
+          >
+            {levelsArray.map((el) => {
+              return <option value={el}>{el}</option>;
+            })}
+          </Select>
+          <Select
+            id="select-page"
+            multiple={false}
+            onChange={(event) => setPageInputText(event.currentTarget.value)}
+            value={pageInputValue}
+          >
+            {pagesArray.map((el) => {
+              return <option value={el}>{el}</option>;
+            })}
+          </Select>
+        </>
+      )}
+      {!isGameStarted && (
+        <button className="btn red" onClick={startGame}>
+          {!isGameLost ? "Start" : "Retry"}
+        </button>
+      )}
+      {isGameStarted && (
+        <>
+          <div className="lives-container">
+            <div>
+              <i className="material-icons">favorite </i> x {livesArray.length}
+            </div>
+          </div>
+          <div className="savannah-card_active activeCardFall">
+            {activeCard.word}
+          </div>
+          <div className="selection-container">
+            {cardsForSelection.map((word) => {
+              return (
+                <div
+                  key={word.id}
+                  onClick={(event) => handleCardClick(event, word)}
+                  className="savannah-card btn red"
+                >
+                  {word.wordTranslate}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
   );
 };
