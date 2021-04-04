@@ -26,7 +26,7 @@ const setUpHeader = (props) => shallow(<Header {...props} />)
 test('Rendered Header have container element', () => {
   const component = setUpHeader()
   const container = component.find('.header_container')
-  expect(container.length).toBe(1)
+  expect(container).toBeDefined()
 })
 
 test('Verify footer snapshot', () => {

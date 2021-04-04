@@ -9,7 +9,7 @@ let initialState = {
 test('User will be logouted', () => {
   let newState = authReducer(initialState, { type: "SET_DEFAULT_VALUES" });
   initialState.isAuthorized = true
-  expect(newState.isAuthorized).toBe(false);
+  expect(newState.isAuthorized).toBeFalsy();
 });
 
 test('User data will be added', () => {
@@ -19,5 +19,5 @@ test('User data will be added', () => {
 
 test('Set loading in progress', () => {
   let newState = authReducer(initialState, { type: "AUTH_REDUCER_TOGGLE_IS_LOADING_PROGRESS", isLoading: true })
-  expect(newState.isLoading).toBe(true)
+  expect(newState.isLoading).toBeTruthy()
 })
