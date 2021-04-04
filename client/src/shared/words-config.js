@@ -73,7 +73,7 @@ export const WORDS_CONFIG = {
     native: 'Английский',
   },
   NATIVE_LANGUAGE: {
-    foreign: 'Russhian',
+    foreign: 'Russian',
     native: 'Русский',
   },
   SETTINGS: {
@@ -111,5 +111,13 @@ export const WORDS_CONFIG = {
   PROMO_PAGE: {
     foreign: 'Promo',
     native: 'Промо',
+  },
+  FIRST_STATISTIC_CHART_NAME: {
+    foreign: 'Correct and incorrect answers for every day',
+    native: 'Правильные и не правильные ответы по каждому дню',
+  },
+  SECOND_STATISTIC_CHART_NAME: {
+    foreign: 'Learned words for the entire period',
+    native: 'Изученные слова за весь период',
   }
 };
