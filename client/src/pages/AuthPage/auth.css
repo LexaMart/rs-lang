@@ -6,7 +6,7 @@
 }
 
 .auth_card {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .auth_container {
@@ -23,4 +23,18 @@
 .card-action {
   display: flex !important;
   justify-content: center !important;
+  border-top: 1px solid rgba(160,160,160,0) !important;
+}
+
+.row {
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+}
+
+.sign_in_btn_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }

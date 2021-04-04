@@ -1,5 +1,5 @@
 .game-block {
-  width: 80%;
+  width: 60%;
   height: 85vh;
   display: flex;
   align-items: center;
@@ -30,4 +30,10 @@
 
 .reverse {
   transform: rotate(180deg);
+}
+
+.word-to-guess {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
 }

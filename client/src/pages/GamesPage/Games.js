@@ -7,9 +7,6 @@ import savannah from '../../assets/images/lion.svg';
 import audio from '../../assets/images/audio.svg';
 import joystick from '../../assets/images/joystick.svg';
 import sprint from '../../assets/images/sprint.svg';
-
-
-
 import './games.scss';
 
 

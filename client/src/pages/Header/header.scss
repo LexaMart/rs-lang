@@ -35,3 +35,56 @@
 .burger-image:hover {
     width: 55%;
 }
+
+.game_links_container {
+    height: 80%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.game_link {
+    width: 45px;
+    height: 45px;
+}
+
+.link_container {
+    width: 45px;
+    height: 45px;
+}
+
+@media (max-width: 860px) and (min-width: 465px) {
+    .game_link {
+        width: 35px;
+        height: 35px;
+    }
+    .link_container {
+        width: 35px;
+        height: 35px;
+    }
+    .game_links_container {
+        width: 40%;
+    }
+    
+}
+
+@media (max-width: 464px) {
+    .app_logo {
+        font-size: 24px;
+    }
+    .game_link {
+        width: 28px;
+        height: 28px;
+    }
+    .link_container {
+        width: 28px;
+        height: 28px;
+    }
+    .burger-image {
+        width: 40%;
+    }
+    .burger-block {
+        width: 50px;
+    }
+}

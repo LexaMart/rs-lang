@@ -29,3 +29,13 @@
     width: 42px;
     border-radius: 50%;
 }
+
+@media (max-width: 464px) {
+    .link {
+        height: 24px;
+        width: 24px;
+    }
+    .course_logo {
+        height: 30px;
+    }
+}

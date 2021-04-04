@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendStatistic } from '../../../GameUtilities/GameUtilities'
 import { setSprintLearnedWords, setSprintIncorrectAnswers } from '../../../../../redux/statistics-reducer'
 import { sprintStates } from '../../../../../assets/constants/sprintStates';
+import './timer.scss';
 
 
 export const Timer = ({ numOfLearned, numOfIncorrect, setIsGameStarted }) => {
@@ -42,6 +43,6 @@ export const Timer = ({ numOfLearned, numOfIncorrect, setIsGameStarted }) => {
   }, [time])
 
   return (
-    <div>{time}</div>
+    <div className="timer_container">{time}</div>
   )
 }

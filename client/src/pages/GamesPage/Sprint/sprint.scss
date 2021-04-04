@@ -3,12 +3,13 @@
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
-  height: 85vh;
+  height: 84.3vh;
+  user-select: none;
 }
 .game-handler {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 100%;
+  width: 80%;
   align-items: center;
 }

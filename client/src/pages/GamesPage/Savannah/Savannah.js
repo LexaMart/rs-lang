@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Savannah.scss";
-import { RS_LANG_API } from "../../../services/rs-lang-api";
-
+import 'materialize-css';
+import { RS_LANG_API } from '../../../services/rs-lang-api';
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 import { useHttp } from "../../../hooks/http.hook";
@@ -87,8 +87,7 @@ export const Savannah = () => {
     useCallback(async () => {
       if (isGameStarted) {
         const cards = await request(
-          `${urls.API}/words?group=${levelInputValue - 1}}&page=${
-            pageInputValue - 1
+          `${urls.API}/words?group=${levelInputValue - 1}}&page=${pageInputValue - 1
           }`,
           "GET"
         );
@@ -251,58 +250,61 @@ export const Savannah = () => {
   return (
     <div className="savannah-container">
       <h2>Savannah</h2>
-      {isGameWon && <div className="win-screen">WIN</div>}
+      {!isGameStarted && !isGameLost && <div className="rules">In this game you should choose correct translation of given word</div>}
+      {isGameWon && <div className="win-screen">WON</div>}
       {isGameLost && <div className="lost-screen">LOST</div>}
-      {!isGameStarted && (
-        <>
-          <Select
-            id="select-level"
-            multiple={false}
-            onChange={(event) => setLevelInputText(event.currentTarget.value)}
-            value={levelInputValue}
-          >
-            {levelsArray.map((el) => {
-              return <option value={el}>{el}</option>;
-            })}
-          </Select>
-          <Select
-            id="select-page"
-            multiple={false}
-            onChange={(event) => setPageInputText(event.currentTarget.value)}
-            value={pageInputValue}
-          >
-            {pagesArray.map((el) => {
-              return <option value={el}>{el}</option>;
-            })}
-          </Select>
-        </>
-      )}
-      {!isGameStarted && <button onClick={startGame}>Start</button>}
-      {isGameStarted && (
-        <>
-          <div className="lives-container">
-            {livesArray.map((live) => {
-              return <div>X</div>;
-            })}
-          </div>
-          <div className="savannah-card_active activeCardFall">
-            {activeCard.word}
-          </div>
-          <div className="selection-container">
-            {cardsForSelection.map((word) => {
-              return (
-                <div
-                  key={word.id}
-                  onClick={(event) => handleCardClick(event, word)}
-                  className="savannah-card"
-                >
-                  {word.wordTranslate}
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
-    </div>
+  {
+    !isGameStarted && (
+      <>
+        <Select
+          id="select-level"
+          multiple={false}
+          onChange={(event) => setLevelInputText(event.currentTarget.value)}
+          value={levelInputValue}
+        >
+          {levelsArray.map((el) => {
+            return <option value={el}>{el}</option>;
+          })}
+        </Select>
+        <Select
+          id="select-page"
+          multiple={false}
+          onChange={(event) => setPageInputText(event.currentTarget.value)}
+          value={pageInputValue}
+        >
+          {pagesArray.map((el) => {
+            return <option value={el}>{el}</option>;
+          })}
+        </Select>
+      </>
+    )
+  }
+  { !isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button> }
+  {
+    isGameStarted && (
+      <>
+        <div className="lives-container">
+          <div><i className="material-icons">favorite </i> x {livesArray.length}</div>
+        </div>
+        <div className="savannah-card_active activeCardFall">
+          {activeCard.word}
+        </div>
+        <div className="selection-container">
+          {cardsForSelection.map((word) => {
+            return (
+              <div
+                key={word.id}
+                onClick={(event) => handleCardClick(event, word)}
+                className="savannah-card btn red"
+              >
+                {word.wordTranslate}
+              </div>
+            );
+          })}
+        </div>
+      </>
+    )
+  }
+    </div >
   );
 };

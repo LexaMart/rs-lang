@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { RS_LANG_API } from "../../../services/rs-lang-api";
-
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 import { WORDS_CONFIG } from "../../../shared/words-config";
@@ -11,6 +10,8 @@ import {
   getStatistic,
 } from "../../../redux/statistics-reducer";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
+import './audiocall.scss';
+import 'materialize-css';
 
 export const AudioCall = () => {
   const dispatch = useDispatch();
@@ -161,35 +162,40 @@ export const AudioCall = () => {
   return (
     <div className="savannah-container">
       <h2>AudioCall</h2>
+      {!isGameStarted && <div className="rules">In this game you should choose correct translation of audio that you listen</div>}
       {isGameWon && <div className="win-screen">WIN</div>}
       {isGameLost && <div className="lost-screen">LOST</div>}
-      {!isGameStarted && <button onClick={startGame}>Start</button>}
+      {!isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button>}
       {isGameStarted && (
         <div className="lives-container">
-          {livesArray.map((live) => {
-            return <div>X</div>;
-          })}
-        </div>
+        <div><i className="material-icons">favorite </i> x {livesArray.length}</div>
+      </div>
       )}
       {isGameStarted && (
-        <div>
-          {activeCard.word}
-          {isImageShown && (
-            <img src={`${RS_LANG_API}${activeCard.image}`} alt="word_image" />
-          )}
+        <div >
+          {isImageShown && <div className="white-text word_text">{activeCard.word}</div>}
+          {isImageShown && <img className="correct_word_image" src={`${RS_LANG_API}${activeCard.image}`} alt="word_image"/>}
         </div>
       )}
-      {isGameStarted && <button onClick={playActiveCardAudio}>PLAY</button>}
-      {isGameStarted && <button onClick={handleNextButtonClick}>Next</button>}
-
+      {isGameStarted && <button
+        className="btn play" onClick={playActiveCardAudio}
+      >
+        <i className="material-icons">volume_up </i>
+      </button>}
+      {isGameStarted &&  <button className="btn"
+        onClick={handleNextButtonClick}
+      >
+        Next
+      </button>}
+     
       {isGameStarted && (
-        <div className="selection-container">
+        <div className={isImageShown ? "selection-audio-container-end" : "selection-audio-container"}>
           {cardsForSelection.map((word) => {
             return (
               <div
                 key={word.id}
                 onClick={(event) => handleCardClick(event, word)}
-                className="savannah-card"
+                className= "btn red audiocall-card"
               >
                 {word.wordTranslate}
               </div>

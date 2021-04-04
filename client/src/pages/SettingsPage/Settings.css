@@ -4,12 +4,13 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 84.3vh;
     background: linear-gradient(180deg, #F08A5D 0%, #B83B5E 100%)
 }
 
 h2 {
     color: #fff;
+    margin: 0;
 }
 
 .switch-container {
@@ -42,3 +43,23 @@ label {
 .dropdown-content li>span {
     font-size: 2rem;
 }
+
+@media (max-width: 400px) {
+    .switch-label {
+        font-size: 1.5rem;
+    }
+    label {
+        font-size: 1.5rem;
+        color: #fff;
+    }
+    .select-wrapper+label {
+        font-size: 1.5rem;
+        margin-bottom: 2vh;
+    }
+    
+    .select-wrapper input.select-dropdown {
+        font-size: 1.5rem;
+        color: #fff;
+    }
+
+  }

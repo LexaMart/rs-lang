@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-
 import { SprintGame } from './components/Sprint/SprintGame'
 import { SprintRules } from './components/SprintRules/SprintRules'
 import { useHttp } from '../../../hooks/http.hook';
@@ -9,8 +8,6 @@ import { Timer } from './components/Timer/Timer';
 import { sprintStates } from '../../../assets/constants/sprintStates';
 import { Score } from './components/Score/Score';
 import { Finish } from './components/Finish/Finish';
-
-
 import './sprint.scss'
 
 export const Sprint = () => {
@@ -36,7 +33,6 @@ export const Sprint = () => {
       }
       {isGameStarted === sprintStates.pending && gameArr.length &&
         <>
-          <Score score={score} />
           <div className="game-handler">
             <SprintGame numberOfLearned={numberOfLearnedWords}
               numberOfIncorrect={numberOfLearnedWords}

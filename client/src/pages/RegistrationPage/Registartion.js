@@ -32,7 +32,7 @@ export const Registration = () => {
 
   return (
     <div className="row reg_container">
-      <div className="col s6 offset-s3">
+      <div id="sign_up_form" className="col s6 offset-s3">
         <div className="card reg_card">
           <div className="card-content white-text">
             <span className="card-title" style={{ textAlign: 'center' }}>Sign up</span>
@@ -56,7 +56,7 @@ export const Registration = () => {
                 <label htmlFor="password" className="active">Password</label>
               </div>
             </div>
-            <div className="input-field">
+            <div className="input-field photo_field">
               <input placeholder="Set your photo "
                 accept="image/jpeg"
                 id="Photo"
@@ -67,13 +67,13 @@ export const Registration = () => {
               />
             </div>
           </div>
-          <div className="card-action">
+          <div className="sign_in_btn_area">
             <button onClick={registerHandler} disabled={isLoading} className="btn waves-effect red waves-light" type="submit" name="action">Sign up!
             <i className="material-icons right">send</i>
             </button>
           </div>
           <div className="link-block">
-            <NavLink className="btn" to="/login">Sign in</NavLink>
+            <NavLink className="btn sign_in_button" to="/login">Sign in</NavLink>
           </div>
         </div>
 
