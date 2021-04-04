@@ -34,7 +34,7 @@ export const Sprint = () => {
           <div className="game-handler">
           <div className="white-text">Your score: <Score score={score} /></div>
             <SprintGame gameArr={gameArr} score={score} setScore={setScore} />
-            <div className="white-text">Time left: <Timer setIsGameStarted={setIsGameStarted} /></div>
+            <Timer setIsGameStarted={setIsGameStarted} />
           </div>
         </>
       }

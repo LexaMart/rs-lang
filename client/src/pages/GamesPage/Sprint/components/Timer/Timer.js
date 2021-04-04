@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-
 import { sprintStates } from '../../../../../assets/constants/sprintStates';
+import './timer.scss';
 
 
 export const Timer = ({setIsGameStarted}) => {
@@ -25,6 +25,6 @@ export const Timer = ({setIsGameStarted}) => {
   }, [time])
 
   return (
-    <div>{time}</div>
+    <div className="timer_container">{time}</div>
   )
 }

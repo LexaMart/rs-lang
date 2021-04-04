@@ -25,6 +25,15 @@
     height: 60px;
 }
 
+.youtube_video_container {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+.youtube_video {
+    border-radius: 20%;
+}
+
 .head_card {
     font-size: 22px;
     margin-bottom: 1%;
@@ -38,6 +47,7 @@
     width: 40%;
     display: flex;
     justify-content: space-around;
+    margin-top: 3%;
 }
 
 .head_promo_img {

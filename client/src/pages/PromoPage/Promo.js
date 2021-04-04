@@ -15,6 +15,9 @@ export const Promo = () => {
         <div className="info_promo">Приложение для изучения иностранных слов с техникой отслеживания индивидуального прогресса, мини-играми и словарем на 3600 слов, для каждого из которых дана его транскрипция, пример применения и многое другое.</div>
         <div><img src={Picture} alt="img" className="head_promo_img" /></div>
       </div>
+      <div className="youtube_video_container">
+      <iframe classname="youtube_video" width="560" height="315" src="https://www.youtube.com/embed/-043FORA-Gc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
       <div className="feature_card card">
         <div className="feature_info">
           <div className="head_card">Игры</div>
