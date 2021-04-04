@@ -11,7 +11,7 @@ export const UserInfo = () => {
     <div className="user-block">
       <p className="user-name">{userName}</p>
       <div className='image-handler'>
-        <img className="avatar" alt="avatar" src={`${RS_LANG_API}${avatar}`} />
+        <img className="avatar" alt="avatar" src={`${avatar}`} />
       </div>
     </div>
   )
