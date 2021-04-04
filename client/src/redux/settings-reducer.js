@@ -4,6 +4,8 @@ const ACTION_CONST = {
   SET_ACTIVE_LANGUAGE: "SET_ACTIVE_LANGUAGE",
   SET_GAME_DIFFICULT: "SET_GAME_DIFFICULT",
   SET_CURRENT_PAGE: "SET_CURRENT_PAGE",
+  SET_CURRENT_WORDS_GROUP: "SET_CURRENT_WORDS_GROUP",
+  SET_CURRENT_WORDS_PAGE: "SET_CURRENT_WORDS_PAGE",
 };
 
 export const DEFAULT_VALUES = {
@@ -13,10 +15,14 @@ export const DEFAULT_VALUES = {
   FALSE: false,
   LANGUAGE: "en",
   DIFFICULT: 6,
+  WORDS_GROUP: 0,
+  WORDS_PAGE: 0,
 };
 
 let initialState = {
   currentPage: DEFAULT_VALUES.CURRENT_PAGE,
+  currentWordsGroup: DEFAULT_VALUES.WORDS_GROUP,
+  currentWordsPage: DEFAULT_VALUES.WORDS_PAGE,
   isTranslationShown: DEFAULT_VALUES.TRUE,
   isAdditionalButtonsShown: DEFAULT_VALUES.TRUE,
   activeLanguage: DEFAULT_VALUES.LANGUAGE,
@@ -55,6 +61,18 @@ export const settingsReducer = (state = initialState, action) => {
           currentPage: action.page
         }
       }
+      case ACTION_CONST.SET_CURRENT_WORDS_GROUP: {
+        return {
+          ...state,
+          currentWordsGroup: action.wordsGroup
+        }
+      }
+      case ACTION_CONST.SET_CURRENT_WORDS_PAGE: {
+        return {
+          ...state,
+          currentWordsPage: action.wordsPage
+        }
+      }
     default:
       return state;
   }
@@ -83,6 +101,16 @@ export const setGameDifficult = (gameDifficult) => ({
 export const setCurrentPage = (page) => ({
   type: ACTION_CONST.SET_CURRENT_PAGE,
   page
+});
+
+export const setCurrentWordsGroup = (wordsGroup) => ({
+  type: ACTION_CONST.SET_CURRENT_WORDS_GROUP,
+  wordsGroup
+});
+
+export const setCurrentWordsPage = (wordsPage) => ({
+  type: ACTION_CONST.SET_CURRENT_WORDS_PAGE,
+  wordsPage
 });
 
 export default settingsReducer;
