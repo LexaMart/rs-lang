@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useParams, useRouteMatch, Link } from 'react-router-dom';
 
@@ -86,22 +87,26 @@ const DictionaryWordCard = ({
   );
 };
 export const DictionaryList = ({
-  data = [],
   token,
   language = 'en',
   nameList,
+  pageRender,
+  isPageRender,
 }) => {
   let { list } = useParams();
   let { path } = useRouteMatch();
 
-  const dataLength = data[0] ? data[0].length : 0;
-  const wordsCurrentData = data[0] ? data[0].slice(0, 20) : [];
-
-  const wordsHard = data[1];
+  const userLearningWords = useSelector(
+    (store) => store.authStore.userLearningWords
+  );
+  const userHardWords = useSelector((store) => store.authStore.userHardWords);
+  const userDeletedWords = useSelector(
+    (store) => store.authStore.userDeletedWords
+  );
 
   const [page, setPage] = useState(1);
-  const [currentData, setCurrentData] = useState(wordsCurrentData);
-  const [nextDataLength, setNextDataLength] = useState(dataLength);
+  const [currentData, setCurrentData] = useState([]);
+  const [nextDataLength, setNextDataLength] = useState(0);
   const [modalActive, setModalActive] = useState(false);
   const [isWordRecovery, setWordRecovery] = useState(false);
   const [currWord, setCurrWord] = useState({
@@ -111,14 +116,23 @@ export const DictionaryList = ({
   });
 
   useEffect(() => {
+    if (isPageRender) {
+      setCurrentData((prev) => currentDataList());
+      pageRender(false);
+    }
+  }, [isPageRender]);
+
+  useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      setCurrentData((prev) => getCurrentDataWords());
+      const dataWords = currentDataList();
+      setCurrentData((prev) => dataWords);
+      setNextDataLength(dataWords.length);
     }
     return () => {
       isMounted = false;
     };
-  }, [page]);
+  }, []);
 
   const style =
     nameList === 'learning'
@@ -142,24 +156,43 @@ export const DictionaryList = ({
   const pageBack = path.replace(/\/:list/g, '');
 
   const getItemHard = (el) => {
-    return wordsHard.includes(el);
+    return userHardWords ? userHardWords.includes(el) : null;
   };
 
-  const getCurrentDataWords = () => {
-    const startIndexDataWords = 20 * (page - 1);
-
-    const arrayCurrentWords = data[0]
-      ? data[0].slice(startIndexDataWords, startIndexDataWords + 20)
-      : [];
-    return arrayCurrentWords;
+  const currentDataList = () => {
+    let data = [];
+    list === 'learning'
+      ? (data = [...userLearningWords, ...userHardWords])
+      : list === 'hard'
+      ? (data = userHardWords)
+      : (data = userDeletedWords);
+    return data;
   };
+
+  let dataListWords = currentDataList();
 
   const changePage = (incr) => {
     const nextPage = page + incr;
 
     const wordsNextDataLength =
-      dataLength > 20 ? dataLength - 20 * (nextPage - 1) : 0;
+      currentData.length > 20 ? currentData.length - 20 * (nextPage - 1) : 0;
 
+    const startIndexDataWords = 20 * (nextPage - 1);
+
+    const newData = currentDataList();
+    const arrayCurrentWords =
+      newData.length > 0
+        ? newData.slice(startIndexDataWords, startIndexDataWords + 20)
+        : [];
+    dataListWords = arrayCurrentWords;
+    console.log(
+      dataListWords.length,
+      currentData.length,
+      wordsNextDataLength,
+      page,
+      nextPage
+    );
+    // setCurrentData(prev=>)
     setNextDataLength(wordsNextDataLength);
     setPage(nextPage);
   };
@@ -168,21 +201,20 @@ export const DictionaryList = ({
     <div className="word_container__lists">
       <h3 className="word_container__title white-text">{getTitle()}</h3>
       <div className="word_container">
-        {currentData &&
-          currentData.map((el) => {
-            const hard = getItemHard(el);
-            return (
-              <DictionaryWordCard
-                element={el}
-                token={token}
-                key={el}
-                hard={hard}
-                currentWord={setCurrWord}
-                modalActive={setModalActive}
-                isWordRecovery={setWordRecovery}
-              />
-            );
-          })}
+        {dataListWords.map((el) => {
+          const hard = getItemHard(el);
+          return (
+            <DictionaryWordCard
+              element={el}
+              token={token}
+              key={el}
+              hard={hard}
+              currentWord={setCurrWord}
+              modalActive={setModalActive}
+              isWordRecovery={setWordRecovery}
+            />
+          );
+        })}
       </div>
       <div className="navigation">
         {page > 1 ? (
@@ -194,7 +226,7 @@ export const DictionaryList = ({
           </i>
         ) : null}
         <div className="page_number white-text">
-          {dataLength === 0
+          {currentData.length === 0
             ? language === 'en'
               ? 'No Words'
               : 'Нет слов'
@@ -221,6 +253,7 @@ export const DictionaryList = ({
         setActive={setModalActive}
         currElement={currWord}
         isDeleted={list === 'deleted' || isWordRecovery}
+        pageRender={pageRender}
       />
     </div>
   );
