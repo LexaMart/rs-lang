@@ -1,36 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Row, Col } from 'react-materialize';
+import { Row, Col } from "react-materialize";
 
-import { getUserWord } from '../../services/getAllWords';
-import { DictionaryLoader } from '../../components/Loader';
-import { Progress } from './Components/Progress';
-import { DictionaryCard } from './Components/DictionaryCard';
-import { DictionaryList } from './Components/DictionaryList';
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
+import { getUserWord } from "../../services/getAllWords";
+import { DictionaryLoader } from "../../components/Loader";
+import { Progress } from "./Components/Progress";
+import { DictionaryCard } from "./Components/DictionaryCard";
+import { DictionaryList } from "./Components/DictionaryList";
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
 
-import './Dictionary.scss';
-import { setCurrentPage } from '../../redux/settings-reducer';
+import "./Dictionary.scss";
+import { setCurrentPage } from "../../redux/settings-reducer";
+import {
+  setUserLearningWords,
+  setUserHardWords,
+  setUserDeletedWords,
+} from "../../redux/auth-reducer";
 
 export const Dictionary = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const language = useSelector((store) => store.settingsStore.activeLanguage);
   const { userData } = useSelector((store) => store.authStore);
 
   const [isLoadingWords, setLoadingWords] = useState(true);
-  const [nameCards, setNameCards] = useState('');
+  const [nameCards, setNameCards] = useState("");
 
-  const [userLearningWords, setUserLearningWords] = useState([]);
-  const [userHardWords, setUserHardWords] = useState([]);
-  const [userDelWords, setUserDelWords] = useState([]);
+  // const [userLearningWords, setUserLearningWords] = useState([]);
+  // const [userHardWords, setUserHardWords] = useState([]);
+  // const [userDelWords, setUserDelWords] = useState([]);
+  const userLearningWords = useSelector(
+    (store) => store.authStore.userLearningWords
+  );
+  const userHardWords = useSelector((store) => store.authStore.userHardWords);
+  const userDeletedWords = useSelector(
+    (store) => store.authStore.userDeletedWords
+  );
   const [userWordsData, setUserWordsData] = useState([]);
 
   let { path } = useRouteMatch();
 
   useEffect(() => {
-    dispatch(setCurrentPage('dictionary'))
+    dispatch(setCurrentPage("dictionary"));
     const { token, userId } = userData;
     const words = async () => {
       await getUserWord({
@@ -38,17 +50,20 @@ export const Dictionary = () => {
         userId: userId,
       }).then((res) => {
         const arrLearnWords = res
-          .filter((item) => item.difficulty === 'learned')
+          .filter((item) => item.difficulty === "learned")
           .map((item) => item.wordId);
         const arrHardWords = res
-          .filter((item) => item.difficulty === 'hard')
+          .filter((item) => item.difficulty === "hard")
           .map((item) => item.wordId);
         const arrDelWords = res
-          .filter((item) => item.difficulty === 'deleted')
+          .filter((item) => item.difficulty === "deleted")
           .map((item) => item.wordId);
-        setUserLearningWords(arrLearnWords);
-        setUserHardWords(arrHardWords);
-        setUserDelWords(arrDelWords);
+        // setUserLearningWords(arrLearnWords);
+        // setUserHardWords(arrHardWords);
+        // setUserDelWords(arrDelWords);
+        dispatch(setUserLearningWords(arrLearnWords));
+        dispatch(setUserHardWords(arrHardWords));
+        dispatch(setUserDeletedWords(arrDelWords));
         setLoadingWords(false);
       });
     };
@@ -69,13 +84,13 @@ export const Dictionary = () => {
         ? [...userLearningWords, ...userHardWords]
         : index === 1
         ? userHardWords
-        : userDelWords;
-    const name = index === 0 ? 'learning' : index === 1 ? 'hard' : 'deleted';
+        : userDeletedWords;
+    const name = index === 0 ? "learning" : index === 1 ? "hard" : "deleted";
     setUserWordsData([data, userHardWords]);
     setNameCards(name);
   };
   const totalWords =
-    userLearningWords.length + userHardWords.length + userDelWords.length;
+    userLearningWords.length + userHardWords.length + userDeletedWords.length;
 
   return (
     <div className="dictionary valign-wrapper">
@@ -103,7 +118,7 @@ export const Dictionary = () => {
                       number={[
                         userLearningWords.length + userHardWords.length,
                         userHardWords.length,
-                        userDelWords.length,
+                        userDeletedWords.length,
                       ]}
                       isLoader={isLoadingWords}
                     />
