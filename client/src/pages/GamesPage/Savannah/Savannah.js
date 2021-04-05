@@ -14,7 +14,11 @@ import {
   setSavannahIncorrectAnswers,
   getStatistic,
 } from "../../../redux/statistics-reducer";
+import { rsLangApi } from "../../../services/rs-lang-api";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
+import correctAudio from "../../../assets/sounds/correct.mp3";
+import errorAudio from "../../../assets/sounds/error.mp3";
+import savannahCrystalImg from "../../../assets/images/savannah_crystal.png";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -62,17 +66,15 @@ export const Savannah = () => {
   const pagesArray = [];
 
   const [cardsForSelection, setCardsForSelection] = useState(null);
+  const [isWordFalling, setIsWordFalling] = useState(GAME_DEFAULT_VALUES.FALSE);
+  const [isActiveCardSpacing, setIsActiveCardSpacing] = useState(
+    GAME_DEFAULT_VALUES.FALSE
+  );
 
   const [levelInputValue, setLevelInputText] = useState(1);
   const [pageInputValue, setPageInputText] = useState(1);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (activeCard) {
-      playActiveCardAudio();
-    }
-  }, [activeCard]);
 
   for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
     levelsArray.push(i + 1);
@@ -83,8 +85,16 @@ export const Savannah = () => {
 
   const startGame = () => {
     setDefaultGameSettings();
+    // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
+    //TODO add spinner
     setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
     setRandomActiveCardAndCardsForSelection();
+
+    // setTimeout(()=> {
+    //   setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
+    //   setRandomActiveCardAndCardsForSelection();
+
+    // }, 0)
     if (isAuthenticated) {
       dispatch(getStatistic(userId, token));
     }
@@ -104,13 +114,39 @@ export const Savannah = () => {
         setWordsArray(cards);
         setRemainWordsArray(cards);
       }
-    }, [isGameStarted, levelInputValue, pageInputValue, request]),
+    }, [
+      currentPage,
+      currentWordsGroup,
+      currentWordsPage,
+      isGameStarted,
+      levelInputValue,
+      pageInputValue,
+      request,
+    ]),
     [isGameStarted]
   );
+
+  useEffect(() => {
+    if (isGameStarted) {
+      playActiveCardAudio();
+      const interval = setInterval(() => {
+        notGuessTheWord();
+      }, 5000);
+      //TODO handle right guess
+      if (!isWordFalling) {
+        // clearInterval(interval)
+      }
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [activeCard]);
 
   const setDefaultGameSettings = async () => {
     setNumberOfLearnedWords(0);
     setNumberOfIncorrectAnswers(0);
+    setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
+    setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
     setLivesArray(GAME_DEFAULT_VALUES.LIVES_ARRAY);
     setIsGameLost(GAME_DEFAULT_VALUES.FALSE);
     setIsGameWon(GAME_DEFAULT_VALUES.FALSE);
@@ -123,6 +159,17 @@ export const Savannah = () => {
   const playActiveCardAudio = () => {
     const audio = new Audio();
     audio.src = `${RS_LANG_API}${activeCard.audio}`;
+    audio.play();
+  };
+
+  const playCorrectAudio = () => {
+    const audio = new Audio();
+    audio.src = correctAudio;
+    audio.play();
+  };
+  const playErrorAudio = () => {
+    const audio = new Audio();
+    audio.src = errorAudio;
     audio.play();
   };
 
@@ -146,22 +193,12 @@ export const Savannah = () => {
   };
 
   const handleCardClick = async (event, word) => {
+    setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
     if (word.id === activeCard.id) {
       guessTheWord();
       setNumberOfLearnedWords(numberOfLearnedWords + 1);
       if (isAuthenticated) {
-        await request(
-          `${urls.API}/users/${userId}/words/${word.id}`,
-          "POST",
-          {
-            difficulty: "learned",
-          },
-          {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          }
-        );
+        rsLangApi.postUserWord(token, userId, word.id, "learned");
       }
     } else notGuessTheWord();
   };
@@ -169,6 +206,8 @@ export const Savannah = () => {
   const setRandomActiveCardAndCardsForSelection = () => {
     const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
     const remainWordsArrayForSelection = [...remainWordsArray];
+    setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
+    setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
 
     setActiveCard(remainWordsArray[activeCardIndex]);
     setCardsForSelection(() =>
@@ -179,53 +218,52 @@ export const Savannah = () => {
   };
 
   const guessTheWord = () => {
+    playCorrectAudio();
+    setIsActiveCardSpacing(GAME_DEFAULT_VALUES.TRUE);
+    setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
     if (remainWordsArray.length) {
-      setRandomActiveCardAndCardsForSelection();
+      setTimeout(() => {
+        setRandomActiveCardAndCardsForSelection();
+      }, 300);
+      // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     } else {
-      setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
-      setActiveCard(null);
-      //TODO is it necessary???
-      // dispatch(addLearnedWords(numberOfLearnedWords));
-
-      dispatch(setSavannahLearnedWords(numberOfLearnedWords));
-      dispatch(setSavannahIncorrectAnswers(numberOfIncorrectAnswers));
-      sendStatistic(
-        isAuthenticated,
-        userId,
-        token,
-        wholeLearnedWords,
-        optionalStatisticObject,
-        numberOfLearnedWords,
-        numberOfIncorrectAnswers
-      );
+      setEndGameSettings();
     }
   };
 
   const notGuessTheWord = () => {
+    // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
+    setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
+    playErrorAudio();
     const remainLivesArray = [...livesArray];
     remainLivesArray.splice(0, 1);
     setLivesArray(remainLivesArray);
     setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1);
-    if (!remainLivesArray.length) {
-      setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
+    if (remainLivesArray.length) {
+      setTimeout(() => {
+        setRandomActiveCardAndCardsForSelection();
+      }, 300);
+    } else {
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
-      setActiveCard(null);
-      //TODO is it necessary???
-      // dispatch(addLearnedWords(numberOfLearnedWords));
-
-      dispatch(setSavannahLearnedWords(numberOfLearnedWords));
-      dispatch(setSavannahIncorrectAnswers(numberOfIncorrectAnswers));
-      sendStatistic(
-        isAuthenticated,
-        userId,
-        token,
-        wholeLearnedWords,
-        optionalStatisticObject,
-        numberOfLearnedWords,
-        numberOfIncorrectAnswers
-      );
+      setEndGameSettings();
     }
+  };
+
+  const setEndGameSettings = () => {
+    setIsGameStarted(GAME_DEFAULT_VALUES.FALSE);
+    setActiveCard(null);
+    dispatch(setSavannahLearnedWords(numberOfLearnedWords));
+    dispatch(setSavannahIncorrectAnswers(numberOfIncorrectAnswers));
+    sendStatistic(
+      isAuthenticated,
+      userId,
+      token,
+      wholeLearnedWords,
+      optionalStatisticObject,
+      numberOfLearnedWords,
+      numberOfIncorrectAnswers
+    );
   };
 
   useKey(
@@ -259,11 +297,13 @@ export const Savannah = () => {
 
   return (
     <div className="savannah-container">
-      <h2>Savannah</h2>
       {!isGameStarted && !isGameLost && (
-        <div className="rules">
-          In this game you should choose correct translation of given word
-        </div>
+        <>
+          <h2>Savannah</h2>
+          <div className="rules">
+            In this game you should choose correct translation of given word
+          </div>
+        </>
       )}
       {isGameWon && <div className="win-screen">WON</div>}
       {isGameLost && <div className="lost-screen">LOST</div>}
@@ -299,26 +339,42 @@ export const Savannah = () => {
       {isGameStarted && (
         <>
           <div className="lives-container">
-            <div>
-              <i className="material-icons">favorite </i> x {livesArray.length}
+            {livesArray.map((el, index) => {
+              return (
+                <i key={`live${el}${index}`} className="material-icons">
+                  favorite{" "}
+                </i>
+              );
+            })}
+          </div>
+          {/* {activeCard && (
+        <div className={isWordFalling ? `savannah-card_active activeCardFall` : 'savannah-card_active'}>
+              {activeCard.word}
             </div>
-          </div>
-          <div className="savannah-card_active activeCardFall">
-            {activeCard.word}
-          </div>
+          )} */}
+          {activeCard && (
+            <div
+              className={`savannah-card_active ${
+                isWordFalling ? "activeCardFall" : ""
+              } ${isActiveCardSpacing ? "activeCardSpacing" : ""}`}
+            >
+              {activeCard.word}
+            </div>
+          )}
           <div className="selection-container">
-            {cardsForSelection.map((word) => {
+            {cardsForSelection.map((word, index) => {
               return (
                 <div
                   key={word.id}
                   onClick={(event) => handleCardClick(event, word)}
                   className="savannah-card btn red"
                 >
-                  {word.wordTranslate}
+                  {index + 1}.{word.wordTranslate}
                 </div>
               );
             })}
           </div>
+          <img className="savannah_crystal" src={savannahCrystalImg} alt='savannah_crystal'/>
         </>
       )}
     </div>
