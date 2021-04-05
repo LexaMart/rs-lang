@@ -3,18 +3,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHttp } from '../../../hooks/http.hook';
 import { Rules } from './components/Rules';
 import { rsLangApi } from '../../../services/rs-lang-api';
+import { MAX_NUMBER } from '../Savannah/Savannah';
 import urls from '../../../assets/constants/ursl'
 import { setMyGameLearnedWords, setMyGameIncorrectAnswers, getStatistic } from '../../../redux/statistics-reducer'
 import { sendStatistic } from '../GameUtilities/GameUtilities'
+import { Select } from "react-materialize";
 import './myGame.scss';
 import 'materialize-css';
 
 export const MyGame = () => {
   const dispatch = useDispatch()
+  const levelsArray = [];
+  const pagesArray = [];
+  for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
+    levelsArray.push(i + 1);
+  }
+  for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
+    pagesArray.push(i + 1);
+  }
   const gameDifficult = useSelector((store) => store.settingsStore.gameDifficult)
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
+  const currentPage = useSelector((store) => store.settingsStore.currentPage);
+
+  const currentWordsPage = useSelector(
+    (store) => store.settingsStore.currentWordsPage
+  );
+  const currentWordsGroup = useSelector(
+    (store) => store.settingsStore.currentWordsGroup
+  );
   const { request } = useHttp()
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [isGameLost, setIsGameLost] = useState(false)
@@ -25,6 +43,8 @@ export const MyGame = () => {
   const [isFirtsTry, setFirstTry] = useState(true);
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
+  const [levelInputValue, setLevelInputText] = useState(1);
+  const [pageInputValue, setPageInputText] = useState(1);
 
   const optionalStatisticObject = useSelector(
     (store) => store.statisticsStore.statisticsData.optional
@@ -72,7 +92,7 @@ export const MyGame = () => {
   useEffect(useCallback(async () => {
     if (isGameStarted) {
       const arrayToPlay = [];
-      const cards = await request(`${urls.API}/words?group=${gameDifficult - 1}&page=${randomInt[0]}`, "GET")
+      const cards = await request(`${urls.API}/words?group=${currentPage === 'main' ? currentWordsGroup : levelInputValue - 1}&page=${currentPage === 'main' ? currentWordsPage : pageInputValue - 1}`, "GET")
       for (let i = 0; i <= 3; i++) {
         let randChoice = (Math.floor(Math.random() * (cards.length - 1)))
         arrayToPlay.push(cards[randChoice]);
@@ -82,13 +102,39 @@ export const MyGame = () => {
       setWiningCard(arrayToPlay[Math.floor(Math.random() * 4)])
       setFirstTry(true)
     }
-  }, [isGameStarted, gameCards, request, randomInt]), [isGameStarted, randomInt])
+  }, [isGameStarted, gameCards, request, levelInputValue, pageInputValue]), [isGameStarted, pageInputValue, levelInputValue, randomInt])
   return (
     <div className="our-game-container">
-       <h2>Our game</h2>
-       {!isGameStarted && !isGameLost && <p className="rules">In this mini-game you should guess what picture describes the following word</p>}
-       {isGameLost && !isGameStarted && <div className="lost-screen">LOST</div>}
-       {!isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button>}
+      <h2>Our game</h2>
+      {!isGameStarted && !isGameLost && <p className="rules">In this mini-game you should guess what picture describes the following word</p>}
+      {isGameLost && !isGameStarted && <div className="lost-screen">LOST</div>}
+      {!isGameStarted && currentPage !== 'main' &&
+        <>
+          <>
+            <Select
+              id="select-level"
+              multiple={false}
+              onChange={(event) => setLevelInputText(event.currentTarget.value)}
+              value={levelInputValue}
+            >
+              {levelsArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+            <Select
+              id="select-page"
+              multiple={false}
+              onChange={(event) => setPageInputText(event.currentTarget.value)}
+              value={pageInputValue}
+            >
+              {pagesArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+          </>
+        </>
+      }
+      {!isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button>}
       {/* {
         !isGameStarted && !isGameLost &&
         <Rules startGame={startGame} />

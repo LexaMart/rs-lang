@@ -8,7 +8,7 @@ import './timer.scss';
 
 export const Timer = ({ numOfLearned, numOfIncorrect, setIsGameStarted }) => {
   const dispatch = useDispatch()
-  const [time, setTime] = useState(10);
+  const [time, setTime] = useState(60);
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
