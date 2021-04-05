@@ -16,20 +16,33 @@ export const Sprint = () => {
   const { request } = useHttp()
   const [isGameStarted, setIsGameStarted] = useState(sprintStates.started)
   const [gameArr, setGameArr] = useState([])
-  const [randomNum, setRandomNum] = useState([null])
+  const [levelInputValue, setLevelInputText] = useState(1);
+  const [pageInputValue, setPageInputText] = useState(1);
   const [score, setScore] = useState(0);
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
+  const currentPage = useSelector((store) => store.settingsStore.currentPage);
+  const currentWordsPage = useSelector(
+    (store) => store.settingsStore.currentWordsPage
+  );
+  const currentWordsGroup = useSelector(
+    (store) => store.settingsStore.currentWordsGroup
+  );
 
   useEffect(useCallback(async () => {
     if (isGameStarted === sprintStates.pending) {
-      const fetched = await request(`${RS_LANG_API}words?group=${gameDifficult - 1}&page=${randomNum[0]}`)
-      setGameArr(fetched)
+      if (currentPage !== 'main') {
+        const fetched = await request(`${RS_LANG_API}words?group=${levelInputValue - 1}&page=${pageInputValue - 1}`)
+        setGameArr(fetched)
+      } else {
+        const fetched = await request(`${RS_LANG_API}words?group=${currentWordsGroup}&page=${currentWordsPage}`)
+        setGameArr(fetched)
+      }
     }
-  }, [isGameStarted, randomNum, setGameArr, request]), [isGameStarted, randomNum])
+  }, [isGameStarted, levelInputValue, pageInputValue, setGameArr, request]), [isGameStarted, levelInputValue, pageInputValue])
   return (
     <div className="game-container">
-      {isGameStarted === sprintStates.started && <SprintRules setScore={setScore} setGameStarted={setIsGameStarted} isGameStarted={isGameStarted} rand={randomNum} setRand={setRandomNum} />
+      {isGameStarted === sprintStates.started && <SprintRules setScore={setScore} setGameStarted={setIsGameStarted} isGameStarted={isGameStarted} setPage={setPageInputText} setGroup={setLevelInputText} />
       }
       {isGameStarted === sprintStates.pending && gameArr.length &&
         <>
