@@ -106,7 +106,6 @@ export const DictionaryList = ({
 
   const [page, setPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
-  const [nextDataLength, setNextDataLength] = useState(0);
   const [modalActive, setModalActive] = useState(false);
   const [isWordRecovery, setWordRecovery] = useState(false);
   const [currWord, setCurrWord] = useState({
@@ -121,18 +120,6 @@ export const DictionaryList = ({
       pageRender(false);
     }
   }, [isPageRender]);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      const dataWords = currentDataList();
-      setCurrentData((prev) => dataWords);
-      setNextDataLength(dataWords.length);
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const style =
     nameList === 'learning'
@@ -166,34 +153,18 @@ export const DictionaryList = ({
       : list === 'hard'
       ? (data = userHardWords)
       : (data = userDeletedWords);
+
     return data;
   };
 
-  let dataListWords = currentDataList();
+  const dataListWords = currentDataList();
+  const dataListWordsForPage = currentDataList().slice(
+    20 * (page - 1),
+    20 * page
+  );
 
   const changePage = (incr) => {
     const nextPage = page + incr;
-
-    const wordsNextDataLength =
-      currentData.length > 20 ? currentData.length - 20 * (nextPage - 1) : 0;
-
-    const startIndexDataWords = 20 * (nextPage - 1);
-
-    const newData = currentDataList();
-    const arrayCurrentWords =
-      newData.length > 0
-        ? newData.slice(startIndexDataWords, startIndexDataWords + 20)
-        : [];
-    dataListWords = arrayCurrentWords;
-    console.log(
-      dataListWords.length,
-      currentData.length,
-      wordsNextDataLength,
-      page,
-      nextPage
-    );
-    // setCurrentData(prev=>)
-    setNextDataLength(wordsNextDataLength);
     setPage(nextPage);
   };
 
@@ -201,7 +172,7 @@ export const DictionaryList = ({
     <div className="word_container__lists">
       <h3 className="word_container__title white-text">{getTitle()}</h3>
       <div className="word_container">
-        {dataListWords.map((el) => {
+        {dataListWordsForPage.map((el) => {
           const hard = getItemHard(el);
           return (
             <DictionaryWordCard
@@ -226,13 +197,13 @@ export const DictionaryList = ({
           </i>
         ) : null}
         <div className="page_number white-text">
-          {currentData.length === 0
+          {dataListWords.length === 0
             ? language === 'en'
               ? 'No Words'
               : 'Нет слов'
             : page}
         </div>
-        {nextDataLength > 20 && (
+        {dataListWords.length > 20 * page && (
           <i
             className="arrow material-icons white-text btn"
             onClick={() => changePage(1)}
