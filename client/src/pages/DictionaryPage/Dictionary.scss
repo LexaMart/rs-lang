@@ -1,6 +1,7 @@
 .dictionary {
   background: linear-gradient(180deg, #f08a5d 11.57%, #b83b5e 88.96%);
   padding-bottom: 1rem;
+  min-height: 89vh;
 }
 .dictionary .row {
   margin-bottom: 0;
@@ -25,13 +26,15 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.dictionary__cards .col {
-  float: none;
+.dictionary__cards{
+  .col {
+    float: none;
+  }
+  .row {
+    height: 100%;
+  }
 }
 
-.dictionary__cards .row {
-  height: 100%;
-}
 .card__item {
   width: 280px;
   border-radius: 10px;

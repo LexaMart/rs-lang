@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Row, Col } from "react-materialize";
+import { Row, Col } from 'react-materialize';
 
-import { getUserWord } from "../../services/getAllWords";
-import { DictionaryLoader } from "../../components/Loader";
-import { Progress } from "./Components/Progress";
-import { DictionaryCard } from "./Components/DictionaryCard";
-import { DictionaryList } from "./Components/DictionaryList";
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
+import { getUserWord } from '../../services/getAllWords';
+import { DictionaryLoader } from '../../components/Loader';
+import { Progress } from './Components/Progress';
+import { DictionaryCard } from './Components/DictionaryCard';
+import { DictionaryList } from './Components/DictionaryList';
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
-import "./Dictionary.scss";
-import { setCurrentPage } from "../../redux/settings-reducer";
+import './Dictionary.scss';
+import { setCurrentPage } from '../../redux/settings-reducer';
 import {
   setUserLearningWords,
   setUserHardWords,
   setUserDeletedWords,
-} from "../../redux/auth-reducer";
+} from '../../redux/auth-reducer';
 
 export const Dictionary = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,8 @@ export const Dictionary = () => {
   const { userData } = useSelector((store) => store.authStore);
 
   const [isLoadingWords, setLoadingWords] = useState(true);
-  const [nameCards, setNameCards] = useState("");
+  const [isPageRender, setPageRender] = useState(false);
+  const [nameCards, setNameCards] = useState('');
 
   // const [userLearningWords, setUserLearningWords] = useState([]);
   // const [userHardWords, setUserHardWords] = useState([]);
@@ -42,33 +43,44 @@ export const Dictionary = () => {
   let { path } = useRouteMatch();
 
   useEffect(() => {
-    dispatch(setCurrentPage("dictionary"));
+    dispatch(setCurrentPage('dictionary'));
     const { token, userId } = userData;
-    const words = async () => {
-      await getUserWord({
-        token: token,
-        userId: userId,
-      }).then((res) => {
-        const arrLearnWords = res
-          .filter((item) => item.difficulty === "learned")
-          .map((item) => item.wordId);
-        const arrHardWords = res
-          .filter((item) => item.difficulty === "hard")
-          .map((item) => item.wordId);
-        const arrDelWords = res
-          .filter((item) => item.difficulty === "deleted")
-          .map((item) => item.wordId);
-        // setUserLearningWords(arrLearnWords);
-        // setUserHardWords(arrHardWords);
-        // setUserDelWords(arrDelWords);
-        dispatch(setUserLearningWords(arrLearnWords));
-        dispatch(setUserHardWords(arrHardWords));
-        dispatch(setUserDeletedWords(arrDelWords));
-        setLoadingWords(false);
-      });
-    };
-    words();
+    words(token, userId);
   }, [userData]);
+
+  useEffect(() => {
+    if (isPageRender === true) {
+      dispatch(setCurrentPage('dictionary'));
+      const { token, userId } = userData;
+      words(token, userId);
+      // setPageRender(false);
+    }
+  }, [isPageRender]);
+
+  const words = async (token, userId) => {
+    await getUserWord({
+      token: token,
+      userId: userId,
+    }).then((res) => {
+      const arrLearnWords = res
+        .filter((item) => item.difficulty === 'learned')
+        .map((item) => item.wordId);
+      const arrHardWords = res
+        .filter((item) => item.difficulty === 'hard')
+        .map((item) => item.wordId);
+      const arrDelWords = res
+        .filter((item) => item.difficulty === 'deleted')
+        .map((item) => item.wordId);
+      // setUserLearningWords(arrLearnWords);
+      // setUserHardWords(arrHardWords);
+      // setUserDelWords(arrDelWords);
+      dispatch(setUserLearningWords(arrLearnWords));
+      dispatch(setUserHardWords(arrHardWords));
+      dispatch(setUserDeletedWords(arrDelWords));
+      setLoadingWords(false);
+    });
+  };
+
   const cardTitle =
     language === LANGUAGE_CONFIG.native
       ? WORDS_CONFIG.DICTIONARY_CARD_TITLE.native
@@ -85,12 +97,13 @@ export const Dictionary = () => {
         : index === 1
         ? userHardWords
         : userDeletedWords;
-    const name = index === 0 ? "learning" : index === 1 ? "hard" : "deleted";
+    const name = index === 0 ? 'learning' : index === 1 ? 'hard' : 'deleted';
     setUserWordsData([data, userHardWords]);
     setNameCards(name);
   };
   const totalWords =
-    userLearningWords.length + userHardWords.length + userDeletedWords.length;
+    userLearningWords.length + userHardWords.length + userDeletedWords.length ||
+    0;
 
   return (
     <div className="dictionary valign-wrapper">
@@ -132,6 +145,8 @@ export const Dictionary = () => {
                 token={userData.token}
                 language={language}
                 nameList={nameCards}
+                pageRender={setPageRender}
+                isPageRender={isPageRender}
               />
             </Route>
           </Switch>

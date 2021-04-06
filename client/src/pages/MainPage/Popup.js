@@ -8,9 +8,15 @@ import audioImage from '../../assets/images/audio.svg';
 import 'materialize-css';
 import './popup.scss';
 
-const Popup = ({ active, setActive, currElement, isDeleted = false }) => {
-  const token = useSelector((store) => store.authStore.userData.token)
-  const userId = useSelector((store) => store.authStore.userData.userId)
+const Popup = ({
+  active,
+  setActive,
+  currElement,
+  isDeleted = false,
+  pageRender,
+}) => {
+  const token = useSelector((store) => store.authStore.userData.token);
+  const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
   const isTranslationShown = useSelector(
     (store) => store.settingsStore.isTranslationShown
@@ -19,14 +25,17 @@ const Popup = ({ active, setActive, currElement, isDeleted = false }) => {
     (store) => store.settingsStore.isAdditionalButtonsShown
   );
   const popupBtnHandler = (action) => {
-    isAuthenticated ? rsLangApi.postUserWord(token, userId, currElement.id, action) : alert("Not logined")
-    setActive(!active)
+    isAuthenticated
+      ? rsLangApi.postUserWord(token, userId, currElement.id, action)
+      : alert('Not logined');
+    setActive(!active);
   };
 
   const recoverBtnHandler = () => {
-    rsLangApi.removeUserDeleted(token, userId, currElement.id)
-    setActive(!active)
-  }
+    rsLangApi.removeUserDeleted(token, userId, currElement.id);
+    setActive(!active);
+    pageRender(true);
+  };
 
   const playAudio = () => {
     const audio = new Audio();
@@ -94,12 +103,23 @@ const Popup = ({ active, setActive, currElement, isDeleted = false }) => {
         <div className={isAdditionalButtonsShown ? 'button_container' : 'hide'}>
           {!isDeleted ? (
             <React.Fragment>
-              <button onClick={() => popupBtnHandler('hard')} className="btn">Difficult</button>
-              <button onClick={() => popupBtnHandler('deleted')} className="btn">Delete</button>
-              <button onClick={() => popupBtnHandler('known')} className="btn">Known</button>
+              <button onClick={() => popupBtnHandler('hard')} className="btn">
+                Difficult
+              </button>
+              <button
+                onClick={() => popupBtnHandler('deleted')}
+                className="btn"
+              >
+                Delete
+              </button>
+              <button onClick={() => popupBtnHandler('known')} className="btn">
+                Known
+              </button>
             </React.Fragment>
           ) : (
-            <button onClick={() => recoverBtnHandler()} className="btn">Recover</button>
+            <button onClick={() => recoverBtnHandler()} className="btn">
+              Recover
+            </button>
           )}
         </div>
       </div>
