@@ -28,9 +28,6 @@ export const Dictionary = () => {
   const [isPageRender, setPageRender] = useState(false);
   const [nameCards, setNameCards] = useState('');
 
-  // const [userLearningWords, setUserLearningWords] = useState([]);
-  // const [userHardWords, setUserHardWords] = useState([]);
-  // const [userDelWords, setUserDelWords] = useState([]);
   const userLearningWords = useSelector(
     (store) => store.authStore.userLearningWords
   );
@@ -53,7 +50,6 @@ export const Dictionary = () => {
       dispatch(setCurrentPage('dictionary'));
       const { token, userId } = userData;
       words(token, userId);
-      // setPageRender(false);
     }
   }, [isPageRender]);
 
@@ -71,9 +67,7 @@ export const Dictionary = () => {
       const arrDelWords = res
         .filter((item) => item.difficulty === 'deleted')
         .map((item) => item.wordId);
-      // setUserLearningWords(arrLearnWords);
-      // setUserHardWords(arrHardWords);
-      // setUserDelWords(arrDelWords);
+
       dispatch(setUserLearningWords(arrLearnWords));
       dispatch(setUserHardWords(arrHardWords));
       dispatch(setUserDeletedWords(arrDelWords));
