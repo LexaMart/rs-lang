@@ -31,8 +31,8 @@ const Popup = ({
     setActive(!active);
   };
 
-  const recoverBtnHandler = () => {
-    rsLangApi.removeUserDeleted(token, userId, currElement.id);
+  const recoverBtnHandler = async () => {
+    await rsLangApi.removeUserDeleted(token, userId, currElement.id);
     setActive(!active);
     pageRender(true);
   };
