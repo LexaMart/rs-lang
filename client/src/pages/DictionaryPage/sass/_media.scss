@@ -1,0 +1,28 @@
+@media (max-width: 860px){
+  .card .card-title, .dictionary__title {
+    font-size: 30px;
+  }
+  .card__amount, .dictionary__progress-number{
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 529px) {
+
+  .card .card-title, .dictionary__title {
+    font-size: 26px;
+  }
+  .card__amount, .dictionary__progress-number{
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 409px){
+
+  .card .card-title, .dictionary__title {
+    font-size: 24px;
+  }
+  .card__amount,.dictionary__progress-number{
+    font-size: 18px;
+  }
+}
