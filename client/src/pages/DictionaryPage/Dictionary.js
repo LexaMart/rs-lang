@@ -106,7 +106,7 @@ export const Dictionary = () => {
     0;
 
   return (
-    <div className="dictionary valign-wrapper">
+    <div className="dictionary">
       <Row>
         <Col s={12}>
           <div className="dictionary__progress">
