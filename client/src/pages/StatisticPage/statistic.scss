@@ -1,0 +1,29 @@
+.stat_page_container {
+    font-size: 18px;
+}
+
+.stat_container {
+    display: flex;
+    justify-content: space-around;
+    margin: 4% 0;
+}
+
+.game_stat_img {
+    height: 60px;
+}
+
+.stat_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    margin: 3% 0;
+}
+
+.capt {
+    margin: 2% 0;
+    font-size: 32px;
+}
