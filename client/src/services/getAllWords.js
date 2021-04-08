@@ -12,7 +12,11 @@ export const getUserWord = async ({ userId, token }) => {
         Accept: 'application/json',
       },
     }
-  );
+  )
+    .then((res) => res)
+    .catch((error) => {
+      console.log('Something went wrong', error.message);
+    });
   const content = await rawResponse.json();
   return content;
 };
@@ -30,7 +34,11 @@ export const getUserWordID = async ({ token, wordId }) => {
         Accept: 'application/json',
       },
     }
-  );
+  )
+    .then((res) => res)
+    .catch((error) => {
+      console.log('Something went wrong', error.message);
+    });
   const content = await rawResponse.json();
   return content;
 };
@@ -44,27 +52,31 @@ export const getWords = async (token, userId, words) => {
   await getUserWord({
     token: token,
     userId: userId,
-  }).then((res) => {
-    const arrLearnWords = words.learn
-      ? res
-          .filter((item) => item.difficulty === 'learned')
-          .map((item) => item.wordId)
-      : [];
-    const arrHardWords = words.hard
-      ? res
-          .filter((item) => item.difficulty === 'hard')
-          .map((item) => item.wordId)
-      : [];
-    const arrDelWords = words.deleted
-      ? res
-          .filter((item) => item.difficulty === 'deleted')
-          .map((item) => item.wordId)
-      : [];
+  })
+    .then((res) => {
+      const arrLearnWords = words.learn
+        ? res
+            .filter((item) => item.difficulty === 'learned')
+            .map((item) => item.wordId)
+        : [];
+      const arrHardWords = words.hard
+        ? res
+            .filter((item) => item.difficulty === 'hard')
+            .map((item) => item.wordId)
+        : [];
+      const arrDelWords = words.deleted
+        ? res
+            .filter((item) => item.difficulty === 'deleted')
+            .map((item) => item.wordId)
+        : [];
 
-    result.learn.push(...arrLearnWords);
-    result.hard.push(...arrHardWords);
-    result.deleted.push(...arrDelWords);
-  });
+      result.learn.push(...arrLearnWords);
+      result.hard.push(...arrHardWords);
+      result.deleted.push(...arrDelWords);
+    })
+    .catch((error) => {
+      console.log('Something went wrong', error.message);
+    });
 
   return result;
 };
