@@ -1,16 +1,17 @@
-import { rsLangApi } from "../services/rs-lang-api";
+import { rsLangApi } from '../services/rs-lang-api';
+import { getWords } from '../services/getAllWords';
 
 const ACTION_CONST = {
-  SET_USER_DATA: "SET_USER_DATA",
-  SET_DEFAULT_VALUES: "SET_DEFAULT_VALUES",
-  SET_IS_LOADING_PROGRESS: "AUTH_REDUCER_TOGGLE_IS_LOADING_PROGRESS",
-  SET_USER_LEARNING_WORDS: " SET_USER_LEARNING_WORDS",
-  SET_USER_HARD_WORDS: "SET_USER_HARD_WORDS",
-  SET_USER_DELETED_WORDS: "SET_USER_DELETED_WORDS",
+  SET_USER_DATA: 'SET_USER_DATA',
+  SET_DEFAULT_VALUES: 'SET_DEFAULT_VALUES',
+  SET_IS_LOADING_PROGRESS: 'AUTH_REDUCER_TOGGLE_IS_LOADING_PROGRESS',
+  SET_USER_LEARNING_WORDS: ' SET_USER_LEARNING_WORDS',
+  SET_USER_HARD_WORDS: 'SET_USER_HARD_WORDS',
+  SET_USER_DELETED_WORDS: 'SET_USER_DELETED_WORDS',
 };
 
 export const DEFAULT_VALUES = {
-  EMPTY: "",
+  EMPTY: '',
   TRUE: true,
   FALSE: false,
   EMPTY_ARRAY: [],
@@ -84,13 +85,24 @@ export const setUserDeletedWords = (arrDeletedWords) => ({
 });
 
 export const logout = () => ({ type: ACTION_CONST.SET_DEFAULT_VALUES });
-
 export const login = (email, password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.login(email, password);
+  const words = {
+    learn: false,
+    hard: true,
+    deleted: true,
+  };
   if (response) {
     dispatch(setUserData(response.data));
-  } else alert("Wrong email or password")
+    await getWords(response.data.token, response.data.userId, words).then(
+      (res) => {
+        dispatch(setUserLearningWords(res.learn));
+        dispatch(setUserHardWords(res.hard));
+        dispatch(setUserDeletedWords(res.deleted));
+      }
+    );
+  } else alert('Wrong email or password');
 
   dispatch(setIsLoadingInProgress(false));
 };
