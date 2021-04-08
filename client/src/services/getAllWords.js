@@ -34,3 +34,37 @@ export const getUserWordID = async ({ token, wordId }) => {
   const content = await rawResponse.json();
   return content;
 };
+
+export const getWords = async (token, userId, words) => {
+  const result = {
+    learn: [],
+    hard: [],
+    deleted: [],
+  };
+  await getUserWord({
+    token: token,
+    userId: userId,
+  }).then((res) => {
+    const arrLearnWords = words.learn
+      ? res
+          .filter((item) => item.difficulty === 'learned')
+          .map((item) => item.wordId)
+      : [];
+    const arrHardWords = words.hard
+      ? res
+          .filter((item) => item.difficulty === 'hard')
+          .map((item) => item.wordId)
+      : [];
+    const arrDelWords = words.deleted
+      ? res
+          .filter((item) => item.difficulty === 'deleted')
+          .map((item) => item.wordId)
+      : [];
+
+    result.learn.push(...arrLearnWords);
+    result.hard.push(...arrHardWords);
+    result.deleted.push(...arrDelWords);
+  });
+
+  return result;
+};
