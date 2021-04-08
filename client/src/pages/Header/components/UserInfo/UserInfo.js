@@ -8,7 +8,7 @@ export const UserInfo = () => {
   const avatar = useSelector((store) => store.authStore.userData.avatar)
   
   return (
-    <div className="user-block">
+    <div className="user-block card">
       <p className="user-name">{userName}</p>
       <div className='image-handler'>
         <img className="avatar" alt="avatar" src={`${avatar}`} />

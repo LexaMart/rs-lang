@@ -11,6 +11,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getStatistic } from "../../redux/statistics-reducer";
 import { setCurrentPage } from "../../redux/settings-reducer";
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
+import Lion from '../../assets/images/lion.svg';
+import Sprint from '../../assets/images/sprint.svg';
+import Joystick from '../../assets/images/joystick.svg';
+import Audio from '../../assets/images/audio.svg';
+import 'materialize-css';
+import './statistic.scss';
 
 export const Statistic = () => {
   const activeLanguage = useSelector(
@@ -81,69 +87,85 @@ export const Statistic = () => {
   );
 
   return (
-    <div>
+    <div className="stat_page_container white-text">
       <h1>
         {" "}
         {activeLanguage === LANGUAGE_CONFIG.native
           ? WORDS_CONFIG.STATISTICS_PAGE.native
           : WORDS_CONFIG.STATISTICS_PAGE.foreign}
       </h1>
-      <>
-        <p>Whole learned words: {wholeLearnedWords}</p>
-        <p>
+      <div className="average_stat">
+        <div className="capt">Average statistic</div>
+        <div>Whole learned words: {wholeLearnedWords}</div>
+        <div>
           Percents of wins:{" "}
           {(
             (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
             100
           ).toFixed(2) || 0}{" "}
           %
-        </p>
-        <p>savannahMaxSeries: {savannahMaxSeries}</p>
-        <p>savannahLearnedWords: {savannahLearnedWords}</p>
-        <p>
-          Savannah Percents of wins:{" "}
-          {(
-            (savannahLearnedWords /
-              (savannahLearnedWords + savannahIncorrectAnswers)) *
-            100
-          ).toFixed(2) || 0}{" "}
+        </div>
+      </div>
+      <div className="capt">Special game statictic</div>
+      <div className="stat_container">
+        <div className="stat_block savannah_stat">
+          <img src={Lion} alt="lion" className="game_stat_img" />
+          <p>MaxSeries: {savannahMaxSeries}</p>
+          <p>LearnedWords: {savannahLearnedWords}</p>
+          <p>
+            Percents of wins:{" "}
+            {(
+              (savannahLearnedWords /
+                (savannahLearnedWords + savannahIncorrectAnswers)) *
+              100
+            ).toFixed(2) || 0}{" "}
           %
         </p>
-        <p>audioCallMaxSeries: {audioCallMaxSeries}</p>
-        <p>audioCallLearnedWords: {audioCallLearnedWords}</p>
-        <p>
-          AudioCall Percents of wins:{" "}
-          {(
-            (audioCallLearnedWords /
-              (audioCallLearnedWords + audioCallIncorrectAnswers)) *
-            100
-          ).toFixed(2) || 0}{" "}
+        </div>
+        <div className="stat_block audiocall_stat">
+          <img src={Audio} alt="audio" className="game_stat_img" />
+          <p>MaxSeries: {audioCallMaxSeries}</p>
+          <p>LearnedWords: {audioCallLearnedWords}</p>
+          <p>
+            Percents of wins:{" "}
+            {(
+              (audioCallLearnedWords /
+                (audioCallLearnedWords + audioCallIncorrectAnswers)) *
+              100
+            ).toFixed(2) || 0}{" "}
           %
         </p>
-        <p>sprintMaxSeries: {sprintMaxSeries}</p>
-        <p>sprintLearnedWords: {sprintLearnedWords}</p>
-        <p>
-          sprint Percents of wins:{" "}
-          {(
-            (sprintLearnedWords /
-              (sprintLearnedWords + sprintIncorrectAnswers)) *
-            100
-          ).toFixed(2) || 0}{" "}
+        </div>
+        <div className="stat_block sprint_stat">
+          <img src={Sprint} alt="sprint" className="game_stat_img" />
+          <p>MaxSeries: {sprintMaxSeries}</p>
+          <p>LearnedWords: {sprintLearnedWords}</p>
+          <p>
+            Percents of wins:{" "}
+            {(
+              (sprintLearnedWords /
+                (sprintLearnedWords + sprintIncorrectAnswers)) *
+              100
+            ).toFixed(2) || 0}{" "}
           %
         </p>
-        <p>myGameMaxSeries: {myGameMaxSeries}</p>
-        <p>myGameLearnedWords: {myGameLearnedWords}</p>
-        <p>
-          myGame Percents of wins:{" "}
-          {(
-            (myGameLearnedWords /
-              (myGameLearnedWords + myGameIncorrectAnswers)) *
-            100
-          ).toFixed(2) || 0}{" "}
+        </div>
+        <div className="stat_block mygame_stat">
+          <img src={Joystick} alt="joystick" className="game_stat_img" />
+          <p>MaxSeries: {myGameMaxSeries}</p>
+          <p>LearnedWords: {myGameLearnedWords}</p>
+          <p>
+            Percents of wins:{" "}
+            {(
+              (myGameLearnedWords /
+                (myGameLearnedWords + myGameIncorrectAnswers)) *
+              100
+            ).toFixed(2) || 0}{" "}
           %
         </p>
-        <p></p>
-      </>
+        </div>
+      </div>
+      <div className="capt">Graffical view</div>
       <>
         <AreaChart
           width={730}

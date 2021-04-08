@@ -30,7 +30,7 @@ export const Auth = () => {
   return (
     <div className="row auth_container">
       <div className="col s6 offset-s3">
-        <div className="card auth_card">
+        <div id="sign_in_form" className="card auth_card">
           <div className="card-content white-text">
             <span className="card-title" style={{ textAlign: 'center' }}>Sign in</span>
           </div>

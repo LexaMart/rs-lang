@@ -60,11 +60,20 @@ const Popup = ({
 
   const playAudio = () => {
     const audio = new Audio();
-    const audio1 = new Audio();
-    const audio2 = new Audio();
     audio.src = `${RS_LANG_API}${currElement.audio}`;
+    audio.play();
+  };
+  
+  const playAudio1 = () => {
+    const audio1 = new Audio();
     audio1.src = `${RS_LANG_API}${currElement.audioMeaning}`;
+    audio1.play();
+  };
+
+  const playAudio2 = () => {
+    const audio2 = new Audio();
     audio2.src = `${RS_LANG_API}${currElement.audioExample}`;
+    audio2.play();
   };
 
   return (
@@ -118,8 +127,10 @@ const Popup = ({
             />
           </div>
         </div>
-        <div className="audio_container" onClick={() => playAudio()}>
-          <img src={audioImage} alt="audio" className="audio_image"></img>
+        <div className="audio_container">
+          <div className="audio_btn"><img img src={audioImage} alt="audio" className="audio_image" onClick={() => playAudio()} /></div>
+          <div className="audio_btn"><img img src={audioImage} alt="audio" className="audio_image" onClick={() => playAudio1()} /></div>
+          <div className="audio_btn"><img img src={audioImage} alt="audio" className="audio_image" onClick={() => playAudio2()} /></div>
         </div>
         <div className={isAdditionalButtonsShown ? 'button_container' : 'hide'}>
           {!isDeleted ? (
