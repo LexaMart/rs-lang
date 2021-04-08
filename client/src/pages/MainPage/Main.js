@@ -6,6 +6,7 @@ import WordCard from './WordCard';
 import Popup from './Popup';
 import 'materialize-css';
 import './Main.scss';
+import { setIsLoadingInProgress } from '../../redux/auth-reducer';
 
 export const Main = () => {
   const dispatch = useDispatch()
@@ -23,8 +24,10 @@ export const Main = () => {
   const [currWord, setCurrWord] = useState({ word: "", textMeaning: "", textExample: "" });
   const getWords = useCallback(async () => {
     try {
+      dispatch(setIsLoadingInProgress(true))
       const fetched = await request(`https://rs-lang-74-api.herokuapp.com/words?group=${currentWordsGroup}&page=${currentWordsPage}`, 'GET')
       setData(fetched);
+      dispatch(setIsLoadingInProgress(false))
     } catch (e) { }
   }, [request, currentWordsGroup, currentWordsPage])
   useEffect(

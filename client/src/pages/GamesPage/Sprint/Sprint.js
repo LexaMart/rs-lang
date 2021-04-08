@@ -46,6 +46,7 @@ export const Sprint = () => {
       }
       {isGameStarted === sprintStates.pending && gameArr.length &&
         <>
+          <Score score={score} />
           <div className="game-handler">
             <SprintGame numberOfLearned={numberOfLearnedWords}
               numberOfIncorrect={numberOfLearnedWords}

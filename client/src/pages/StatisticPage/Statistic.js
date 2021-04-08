@@ -96,14 +96,16 @@ export const Statistic = () => {
       </h1>
       <div className="average_stat">
         <div className="capt">Average statistic</div>
-        <div>Whole learned words: {wholeLearnedWords}</div>
-        <div>
+        <div className="statistic_span_info">Whole learned words:<b> {wholeLearnedWords} </b></div>
+        <div className="statistic_span_info" >
           Percents of wins:{" "}
-          {(
-            (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
-            100
-          ).toFixed(2) || 0}{" "}
+          <b>
+            {(
+              (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
+              100
+            ).toFixed(2) || 0}{" "}
           %
+          </b>
         </div>
       </div>
       <div className="capt">Special game statictic</div>
