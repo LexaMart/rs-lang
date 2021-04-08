@@ -8,6 +8,12 @@ const ACTION_CONST = {
   SET_USER_LEARNING_WORDS: ' SET_USER_LEARNING_WORDS',
   SET_USER_HARD_WORDS: 'SET_USER_HARD_WORDS',
   SET_USER_DELETED_WORDS: 'SET_USER_DELETED_WORDS',
+  ADD_DELETED_WORD: 'ADD_DELETED_WORD',
+  REMOVE_DELETED_WORD: 'REMOVE_DELETED_WORD',
+  ADD_HARD_WORD: 'ADD_HARD_WORD',
+  REMOVE_HARD_WORD: 'REMOVE_HARD_WORD',
+  ADD_LEARNING_WORD: 'ADD_LEARNING_WORD',
+  REMOVE_LEARNING_WORD: 'REMOVE_LEARNING_WORD',
 };
 
 export const DEFAULT_VALUES = {
@@ -54,6 +60,39 @@ export const authReducer = (state = initialState, action) => {
     case ACTION_CONST.SET_USER_DELETED_WORDS: {
       return { ...state, userDeletedWords: action.arrDeletedWords };
     }
+    case ACTION_CONST.ADD_DELETED_WORD: {
+      const stagedUserDeletedWords = state.userDeletedWords.slice();
+      stagedUserDeletedWords.push(action.activeWordId);
+      return { ...state, userDeletedWords: stagedUserDeletedWords };
+    }
+    case ACTION_CONST.REMOVE_DELETED_WORD: {
+      const stagedUserDeletedWords = state.userDeletedWords.filter(
+        (item) => item !== action.activeWordId
+      );
+      return { ...state, userDeletedWords: stagedUserDeletedWords };
+    }
+    case ACTION_CONST.ADD_HARD_WORD: {
+      const stagedUserHardWords = state.userHardWords.slice();
+      stagedUserHardWords.push(action.activeWordId);
+      return { ...state, userHardWords: stagedUserHardWords };
+    }
+    case ACTION_CONST.REMOVE_HARD_WORD: {
+      const stagedUserHardWords = state.userHardWords.filter(
+        (item) => item !== action.activeWordId
+      );
+      return { ...state, userHardWords: stagedUserHardWords };
+    }
+    case ACTION_CONST.ADD_LEARNING_WORD: {
+      const stagedUserLearningWords = state.userLearningWords.slice();
+      stagedUserLearningWords.push(action.activeWordId);
+      return { ...state, userLearningWords: stagedUserLearningWords };
+    }
+    case ACTION_CONST.REMOVE_LEARNING_WORD: {
+      const stagedUserLearningWords = state.userLearningWords.filter(
+        (item) => item !== action.activeWordId
+      );
+      return { ...state, userLearningWords: stagedUserLearningWords };
+    }
     default:
       return state;
   }
@@ -84,6 +123,32 @@ export const setUserDeletedWords = (arrDeletedWords) => ({
   arrDeletedWords,
 });
 
+export const addDeletedWord = (activeWordId) => ({
+  type: ACTION_CONST.ADD_DELETED_WORD,
+  activeWordId,
+});
+export const removeDeletedWord = (activeWordId) => ({
+  type: ACTION_CONST.REMOVE_DELETED_WORD,
+  activeWordId,
+});
+
+export const addHardWord = (activeWordId) => ({
+  type: ACTION_CONST.ADD_HARD_WORD,
+  activeWordId,
+});
+export const removeHardWord = (activeWordId) => ({
+  type: ACTION_CONST.REMOVE_HARD_WORD,
+  activeWordId,
+});
+
+export const addLearningWord = (activeWordId) => ({
+  type: ACTION_CONST.ADD_LEARNING_WORD,
+  activeWordId,
+});
+export const removeLearningWord = (activeWordId) => ({
+  type: ACTION_CONST.REMOVE_LEARNING_WORD,
+  activeWordId,
+});
 export const logout = () => ({ type: ACTION_CONST.SET_DEFAULT_VALUES });
 export const login = (email, password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress(true));

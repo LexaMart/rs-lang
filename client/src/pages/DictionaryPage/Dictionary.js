@@ -127,7 +127,6 @@ export const Dictionary = () => {
             </Route>
             <Route path={`${path}/:list`}>
               <DictionaryList
-                data={userWordsData}
                 token={userData.token}
                 language={language}
                 nameList={nameCards}
