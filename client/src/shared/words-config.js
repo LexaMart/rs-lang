@@ -106,7 +106,7 @@ export const WORDS_CONFIG = {
   },
   GAME_DIFFICULT: {
     foreign: 'Game difficult',
-    native: 'Сложность игры'
+    native: 'Сложность игры',
   },
   PROMO_PAGE: {
     foreign: 'Promo',
@@ -119,5 +119,9 @@ export const WORDS_CONFIG = {
   SECOND_STATISTIC_CHART_NAME: {
     foreign: 'Learned words for the entire period',
     native: 'Изученные слова за весь период',
-  }
+  },
+  MODAL_STATISTIC_TITLE: {
+    foreign: 'No statistics yet',
+    native: 'Статистика пока отсутствует',
+  },
 };
