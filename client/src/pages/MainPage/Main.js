@@ -7,17 +7,17 @@ import Popup from './Popup';
 import 'materialize-css';
 import './Main.scss';
 import { setIsLoadingInProgress } from '../../redux/auth-reducer';
+import { MainPagePreloader } from '../../components/Loader';
 
 export const Main = () => {
   const dispatch = useDispatch()
-  // const [group, setGroup] = useState(0);
-  // const [page, setPage] = useState(0);
+  const isLoading = useSelector((store) => store.authStore.isLoading)
   const currentWordsGroup = useSelector(
     (store) => store.settingsStore.currentWordsGroup
-    );
-    const currentWordsPage = useSelector(
-      (store) => store.settingsStore.currentWordsPage
-    );
+  );
+  const currentWordsPage = useSelector(
+    (store) => store.settingsStore.currentWordsPage
+  );
   const { request } = useHttp();
   const [data, setData] = useState([]);
   const [modalActive, setModalActive] = useState(false);
@@ -51,6 +51,11 @@ export const Main = () => {
     }
     // setGroup(value);
     dispatch(setCurrentWordsGroup(value))
+  }
+  if (isLoading) {
+    return (
+    <MainPagePreloader />
+    )
   }
   return (
     <div>

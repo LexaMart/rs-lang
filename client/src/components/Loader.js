@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Row, Col, Preloader } from "react-materialize";
 import FadeLoader from 'react-spinners/FadeLoader';
 export const DictionaryLoader = ({ color = 'rgba(240, 138, 93, 1)' }) => {
   return (
@@ -15,3 +15,18 @@ export const DictionaryLoader = ({ color = 'rgba(240, 138, 93, 1)' }) => {
     </div>
   );
 };
+
+export const MainPagePreloader = () => {
+  return (
+    <div style={{ height: '84.4vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Col s={4}>
+        <Preloader
+          active
+          color="yellow"
+          flashing={false}
+          size="big"
+        />
+      </Col>
+    </div>
+  )
+}
