@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   AreaChart,
   Area,
@@ -6,11 +6,11 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-} from "recharts";
-import { useSelector, useDispatch } from "react-redux";
-import { getStatistic } from "../../redux/statistics-reducer";
-import { setCurrentPage } from "../../redux/settings-reducer";
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
+} from 'recharts';
+import { useSelector, useDispatch } from 'react-redux';
+import { getStatistic } from '../../redux/statistics-reducer';
+import { setCurrentPage } from '../../redux/settings-reducer';
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 import Lion from '../../assets/images/lion.svg';
 import Sprint from '../../assets/images/sprint.svg';
 import Joystick from '../../assets/images/joystick.svg';
@@ -18,6 +18,7 @@ import Audio from '../../assets/images/audio.svg';
 import 'materialize-css';
 import './statistic.scss';
 
+import Popup from '../../components/Popup';
 export const Statistic = () => {
   const activeLanguage = useSelector(
     (store) => store.settingsStore.activeLanguage
@@ -71,12 +72,13 @@ export const Statistic = () => {
     (store) => store.statisticsStore.statisticsData.optional
   );
   const [rechartsData, setRechartsData] = useState();
+  const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
 
   //TODO if you never played it broken
   useEffect(
     useCallback(async () => {
-      dispatch(setCurrentPage("statistic"));
+      dispatch(setCurrentPage('statistic'));
       if (isAuthenticated) {
         dispatch(getStatistic(userId, token));
         const data = Object.values(statisticsOptionalData);
@@ -85,11 +87,38 @@ export const Statistic = () => {
     }, [dispatch, isAuthenticated, statisticsOptionalData, token, userId]),
     [isAuthenticated]
   );
-
+  useEffect(() => {
+    if (
+      !wholeLearnedWords &&
+      !savannahLearnedWords &&
+      !audioCallLearnedWords &&
+      !sprintLearnedWords &&
+      !myGameLearnedWords
+    ) {
+      setModalActive(true);
+    }
+  }, [
+    wholeLearnedWords,
+    savannahLearnedWords,
+    audioCallLearnedWords,
+    sprintLearnedWords,
+    myGameLearnedWords,
+  ]);
   return (
     <div className="stat_page_container white-text">
+      <Popup
+        active={modalActive}
+        setActive={setModalActive}
+        text={
+          activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.MODAL_STATISTIC_TITLE.native
+            : WORDS_CONFIG.MODAL_STATISTIC_TITLE.foreign
+        }
+        page="statistic"
+        language={activeLanguage}
+      />
       <h1>
-        {" "}
+        {' '}
         {activeLanguage === LANGUAGE_CONFIG.native
           ? WORDS_CONFIG.STATISTICS_PAGE.native
           : WORDS_CONFIG.STATISTICS_PAGE.foreign}
@@ -98,11 +127,11 @@ export const Statistic = () => {
         <div className="capt">Average statistic</div>
         <div>Whole learned words: {wholeLearnedWords}</div>
         <div>
-          Percents of wins:{" "}
+          Percents of wins:{' '}
           {(
             (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
             100
-          ).toFixed(2) || 0}{" "}
+          ).toFixed(2) || 0}{' '}
           %
         </div>
       </div>
@@ -113,56 +142,56 @@ export const Statistic = () => {
           <p>MaxSeries: {savannahMaxSeries}</p>
           <p>LearnedWords: {savannahLearnedWords}</p>
           <p>
-            Percents of wins:{" "}
+            Percents of wins:{' '}
             {(
               (savannahLearnedWords /
                 (savannahLearnedWords + savannahIncorrectAnswers)) *
               100
-            ).toFixed(2) || 0}{" "}
-          %
-        </p>
+            ).toFixed(2) || 0}{' '}
+            %
+          </p>
         </div>
         <div className="stat_block audiocall_stat">
           <img src={Audio} alt="audio" className="game_stat_img" />
           <p>MaxSeries: {audioCallMaxSeries}</p>
           <p>LearnedWords: {audioCallLearnedWords}</p>
           <p>
-            Percents of wins:{" "}
+            Percents of wins:{' '}
             {(
               (audioCallLearnedWords /
                 (audioCallLearnedWords + audioCallIncorrectAnswers)) *
               100
-            ).toFixed(2) || 0}{" "}
-          %
-        </p>
+            ).toFixed(2) || 0}{' '}
+            %
+          </p>
         </div>
         <div className="stat_block sprint_stat">
           <img src={Sprint} alt="sprint" className="game_stat_img" />
           <p>MaxSeries: {sprintMaxSeries}</p>
           <p>LearnedWords: {sprintLearnedWords}</p>
           <p>
-            Percents of wins:{" "}
+            Percents of wins:{' '}
             {(
               (sprintLearnedWords /
                 (sprintLearnedWords + sprintIncorrectAnswers)) *
               100
-            ).toFixed(2) || 0}{" "}
-          %
-        </p>
+            ).toFixed(2) || 0}{' '}
+            %
+          </p>
         </div>
         <div className="stat_block mygame_stat">
           <img src={Joystick} alt="joystick" className="game_stat_img" />
           <p>MaxSeries: {myGameMaxSeries}</p>
           <p>LearnedWords: {myGameLearnedWords}</p>
           <p>
-            Percents of wins:{" "}
+            Percents of wins:{' '}
             {(
               (myGameLearnedWords /
                 (myGameLearnedWords + myGameIncorrectAnswers)) *
               100
-            ).toFixed(2) || 0}{" "}
-          %
-        </p>
+            ).toFixed(2) || 0}{' '}
+            %
+          </p>
         </div>
       </div>
       <div className="capt">Graffical view</div>

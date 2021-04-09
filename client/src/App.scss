@@ -52,6 +52,21 @@
 .page_number {
   margin: 0 10px;
 }
+
+.popup__title{
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 28px;
+  text-align: center;
+}
+.popup_content{
+  &.statistic{
+    width: auto;
+    height: auto;
+    .button_container{
+      margin-top: 1rem;
+    }
+  }
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
