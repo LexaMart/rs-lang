@@ -144,7 +144,7 @@ const Popup = ({
               >
                 Delete
               </button>
-              <button onClick={() => popupBtnHandler('known')} className="btn">
+              <button onClick={() => popupBtnHandler('learned')} className="btn">
                 Known
               </button>
             </React.Fragment>

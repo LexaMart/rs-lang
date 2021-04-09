@@ -4,7 +4,7 @@ import { SprintGame } from './components/Sprint/SprintGame'
 import { SprintRules } from './components/SprintRules/SprintRules'
 import { useHttp } from '../../../hooks/http.hook';
 import { RS_LANG_API } from '../../../services/rs-lang-api';
-import { Timer } from './components/Timer/Timer';
+import { constants, Timer } from './components/Timer/Timer';
 import { sprintStates } from '../../../assets/constants/sprintStates';
 import { Score } from './components/Score/Score';
 import { Finish } from './components/Finish/Finish';
@@ -32,7 +32,7 @@ export const Sprint = () => {
   useEffect(useCallback(async () => {
     if (isGameStarted === sprintStates.pending) {
       if (currentPage !== 'main') {
-        const fetched = await request(`${RS_LANG_API}words?group=${levelInputValue - 1}&page=${pageInputValue - 1}`)
+        const fetched = await request(`${RS_LANG_API}words?group=${levelInputValue - constants.one}&page=${pageInputValue - constants.one}`)
         setGameArr(fetched)
       } else {
         const fetched = await request(`${RS_LANG_API}words?group=${currentWordsGroup}&page=${currentWordsPage}`)
@@ -46,6 +46,7 @@ export const Sprint = () => {
       }
       {isGameStarted === sprintStates.pending && gameArr.length &&
         <>
+          <Score score={score} />
           <div className="game-handler">
             <SprintGame numberOfLearned={numberOfLearnedWords}
               numberOfIncorrect={numberOfLearnedWords}

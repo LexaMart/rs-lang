@@ -133,6 +133,7 @@ export const Statistic = () => {
             100
           ).toFixed(2) || 0}{' '}
           %
+          </b>
         </div>
       </div>
       <div className="capt">Special game statictic</div>
