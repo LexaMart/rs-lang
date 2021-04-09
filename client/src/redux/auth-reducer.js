@@ -154,7 +154,7 @@ export const login = (email, password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.login(email, password);
   const words = {
-    learn: false,
+    learn: true,
     hard: true,
     deleted: true,
   };
