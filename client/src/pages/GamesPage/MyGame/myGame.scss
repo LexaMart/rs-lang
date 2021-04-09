@@ -7,9 +7,16 @@
   height: 84.4vh;
   background: linear-gradient(180deg, #F08A5D 0%, #B83B5E 100%)
 }
+.start-our {
+  width: 25%;
+  border-radius: 12px;
+}
 .rules {
-  color: rgb(221, 217, 217);
+  color: #ddd9d9;
   font-weight: 600;
+  font-size: 20px;
+  width: 80%;
+  text-align: center;
 }
 .rules-block {
   height: 100%;
@@ -28,7 +35,7 @@
   align-items: center;
 
 }
-.image-handler {
+.image-handler-our {
   width: 100%;
   display: flex;
   justify-content: space-around;

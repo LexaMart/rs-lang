@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHttp } from '../../../hooks/http.hook';
-import { Rules } from './components/Rules';
 import { rsLangApi } from '../../../services/rs-lang-api';
 import { MAX_NUMBER } from '../Savannah/Savannah';
 import urls from '../../../assets/constants/ursl'
@@ -21,7 +20,6 @@ export const MyGame = () => {
   for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
     pagesArray.push(i + 1);
   }
-  const gameDifficult = useSelector((store) => store.settingsStore.gameDifficult)
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
@@ -105,7 +103,6 @@ export const MyGame = () => {
   }, [isGameStarted, gameCards, request, levelInputValue, pageInputValue]), [isGameStarted, pageInputValue, levelInputValue, randomInt])
   return (
     <div className="our-game-container">
-      <h2>Our game</h2>
       {!isGameStarted && !isGameLost && <p className="rules">In this mini-game you should guess what picture describes the following word</p>}
       {isGameLost && !isGameStarted && <div className="lost-screen">LOST</div>}
       {!isGameStarted && currentPage !== 'main' &&
@@ -134,7 +131,7 @@ export const MyGame = () => {
           </>
         </>
       }
-      {!isGameStarted && <button className="btn red" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button>}
+      {!isGameStarted && <button className="btn start-our waves-effect waves-light red" type="button" onClick={startGame}>{!isGameLost ? "Start" : "Retry"}</button>}
       {/* {
         !isGameStarted && !isGameLost &&
         <Rules startGame={startGame} />
@@ -147,7 +144,7 @@ export const MyGame = () => {
         <div className="word-to-guess-block">
           <span className="guess-word white-text  ">{winingCard.word}</span>
           <div className="lives-container"><div><i className="material-icons">favorite </i> x {lives.length + 1}</div></div>
-          <div className="image-handler">
+          <div className="image-handler-our">
             {gameCards.map((el, key) => <div onClick={(el) => choiceHandler(el)} className="my-game-word-image" key={key}><img src={`${urls.API}/${el.image}`} alt="word_image" /></div>)}
           </div>
         </div>

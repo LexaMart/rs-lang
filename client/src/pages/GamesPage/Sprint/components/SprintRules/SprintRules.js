@@ -60,7 +60,7 @@ export const SprintRules = ({ setScore, setGameStarted, setPage, setGroup }) => 
           </Select>
         </>
       }
-      <button onClick={() => startSprint()} className="btn waves-effect waves-light red" type="button" name="action">START</button>
+      <button onClick={() => startSprint()} className="btn start-sprint waves-effect waves-light red" type="button" name="action">START</button>
     </div>
   )
 }

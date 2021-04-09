@@ -1,5 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  addDeletedWord,
+  addHardWord,
+  addLearningWord,
+  removeDeletedWord,
+  removeHardWord,
+} from '../../redux/auth-reducer';
 
 import { rsLangApi, RS_LANG_API } from '../../services/rs-lang-api';
 
@@ -15,6 +22,7 @@ const Popup = ({
   isDeleted = false,
   pageRender,
 }) => {
+  const dispatch = useDispatch();
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
@@ -25,16 +33,29 @@ const Popup = ({
     (store) => store.settingsStore.isAdditionalButtonsShown
   );
   const popupBtnHandler = (action) => {
-    isAuthenticated
-      ? rsLangApi.postUserWord(token, userId, currElement.id, action)
-      : alert('Not logined');
-    setActive(!active);
+    // isAuthenticated
+    //   ? rsLangApi.postUserWord(token, userId, currElement.id, action)
+    //   : alert('Not logined');
+    // setActive(!active);
+
+    if (isAuthenticated) {
+      rsLangApi.postUserWord(token, userId, currElement.id, action);
+      action === 'deleted'
+        ? dispatch(addDeletedWord(currElement.id))
+        : action === 'hard'
+        ? dispatch(addHardWord(currElement.id))
+        : dispatch(addLearningWord(currElement.id));
+    } else {
+      alert('Not logined');
+    }
   };
 
-  const recoverBtnHandler = () => {
-    rsLangApi.removeUserDeleted(token, userId, currElement.id);
+  const recoverBtnHandler = async () => {
+    await rsLangApi.removeUserDeleted(token, userId, currElement.id);
     setActive(!active);
     pageRender(true);
+    dispatch(removeDeletedWord(currElement.id));
+    dispatch(removeHardWord(currElement.id));
   };
 
   const playAudio = () => {
@@ -123,7 +144,7 @@ const Popup = ({
               >
                 Delete
               </button>
-              <button onClick={() => popupBtnHandler('known')} className="btn">
+              <button onClick={() => popupBtnHandler('learned')} className="btn">
                 Known
               </button>
             </React.Fragment>
