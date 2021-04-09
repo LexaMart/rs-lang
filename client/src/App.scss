@@ -58,12 +58,21 @@
   font-size: 28px;
   text-align: center;
 }
+.popup__description{
+
+  color: rgba(26, 11, 11, 0.65);
+  font-size: 24px;
+  text-align: center;
+}
 .popup_content{
   &.statistic{
     width: auto;
     height: auto;
     .button_container{
       margin-top: 1rem;
+    }
+    .text_container{
+      width: 100%;
     }
   }
 }
