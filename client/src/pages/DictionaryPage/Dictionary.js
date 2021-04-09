@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Row, Col } from 'react-materialize';
 
-import { getUserWord } from '../../services/getAllWords';
+import { getWords } from '../../services/getAllWords';
 import { DictionaryLoader } from '../../components/Loader';
 import { Progress } from './Components/Progress';
 import { DictionaryCard } from './Components/DictionaryCard';
@@ -28,9 +28,6 @@ export const Dictionary = () => {
   const [isPageRender, setPageRender] = useState(false);
   const [nameCards, setNameCards] = useState('');
 
-  // const [userLearningWords, setUserLearningWords] = useState([]);
-  // const [userHardWords, setUserHardWords] = useState([]);
-  // const [userDelWords, setUserDelWords] = useState([]);
   const userLearningWords = useSelector(
     (store) => store.authStore.userLearningWords
   );
@@ -45,38 +42,27 @@ export const Dictionary = () => {
   useEffect(() => {
     dispatch(setCurrentPage('dictionary'));
     const { token, userId } = userData;
-    words(token, userId);
+    wordsNew(token, userId);
   }, [userData]);
 
   useEffect(() => {
     if (isPageRender === true) {
       dispatch(setCurrentPage('dictionary'));
       const { token, userId } = userData;
-      words(token, userId);
-      // setPageRender(false);
+      wordsNew(token, userId);
     }
   }, [isPageRender]);
 
-  const words = async (token, userId) => {
-    await getUserWord({
-      token: token,
-      userId: userId,
-    }).then((res) => {
-      const arrLearnWords = res
-        .filter((item) => item.difficulty === 'learned')
-        .map((item) => item.wordId);
-      const arrHardWords = res
-        .filter((item) => item.difficulty === 'hard')
-        .map((item) => item.wordId);
-      const arrDelWords = res
-        .filter((item) => item.difficulty === 'deleted')
-        .map((item) => item.wordId);
-      // setUserLearningWords(arrLearnWords);
-      // setUserHardWords(arrHardWords);
-      // setUserDelWords(arrDelWords);
-      dispatch(setUserLearningWords(arrLearnWords));
-      dispatch(setUserHardWords(arrHardWords));
-      dispatch(setUserDeletedWords(arrDelWords));
+  const wordsNew = async (token, userId) => {
+    const words = {
+      learn: true,
+      hard: true,
+      deleted: true,
+    };
+    await getWords(token, userId, words).then((res) => {
+      dispatch(setUserLearningWords(res.learn));
+      dispatch(setUserHardWords(res.hard));
+      dispatch(setUserDeletedWords(res.deleted));
       setLoadingWords(false);
     });
   };
@@ -106,7 +92,7 @@ export const Dictionary = () => {
     0;
 
   return (
-    <div className="dictionary valign-wrapper">
+    <div className="dictionary">
       <Row>
         <Col s={12}>
           <div className="dictionary__progress">
@@ -141,7 +127,6 @@ export const Dictionary = () => {
             </Route>
             <Route path={`${path}/:list`}>
               <DictionaryList
-                data={userWordsData}
                 token={userData.token}
                 language={language}
                 nameList={nameCards}
