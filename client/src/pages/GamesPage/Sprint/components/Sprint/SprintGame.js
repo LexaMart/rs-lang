@@ -5,6 +5,7 @@ import { useKey } from '../../../../../hooks/keyboardEvents.hook'
 import arrow from '../../../../../assets/images/left.svg'
 import { rsLangApi } from '../../../../../services/rs-lang-api'
 import './sprintGame.scss'
+import { scoreHandler } from '../Score/Score'
 
 
 
@@ -36,8 +37,7 @@ export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorr
 
   const choiceHandler = (answer) => {
     if (answer === isCorrect) {
-      console.log(score)
-      console.log(seria)
+      scoreHandler(true)
       if (seria / 4 >= 1) {
         setScore(score + (20 * (Math.floor(seria / 4) + 1)))
       } else {
@@ -49,6 +49,7 @@ export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorr
       if (isAuthenticated) {
         rsLangApi.postUserWord(token, userId, winId, 'hard')
       }
+      scoreHandler(false)
       setSeria(0)
       setScore(score - 10)
       setNumberOfIncorrect(numberOfIncorrect + 1)
