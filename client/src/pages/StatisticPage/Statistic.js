@@ -105,35 +105,36 @@ export const Statistic = () => {
     myGameLearnedWords,
   ]);
   return (
-    <div className="stat_page_container white-text">
-      <Popup
-        active={modalActive}
-        setActive={setModalActive}
-        text={
-          activeLanguage === LANGUAGE_CONFIG.native
-            ? WORDS_CONFIG.MODAL_STATISTIC_TITLE.native
-            : WORDS_CONFIG.MODAL_STATISTIC_TITLE.foreign
-        }
-        page="statistic"
-        language={activeLanguage}
-      />
-      <h1>
-        {' '}
-        {activeLanguage === LANGUAGE_CONFIG.native
-          ? WORDS_CONFIG.STATISTICS_PAGE.native
-          : WORDS_CONFIG.STATISTICS_PAGE.foreign}
-      </h1>
-      <div className="average_stat">
-        <div className="capt">Average statistic</div>
-        <div>Whole learned words: {wholeLearnedWords}</div>
-        <div>
-          Percents of wins:{' '}
-          {(
-            (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
-            100
-          ).toFixed(2) || 0}{' '}
+    <>
+      <div className="stat_page_container white-text">
+        <Popup
+          active={modalActive}
+          setActive={setModalActive}
+          text={
+            activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.MODAL_STATISTIC_TITLE.native
+              : WORDS_CONFIG.MODAL_STATISTIC_TITLE.foreign
+          }
+          page="statistic"
+          language={activeLanguage}
+        />
+        <h1>
+          {' '}
+          {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.STATISTICS_PAGE.native
+            : WORDS_CONFIG.STATISTICS_PAGE.foreign}
+        </h1>
+        <div className="average_stat">
+          <div className="capt">Average statistic</div>
+          <div>Whole learned words: {wholeLearnedWords}</div>
+          <div>
+            Percents of wins:{' '}
+            {(
+              (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
+              100
+            ).toFixed(2) || 0}{' '}
           %
-          </b>
+          </div>
         </div>
       </div>
       <div className="capt">Special game statictic</div>
@@ -269,6 +270,6 @@ export const Statistic = () => {
             : WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.foreign}
         </p>
       </>
-    </div>
+    </>
   );
 };
