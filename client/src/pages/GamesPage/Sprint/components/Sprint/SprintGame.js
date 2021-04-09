@@ -6,6 +6,7 @@ import arrow from '../../../../../assets/images/left.svg'
 import { rsLangApi } from '../../../../../services/rs-lang-api'
 import './sprintGame.scss'
 import { scoreHandler } from '../Score/Score'
+import { constants } from '../Timer/Timer'
 
 
 
@@ -23,7 +24,7 @@ export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorr
 
   useEffect(() => {
     console.log(gameArr.length)
-    const randIncorrect = (gameArr.length - 1) - rand
+    const randIncorrect = (gameArr.length - constants.one) - rand
     const isCorrectRand = Math.random() > 0.5
     setIsCorrect(isCorrectRand)
     if (isCorrectRand) {
@@ -38,23 +39,23 @@ export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorr
   const choiceHandler = (answer) => {
     if (answer === isCorrect) {
       scoreHandler(true)
-      if (seria / 4 >= 1) {
-        setScore(score + (20 * (Math.floor(seria / 4) + 1)))
+      if (seria / constants.seria >= constants.one) {
+        setScore(score + (constants.scorePlus * (Math.floor(seria / constants.seria) + constants.one)))
       } else {
-        setScore(score + 20)
+        setScore(score + constants.scorePlus)
       }
       if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, 'learned')
-      setNumberOfLearned(numberOfLearned + 1)
+      setNumberOfLearned(numberOfLearned + constants.one)
     } else {
       if (isAuthenticated) {
         rsLangApi.postUserWord(token, userId, winId, 'hard')
       }
       scoreHandler(false)
       setSeria(0)
-      setScore(score - 10)
-      setNumberOfIncorrect(numberOfIncorrect + 1)
+      setScore(score - constants.scoreMinus)
+      setNumberOfIncorrect(numberOfIncorrect + constants.one)
     }
-    setRand(Math.floor(Math.random() * (gameArr.length - 1)));
+    setRand(Math.floor(Math.random() * (gameArr.length - constants.one)));
   }
   useKey("ArrowRight", () => choiceHandler(false))
   useKey("ArrowLeft", () => choiceHandler(true))
@@ -66,8 +67,8 @@ export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorr
           Correct or Incorrect
         </div>
         <div className="word-to-guess">
-          <p className="english">{toChoose[0]}</p>
-          <p className="russian">{toChoose[1]}</p>
+          <p className="english">{toChoose[constants.zero]}</p>
+          <p className="russian">{toChoose[constants.one]}</p>
         </div>
         <div className="buttons-handler">
           <button onClick={() => choiceHandler(true)} className="btn right">YES</button>

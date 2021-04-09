@@ -6,12 +6,15 @@ import { sprintStates } from '../../../../../assets/constants/sprintStates';
 import './timer.scss';
 import { removeGameClasses } from '../Score/Score';
 
-const constants = {
-  timer : 60,
-  zero : 0,
+export const constants = {
+  timer: 60,
+  zero: 0,
+  one: 1,
   interval: 1000,
+  scorePlus: 20,
+  scoreMinus: 10,
+  seria: 4,
 }
-
 
 export const Timer = ({ numOfLearned, numOfIncorrect, setIsGameStarted }) => {
   const dispatch = useDispatch()
