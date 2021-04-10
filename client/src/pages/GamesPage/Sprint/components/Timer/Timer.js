@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { sendStatistic } from '../../../GameUtilities/GameUtilities'
+import { playSound, sendStatistic } from '../../../GameUtilities/GameUtilities'
 import { setSprintLearnedWords, setSprintIncorrectAnswers } from '../../../../../redux/statistics-reducer'
 import { sprintStates } from '../../../../../assets/constants/sprintStates';
 import './timer.scss';
 import { removeGameClasses } from '../Score/Score';
+import looseSound from '../../../../../assets/sounds/failure.mp3'
 
 export const constants = {
   timer: 60,
@@ -35,6 +36,7 @@ export const Timer = ({ numOfLearned, numOfIncorrect, setIsGameStarted }) => {
     dispatch(setSprintIncorrectAnswers(numOfIncorrect))
     sendStatistic(isAuthenticated, userId, token, wholeLearnedWords, optionalStatisticObject, numOfLearned, numOfIncorrect)
     setIsGameStarted(sprintStates.finished)
+    playSound(looseSound)
   }
 
 
