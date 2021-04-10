@@ -12,7 +12,8 @@ export const Auth = () => {
   const [form, setForm] = useState({
     "email": "", "password": '',
   })
-
+  const message = useSelector((store) => store.authStore.authMessage)
+  const [authMessage, setAuthMessage] = useState(message)
   const isLoading = useSelector(
     (store) => store.authStore.isLoading
   );
@@ -26,7 +27,8 @@ export const Auth = () => {
   }
   useEffect(() => {
     dispatch(setCurrentPage(''))
-  })
+    console.log(message)
+  },[message])
   return (
     <div className="row auth_container">
       <div className="col s6 offset-s3">
@@ -49,6 +51,7 @@ export const Auth = () => {
                 <label htmlFor="password" className="active">Password</label>
               </div>
             </div>
+            <span className='error-message'> {message === '' ? '': message}</span>
           </div>
           <div className="sign_in_btn_area">
             <button onClick={loginHandler} disabled={isLoading} className="btn waves-effect red waves-light" type="submit" name="action">Sign in!
