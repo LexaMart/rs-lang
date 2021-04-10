@@ -55,10 +55,13 @@
 transition: .2s;
   }
 }
+.lost-screen {
+  font-size: 30px;
+}
 
 
 .guess-word {
-  font-size: 24px;
+  font-size: 40px;
 }
 
 @media (max-width: 1100px) {
@@ -68,7 +71,15 @@ transition: .2s;
       height: 140px;
     }
   }
-  .image-handler {
+  .image-handler-our {
     flex-wrap: wrap;
+  }
+}
+
+.choosen {
+  opacity: 0.2;
+  img:hover {
+    cursor: not-allowed;
+    box-shadow: none;
   }
 }

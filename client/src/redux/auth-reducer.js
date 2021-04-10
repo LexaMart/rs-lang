@@ -14,6 +14,7 @@ const ACTION_CONST = {
   REMOVE_HARD_WORD: 'REMOVE_HARD_WORD',
   ADD_LEARNING_WORD: 'ADD_LEARNING_WORD',
   REMOVE_LEARNING_WORD: 'REMOVE_LEARNING_WORD',
+  SET_MESSAGE: 'SET_MESSAGE',
 };
 
 export const DEFAULT_VALUES = {
@@ -30,6 +31,7 @@ let initialState = {
   userLearningWords: DEFAULT_VALUES.EMPTY_ARRAY,
   userHardWords: DEFAULT_VALUES.EMPTY_ARRAY,
   userDeletedWords: DEFAULT_VALUES.EMPTY_ARRAY,
+  authMessage: DEFAULT_VALUES.FALSE,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -46,6 +48,12 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isAuthorized: DEFAULT_VALUES.FALSE,
         token: DEFAULT_VALUES.EMPTY,
+      };
+    }
+    case ACTION_CONST.SET_MESSAGE: {
+      return {
+        ...state,
+        authMessage: action.message,
       };
     }
     case ACTION_CONST.SET_IS_LOADING_PROGRESS: {
@@ -131,7 +139,6 @@ export const removeDeletedWord = (activeWordId) => ({
   type: ACTION_CONST.REMOVE_DELETED_WORD,
   activeWordId,
 });
-
 export const addHardWord = (activeWordId) => ({
   type: ACTION_CONST.ADD_HARD_WORD,
   activeWordId,
@@ -149,6 +156,10 @@ export const removeLearningWord = (activeWordId) => ({
   type: ACTION_CONST.REMOVE_LEARNING_WORD,
   activeWordId,
 });
+export const setMessage = (message) => ({
+  type: ACTION_CONST.SET_MESSAGE,
+  message
+})
 export const logout = () => ({ type: ACTION_CONST.SET_DEFAULT_VALUES });
 export const login = (email, password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress(true));
@@ -159,6 +170,7 @@ export const login = (email, password) => async (dispatch) => {
     deleted: true,
   };
   if (response) {
+    dispatch(setMessage(DEFAULT_VALUES.FALSE))
     dispatch(setUserData(response.data));
     await getWords(response.data.token, response.data.userId, words).then(
       (res) => {
@@ -167,7 +179,9 @@ export const login = (email, password) => async (dispatch) => {
         dispatch(setUserDeletedWords(res.deleted));
       }
     );
-  } else alert('Wrong email or password');
+  } else {
+    dispatch(setMessage(DEFAULT_VALUES.TRUE));
+  }
 
   dispatch(setIsLoadingInProgress(false));
 };
@@ -177,10 +191,11 @@ export const register = (userName, email, password, image) => async (
 ) => {
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.register(userName, email, password, image);
-  //TODO
-  // if (response) {
-  //   login(response.data.email, response.data.password)
-  // }
+  if (!response) {
+    dispatch(setMessage(DEFAULT_VALUES.TRUE))
+  } else {
+    dispatch(setMessage(DEFAULT_VALUES.FALSE))
+  }
   dispatch(setIsLoadingInProgress(false));
 };
 

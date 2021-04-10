@@ -19,6 +19,7 @@
   align-items: center;
 }
 .buttons-image-handler, .buttons-handler {
+  margin-top: 10px;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -36,4 +37,8 @@
   width: 80%;
   display: flex;
   justify-content: space-around;
+}
+.answers-handler {
+  font-weight: 700;
+  font-size: 20px;
 }

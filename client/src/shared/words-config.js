@@ -124,4 +124,16 @@ export const WORDS_CONFIG = {
     foreign: 'No statistics yet',
     native: 'Статистика пока отсутствует',
   },
+  SPRINT_FIRST_ANSWER: {
+    foreign: 'Your answer',
+    native: 'Ваш ответ',
+  },
+  SPRINT_CORRECT: {
+    foreign: 'Correct',
+    native: 'Правильно',
+  },
+  SPRINT_INCORRECT: {
+    foreign: 'Incorrect',
+    native: 'Не правильно',
+  }
 };
