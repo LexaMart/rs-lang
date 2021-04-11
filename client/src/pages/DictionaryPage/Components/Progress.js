@@ -11,7 +11,7 @@ export const Progress = ({ title, language, total = 0 }) => {
       <Col m={6} s={12}>
         <Row className="center-align">
           <Col s={12}>
-            <h4 className="white-text">{title}</h4>
+            <h4 className="dictionary__title white-text">{title}</h4>
           </Col>
           <Col s={12}>
             <img src={flagUK} alt="flag UK" />

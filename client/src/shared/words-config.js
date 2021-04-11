@@ -106,7 +106,7 @@ export const WORDS_CONFIG = {
   },
   GAME_DIFFICULT: {
     foreign: 'Game difficult',
-    native: 'Сложность игры'
+    native: 'Сложность игры',
   },
   PROMO_PAGE: {
     foreign: 'Promo',
@@ -119,5 +119,33 @@ export const WORDS_CONFIG = {
   SECOND_STATISTIC_CHART_NAME: {
     foreign: 'Learned words for the entire period',
     native: 'Изученные слова за весь период',
-  }
+  },
+  MODAL_STATISTIC_TITLE: {
+    foreign: 'No statistics yet',
+    native: 'Статистика пока отсутствует',
+  },
+  SPRINT_FIRST_ANSWER: {
+    foreign: 'Your answer',
+    native: 'Ваш ответ',
+  },
+  SPRINT_CORRECT: {
+    foreign: 'Correct',
+    native: 'Правильно',
+  },
+  SPRINT_INCORRECT: {
+    foreign: 'Incorrect',
+    native: 'Не правильно',
+  },
+  AUTH_ERROR: {
+    foreign: 'Wrong email or password',
+    native: 'Неправильная почта или пароль',
+  },
+  REGISTER_ERROR: {
+    foreign: 'Wrong username, email or password',
+    native:'Неправильный никнейм, почта или пороль',
+  },
+  REGISTER_SUCCES: {
+    foreign: 'User Created!',
+    native: 'Пользователь создан!'
+  },
 };

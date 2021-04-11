@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 import { login } from '../../redux/auth-reducer'
 import { setCurrentPage } from '../../redux/settings-reducer'
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config'
 
 import './auth.scss'
 
@@ -12,11 +13,12 @@ export const Auth = () => {
   const [form, setForm] = useState({
     "email": "", "password": '',
   })
-
+  const message = useSelector((store) => store.authStore.authMessage)
+  const [authMessage, setAuthMessage] = useState(null)
   const isLoading = useSelector(
     (store) => store.authStore.isLoading
   );
-
+  const language = useSelector((store) => store.settingsStore.activeLanguage)
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
@@ -25,12 +27,15 @@ export const Auth = () => {
     dispatch(login(form.email, form.password));
   }
   useEffect(() => {
+    language === LANGUAGE_CONFIG.foreign ? setAuthMessage(WORDS_CONFIG.AUTH_ERROR.foreign) :
+      setAuthMessage(WORDS_CONFIG.AUTH_ERROR.native)
+    if (message) window.M.toast({ html: authMessage, displayLength: 1000 })
     dispatch(setCurrentPage(''))
-  })
+  }, [message])
   return (
     <div className="row auth_container">
       <div className="col s6 offset-s3">
-        <div className="card auth_card">
+        <div id="sign_in_form" className="card auth_card">
           <div className="card-content white-text">
             <span className="card-title" style={{ textAlign: 'center' }}>Sign in</span>
           </div>

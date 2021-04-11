@@ -1,5 +1,17 @@
 .finish-screen {
     display: flex;
-    justify-content: center;
+    flex-flow: column;
+    justify-content: space-around;
     align-items: center;
+    height: 100%;
+    width: 80%;
+}
+.finish-text {
+    font-size: 45px;
+    text-align: center;
+}
+.sprint-restart {
+    width: 40%;
+    height: 40px;
+    border-radius: 15px;
 }

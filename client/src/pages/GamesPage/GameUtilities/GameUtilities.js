@@ -30,3 +30,9 @@ export const sendStatistic = (isAuthenticated, userId, token, wholeLearnedWords,
     );
   }
 };
+
+export const playSound = (answer) => {
+  const audio = new Audio();
+    audio.src = answer;
+  audio.play();
+};
