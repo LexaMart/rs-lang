@@ -73,8 +73,11 @@ export const Statistic = () => {
       dispatch(setCurrentPage("statistic"));
       if (isAuthenticated) {
         dispatch(getStatistic(userId, token));
-        const data = Object.values(statisticsOptionalData);
-        setRechartsData(data);
+        if (statisticsOptionalData) {
+
+          const data = Object.values(statisticsOptionalData);
+          setRechartsData(data);
+        }
       }
     }, [dispatch, isAuthenticated, statisticsOptionalData, token, userId]),
     [isAuthenticated]
@@ -93,7 +96,7 @@ export const Statistic = () => {
         <p>
           Percents of wins:{" "}
           {(
-            (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
+            (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords || 1)) *
             100
           ).toFixed(2) || 0}{" "}
           %
@@ -104,9 +107,9 @@ export const Statistic = () => {
           Savannah Percents of wins:{" "}
           {(
             (savannahLearnedWords /
-              (savannahLearnedWords + savannahIncorrectAnswers)) *
+              (savannahLearnedWords + savannahIncorrectAnswers )) *
             100
-          ).toFixed(2) || 0}{" "}
+          ).toFixed(2) || 0}
           %
         </p>
         <p>audioCallMaxSeries: {audioCallMaxSeries}</p>
@@ -115,7 +118,7 @@ export const Statistic = () => {
           AudioCall Percents of wins:{" "}
           {(
             (audioCallLearnedWords /
-              (audioCallLearnedWords + audioCallIncorrectAnswers)) *
+              (audioCallLearnedWords + audioCallIncorrectAnswers || 1)) *
             100
           ).toFixed(2) || 0}{" "}
           %
@@ -126,7 +129,7 @@ export const Statistic = () => {
           sprint Percents of wins:{" "}
           {(
             (sprintLearnedWords /
-              (sprintLearnedWords + sprintIncorrectAnswers)) *
+              (sprintLearnedWords + sprintIncorrectAnswers || 1)) *
             100
           ).toFixed(2) || 0}{" "}
           %
@@ -137,7 +140,7 @@ export const Statistic = () => {
           myGame Percents of wins:{" "}
           {(
             (myGameLearnedWords /
-              (myGameLearnedWords + myGameIncorrectAnswers)) *
+              (myGameLearnedWords + myGameIncorrectAnswers || 1)) *
             100
           ).toFixed(2) || 0}{" "}
           %

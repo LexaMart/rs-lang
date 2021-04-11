@@ -171,6 +171,10 @@ export const AudioCall = () => {
     }
   };
 
+  // function createMarkup() {
+  //   return {__html: activeCard.textExampleTranslate};
+  // }
+
   return (
     <div className="savannah-container">
       <h2>AudioCall</h2>
@@ -217,11 +221,10 @@ export const AudioCall = () => {
                 >
                   <i className="material-icons">volume_up </i>
                 </button>
-                <div className="white-text word_text">
-                  {activeCard.textExampleTranslate}
+                <div className="white-text word_text" dangerouslySetInnerHTML={{__html: activeCard.textExampleTranslate}}>   
                 </div>
-                <div className="white-text word_text">
-                  {activeCard.textExample}
+                <div className="white-text word_text" dangerouslySetInnerHTML={{__html: activeCard.textExample}}>
+                  {/* {activeCard.textExample} */}
                 </div>
                 <button
                   className="btn play"
