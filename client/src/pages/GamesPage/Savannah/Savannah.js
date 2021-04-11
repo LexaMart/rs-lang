@@ -92,11 +92,10 @@ export const Savannah = () => {
     setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
     // setRandomActiveCardAndCardsForSelection();
 
-    setTimeout(()=> {
+    setTimeout(() => {
       setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
       // setRandomActiveCardAndCardsForSelection();
-
-    }, 0)
+    }, 0);
     if (isAuthenticated) {
       dispatch(getStatistic(userId, token));
     }
@@ -114,16 +113,24 @@ export const Savannah = () => {
           "GET"
         );
         setWordsArray(cards);
-       setRemainWordsArray(cards);
+        setRemainWordsArray(cards);
         if (cards) {
-          setTimeout(()=> {
+          setTimeout(() => {
             //TODO STOP SPINNER
             // setIsWordFalling(GAME_DEFAULT_VALUES.FALSE)
             setRandomActiveCardAndCardsForSelection();
-          },3000);
+          }, 3000);
         }
       }
-    }, [currentPage, currentWordsGroup, currentWordsPage, isGameStarted, levelInputValue, pageInputValue, request]),
+    }, [
+      currentPage,
+      currentWordsGroup,
+      currentWordsPage,
+      isGameStarted,
+      levelInputValue,
+      pageInputValue,
+      request,
+    ]),
     [isGameStarted]
   );
 
@@ -191,20 +198,18 @@ export const Savannah = () => {
   const setRandomActiveCardAndCardsForSelection = () => {
     // if (remainWordsArray) {
 
-      const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
-      const remainWordsArrayForSelection = [...remainWordsArray];
-      setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
-      setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
-      setTimeout(() => {
+    const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
+    const remainWordsArrayForSelection = [...remainWordsArray];
+    setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
+    setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
+    setTimeout(() => {}, 0);
 
-      },0)
-  
-      setActiveCard(remainWordsArray[activeCardIndex]);
-      setCardsForSelection(() =>
-        getRandomCardsForSelect(remainWordsArray[activeCardIndex])
-      );
-      remainWordsArrayForSelection.splice(activeCardIndex, 1);
-      setRemainWordsArray(remainWordsArrayForSelection);
+    setActiveCard(remainWordsArray[activeCardIndex]);
+    setCardsForSelection(() =>
+      getRandomCardsForSelect(remainWordsArray[activeCardIndex])
+    );
+    remainWordsArrayForSelection.splice(activeCardIndex, 1);
+    setRemainWordsArray(remainWordsArrayForSelection);
     // }
   };
 
@@ -285,12 +290,12 @@ export const Savannah = () => {
       cardsForSelection &&
       handleCardClick(null, cardsForSelection[3])
   );
-  
+
   useEffect(() => {
-    if (isGameStarted && activeCard ) {
+    if (isGameStarted && activeCard) {
       playActiveCardAudio();
       const interval = setInterval(() => {
-        notGuessTheWord();
+        // notGuessTheWord();
         // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
       }, 5000);
       //TODO handle right guess
@@ -302,7 +307,6 @@ export const Savannah = () => {
       };
     }
   }, [activeCard]);
-
 
   return (
     <>
@@ -318,49 +322,49 @@ export const Savannah = () => {
     </div>
     <div></div>
     <div></div> */}
-       
-          {!isGameStarted && !isGameLost && (
-            <>
-              <h2>Savannah</h2>
-              <div className="rules">
-                In this game you should choose correct translation of given word
-              </div>
-            </>
-          )}
-          {isGameWon && <div className="win-screen">WON</div>}
-          {isGameLost && <div className="lost-screen">LOST</div>}
-          {!isGameStarted && currentPage !== "main" && (
-            <>
-              <Select
-                id="select-level"
-                multiple={false}
-                onChange={(event) =>
-                  setLevelInputText(event.currentTarget.value)
-                }
-                value={levelInputValue}
-              >
-                {levelsArray.map((el) => {
-                  return <option value={el}>{el}</option>;
-                })}
-              </Select>
-              <Select
-                id="select-page"
-                multiple={false}
-                onChange={(event) =>
-                  setPageInputText(event.currentTarget.value)
-                }
-                value={pageInputValue}
-              >
-                {pagesArray.map((el) => {
-                  return <option value={el}>{el}</option>;
-                })}
-              </Select>
-            </>
-          )}
 
-          {isGameStarted && (
-            <>
-             <div className="savannah-field">
+        {!isGameStarted && !isGameLost && (
+          <>
+            <h2>Savannah</h2>
+            <div className="rules">
+              In this game you should choose correct translation of given word
+            </div>
+          </>
+        )}
+        {isGameWon && <div className="win-screen">WON</div>}
+        {isGameLost && <div className="lost-screen">LOST</div>}
+        {!isGameStarted && currentPage !== "main" && (
+          <>
+            <Select
+              id="select-level"
+              multiple={false}
+              onChange={(event) => setLevelInputText(event.currentTarget.value)}
+              value={levelInputValue}
+            >
+              {levelsArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+            <Select
+              id="select-page"
+              multiple={false}
+              onChange={(event) => setPageInputText(event.currentTarget.value)}
+              value={pageInputValue}
+            >
+              {pagesArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+          </>
+        )}
+        {!isGameStarted && (
+          <button className="btn red" onClick={startGame}>
+            {!isGameLost ? "Start" : "Retry"}
+          </button>
+        )}
+        {isGameStarted && (
+          <>
+            <div className="savannah-field">
               <div className="lives-container">
                 {livesArray.map((el, index) => {
                   return (
@@ -407,24 +411,7 @@ export const Savannah = () => {
               );
             })}
           </div> */}
-              <div className="gun-container">
-                <img
-                  className="savannah_grass"
-                  src={savannahGrass}
-                  alt="savannah_crystal"
-                />
-                <img
-                  className="savannah_crystal"
-                  src={savannahCrystalImg}
-                  alt="savannah_crystal"
-                />
-              </div>
-              </div>
-            </>
-          )}
-        </div>
-     
-      {isGameStarted && cardsForSelection && (
+            {isGameStarted && cardsForSelection && (
         <div className="selection-container">
           {cardsForSelection.map((word, index) => {
             return (
@@ -439,11 +426,39 @@ export const Savannah = () => {
           })}
         </div>
       )}
-      {!isGameStarted && (
-        <button className="btn red" onClick={startGame}>
-          {!isGameLost ? "Start" : "Retry"}
-        </button>
-      )}
+              <div className="gun-container">
+                <img
+                  className="savannah_grass"
+                  src={savannahGrass}
+                  alt="savannah_crystal"
+                />
+                <img
+                  className="savannah_crystal"
+                  src={savannahCrystalImg}
+                  alt="savannah_crystal"
+                />
+              </div>
+            </div>
+          
+          </>
+        )}
+      </div>
+
+      {/* {isGameStarted && cardsForSelection && (
+        <div className="selection-container">
+          {cardsForSelection.map((word, index) => {
+            return (
+              <div
+                key={word.id}
+                onClick={(event) => handleCardClick(event, word)}
+                className="savannah-card btn red"
+              >
+                {index + 1}.{word.wordTranslate}
+              </div>
+            );
+          })}
+        </div>
+      )} */}
     </>
   );
 };

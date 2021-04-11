@@ -1,8 +1,8 @@
 .savannah-container {
-    // display: flex;
-    // justify-content: space-around;
-    // align-items: center;
-    // flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
     min-height: 84.3vh;
     // user-select: none;
@@ -16,26 +16,21 @@
         background-image: url(https://www.nps.gov/miss/learn/nature/images/20170727-4934.jpg?maxwidth=650&autorotate=false);
         // transform: rotateX(60deg);
         width: 100%;
-        height: 86vh;
+        height: 84.3vh;
         // z-index: 1;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        position: relative;
-        display: inline-block;
-        perspective: none;
+        // position: relative;
+        // display: inline-block;
+        // perspective: none;
         // margin-top: -30vh;
         background-size: cover;
     }
 
-    .selection-container {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 50vh;
-        width: 90vw;
-    }
+   
 
     .lives-container {
         display: flex;
@@ -86,14 +81,17 @@
     .savannah-card_active {
         font-size: 2rem;
         color: #fff;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
         // transform: rotateX(-45deg);
         // position: absolute;
-        //   top: 20%;
-        //   left: 30%;
-        font-size: 4em;
+          top: 20%;
+          left: 30%;
+        font-size: 8em;
         font-weight: bold;
         text-transform: capitalize;
-        margin-top: 30vh;
+        // margin-top: 30vh;
         // transform: translate(0);
         transform: scale3d(0,0,0);
         // animation: active-card-fall 5s ease infinite;
@@ -111,8 +109,10 @@
 
     .activeCardFall {
         // transform: translateY(60vh);
-        transform: scale3d(2, 2, 2);
+        transform: scale3d(0.5, 0.5, 0.5);
         transition: transform 5s linear;
+        max-height: 300px;
+        max-width: 300px;
     }
 
     .activeCardSpacing {
@@ -177,23 +177,37 @@
 
 
 }
+.selection-container {
+    display: flex;
+    justify-content: space-around;
+    // margin-top: 45vh;
+    margin-left: 5vw;
+    width: 90vw;
+}
 
 .gun-container {
     position: relative;
+    // height: 20vh;
     width: 100%;
 }
 .savannah_crystal {
     position: absolute;
-    height: 10vh;
+    width: 25vw;
+    height: 25vh;
     animation: crystal-animation 2s linear infinite;
-    margin-left: 38vw;
-    margin-top: -20vh;
+    // margin-left: 38vw;
+    // margin-top: -10vh;
+    bottom: 10vh;
+    left: 30%;
 }
 .savannah_grass {
     position: absolute;
     width: 100vw;
+    height: 50vh;
     // fill: green;
-    margin-top: -85vh;
+    // margin-top:50vh;
+    bottom: 0;
+    left: 0;
     z-index: 200;
 }
 
@@ -202,3 +216,51 @@
         font-size: 1.5rem;
     }
 }
+
+
+// @media only screen and (max-width: 1921px) {
+//     .savannah-card_active {
+//       top: 30%;
+//           left: 30%;
+//         transform: scale3d(0,0,0);
+//     }
+//     .gun-container {
+//         // position: relative;
+//         // width: 100%;
+//     }
+//     .savannah_crystal {
+//         position: absolute;
+//         width: 20vw;
+//         animation: crystal-animation 2s linear infinite;
+//         // margin-left: 38vw;
+//         // margin-top: -0vh;
+//     }
+//     .savannah_grass {
+//         position: absolute;
+//         width: 100vw;
+//         // fill: green;
+//         margin-top: 43vh;
+//         top: 0;
+//         left: 0;
+//         z-index: 200;
+//     }
+    
+// }
+
+// @media only screen and (max-width: 1281px) {
+//     .savannah-card_active {
+//       top: 30%;
+//           left: 30%;
+//     }
+//     .gun-container {
+//         // position: relative;
+//         // width: 100%;
+//     }
+//     .savannah_crystal {  
+//         margin-top: 16vh;
+//     }
+//     .savannah_grass {
+//         margin-top: 56vh;
+//     }
+    
+// }
