@@ -1,18 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { RS_LANG_API } from "../../../services/rs-lang-api";
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
 import { WORDS_CONFIG } from "../../../shared/words-config";
+import urls from "../../../assets/constants/ursl";
+import { useHttp } from "../../../hooks/http.hook";
 import { useSelector, useDispatch } from "react-redux";
+import { Select } from "react-materialize";
 import {
   setAudioCallLearnedWords,
   setAudioCallIncorrectAnswers,
   getStatistic,
 } from "../../../redux/statistics-reducer";
+import { useKey } from "../../../hooks/keyboardEvents.hook";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
 import "./audiocall.scss";
 import "materialize-css";
 
+const KEYBOARD_KEYS = {
+  START_KEYBOARD_USE: "NumpadDivide",
+  STOP_KEYBOARD_USE: "NumpadMultiply",
+  RESTART_GAME: "NumpadEnter",
+  FIRST_NUMBER: "Numpad1",
+  SECOND_NUMBER: "Numpad2",
+  THIRD_NUMBER: "Numpad3",
+  FORTH_NUMBER: "Numpad4",
+};
+
+export const MAX_NUMBER = {
+  LEVEL: 6,
+  PAGE: 30,
+};
 export const AudioCall = () => {
   const dispatch = useDispatch();
   const token = useSelector((store) => store.authStore.userData.token);
@@ -37,6 +55,25 @@ export const AudioCall = () => {
 
   const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [cardsForSelection, setCardsForSelection] = useState(null);
+  const currentPage = useSelector((store) => store.settingsStore.currentPage);
+  const currentWordsPage = useSelector(
+    (store) => store.settingsStore.currentWordsPage
+  );
+  const currentWordsGroup = useSelector(
+    (store) => store.settingsStore.currentWordsGroup
+  );
+  const levelsArray = [];
+  const pagesArray = [];
+  const [isLoading, setIsLoading] = useState(GAME_DEFAULT_VALUES.FALSE);
+  const [levelInputValue, setLevelInputText] = useState(1);
+  const [pageInputValue, setPageInputText] = useState(1);
+  const { request } = useHttp();
+  for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
+    levelsArray.push(i + 1);
+  }
+  for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
+    pagesArray.push(i + 1);
+  }
 
   useEffect(() => {
     if (activeCard) {
@@ -171,13 +208,90 @@ export const AudioCall = () => {
     }
   };
 
-  // function createMarkup() {
-  //   return {__html: activeCard.textExampleTranslate};
-  // }
+  useKey(
+    KEYBOARD_KEYS.FIRST_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[0])
+  );
+  useKey(
+    KEYBOARD_KEYS.SECOND_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[1])
+  );
+  useKey(
+    KEYBOARD_KEYS.THIRD_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[2])
+  );
+  useKey(
+    KEYBOARD_KEYS.FORTH_NUMBER,
+    () =>
+      isGameStarted &&
+      cardsForSelection &&
+      handleCardClick(null, cardsForSelection[3])
+  );
+
+  useEffect(
+    useCallback(async () => {
+      if (isGameStarted) {
+        const cards = await request(
+          `${urls.API}/words?group=${
+            currentPage !== "main" ? levelInputValue - 1 : currentWordsPage
+          }&page=${
+            currentPage !== "main" ? pageInputValue - 1 : currentWordsGroup
+          }`,
+          "GET"
+        );
+        setWordsArray(cards);
+        setRemainWordsArray(cards);
+        setIsLoading(GAME_DEFAULT_VALUES.FALSE);
+        // setRandomActiveCardAndCardsForSelection();
+      }
+    }, [
+      currentPage,
+      currentWordsGroup,
+      currentWordsPage,
+      isGameStarted,
+      levelInputValue,
+      pageInputValue,
+      request,
+    ]),
+    [isGameStarted]
+  );
 
   return (
     <div className="savannah-container">
-      <h2>AudioCall</h2>
+      {!isGameStarted && currentPage !== "main" && (
+        <>
+        <h2>AudioCall</h2>
+            <Select
+              id="select-level"
+              multiple={false}
+              onChange={(event) => setLevelInputText(event.currentTarget.value)}
+              value={levelInputValue}
+            >
+              {levelsArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+            <Select
+              id="select-page"
+              multiple={false}
+              onChange={(event) => setPageInputText(event.currentTarget.value)}
+              value={pageInputValue}
+            >
+              {pagesArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+          </>
+        )}
       {!isGameStarted && (
         <>
           <div className="rules">
@@ -191,14 +305,14 @@ export const AudioCall = () => {
       )}
       {isGameWon && <div className="win-screen">WIN</div>}
       {isGameLost && <div className="lost-screen">LOST</div>}
-      {isGameStarted && (
+      {isGameStarted && activeCard && (
         <>
           <div className="lives-container">
             <div>
               <i className="material-icons">favorite </i> x {livesArray.length}
             </div>
           </div>
-          <div>
+          <div className="additional__info">
             {isImageShown && (
               <>
                 <div className="white-text word_text">
@@ -238,6 +352,9 @@ export const AudioCall = () => {
               </>
             )}
           </div>
+         {!isImageShown &&<button className="btn play" onClick={playActiveCardAudio}>
+                  <i className="material-icons">volume_up </i>
+                </button>}
           <button className="btn" onClick={handleNextButtonClick}>
             Next
           </button>

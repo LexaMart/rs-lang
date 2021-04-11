@@ -19,6 +19,9 @@ import 'materialize-css';
 import './statistic.scss';
 
 import Popup from '../../components/Popup';
+
+const ERROR_DIVINE_COEFFICIENT = 1;
+
 export const Statistic = () => {
   const activeLanguage = useSelector(
     (store) => store.settingsStore.activeLanguage
@@ -132,7 +135,7 @@ export const Statistic = () => {
           <div>
             Percents of wins:
             {(
-              (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
+              (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}
           %
@@ -149,7 +152,7 @@ export const Statistic = () => {
             Percents of wins:
             {(
               (savannahLearnedWords /
-                (savannahLearnedWords + savannahIncorrectAnswers)) *
+                (savannahLearnedWords + savannahIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %
@@ -163,7 +166,7 @@ export const Statistic = () => {
             Percents of wins:{' '}
             {(
               (audioCallLearnedWords /
-                (audioCallLearnedWords + audioCallIncorrectAnswers)) *
+                (audioCallLearnedWords + audioCallIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %
@@ -177,7 +180,7 @@ export const Statistic = () => {
             Percents of wins:{' '}
             {(
               (sprintLearnedWords /
-                (sprintLearnedWords + sprintIncorrectAnswers)) *
+                (sprintLearnedWords + sprintIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %
@@ -191,7 +194,7 @@ export const Statistic = () => {
             Percents of wins:{' '}
             {(
               (myGameLearnedWords /
-                (myGameLearnedWords + myGameIncorrectAnswers)) *
+                (myGameLearnedWords + myGameIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %

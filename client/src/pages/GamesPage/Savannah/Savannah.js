@@ -64,6 +64,7 @@ export const Savannah = () => {
   const [activeCard, setActiveCard] = useState(null);
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
+  const [isLoading, setIsLoading] = useState(GAME_DEFAULT_VALUES.FALSE);
   const levelsArray = [];
   const pagesArray = [];
 
@@ -89,6 +90,7 @@ export const Savannah = () => {
     setDefaultGameSettings();
     // setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
     //TODO add spinner
+    setIsLoading(GAME_DEFAULT_VALUES.TRUE);
     setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
     // setRandomActiveCardAndCardsForSelection();
 
@@ -117,6 +119,7 @@ export const Savannah = () => {
         if (cards) {
           setTimeout(() => {
             //TODO STOP SPINNER
+            setIsLoading(GAME_DEFAULT_VALUES.FALSE);
             // setIsWordFalling(GAME_DEFAULT_VALUES.FALSE)
             setRandomActiveCardAndCardsForSelection();
           }, 3000);
@@ -295,7 +298,7 @@ export const Savannah = () => {
     if (isGameStarted && activeCard) {
       playActiveCardAudio();
       const interval = setInterval(() => {
-        // notGuessTheWord();
+        notGuessTheWord();
         // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
       }, 5000);
       //TODO handle right guess
@@ -411,40 +414,7 @@ export const Savannah = () => {
               );
             })}
           </div> */}
-            {isGameStarted && cardsForSelection && (
-        <div className="selection-container">
-          {cardsForSelection.map((word, index) => {
-            return (
-              <div
-                key={word.id}
-                onClick={(event) => handleCardClick(event, word)}
-                className="savannah-card btn red"
-              >
-                {index + 1}.{word.wordTranslate}
-              </div>
-            );
-          })}
-        </div>
-      )}
-              <div className="gun-container">
-                <img
-                  className="savannah_grass"
-                  src={savannahGrass}
-                  alt="savannah_crystal"
-                />
-                <img
-                  className="savannah_crystal"
-                  src={savannahCrystalImg}
-                  alt="savannah_crystal"
-                />
-              </div>
-            </div>
-          
-          </>
-        )}
-      </div>
-
-      {/* {isGameStarted && cardsForSelection && (
+              {/* {isGameStarted && cardsForSelection && (
         <div className="selection-container">
           {cardsForSelection.map((word, index) => {
             return (
@@ -459,6 +429,53 @@ export const Savannah = () => {
           })}
         </div>
       )} */}
+              <div className="gun-container">
+                {/* {isGameStarted && cardsForSelection && (
+                  <div className="selection-container">
+                    {cardsForSelection.map((word, index) => {
+                      return (
+                        <div
+                          key={word.id}
+                          onClick={(event) => handleCardClick(event, word)}
+                          className="savannah-card btn red"
+                        >
+                          {index + 1}.{word.wordTranslate}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )} */}
+                <img
+                  className="savannah_grass"
+                  src={savannahGrass}
+                  alt="savannah_crystal"
+                />
+                <img
+                  className="savannah_crystal"
+                  src={savannahCrystalImg}
+                  alt="savannah_crystal"
+                />
+              </div>
+            </div>
+          </>
+        )}
+
+        {isGameStarted && cardsForSelection && (
+        <div className="selection-container">
+          {cardsForSelection.map((word, index) => {
+            return (
+              <div
+                key={word.id}
+                onClick={(event) => handleCardClick(event, word)}
+                className="savannah-card btn red"
+              >
+                {index + 1}.{word.wordTranslate}
+              </div>
+            );
+          })}
+        </div>
+      )}
+      </div>
     </>
   );
 };
