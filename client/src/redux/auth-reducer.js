@@ -15,6 +15,7 @@ const ACTION_CONST = {
   ADD_LEARNING_WORD: 'ADD_LEARNING_WORD',
   REMOVE_LEARNING_WORD: 'REMOVE_LEARNING_WORD',
   SET_MESSAGE: 'SET_MESSAGE',
+  SET_REGISTER: 'SET_REGISTER',
 };
 
 export const DEFAULT_VALUES = {
@@ -32,6 +33,7 @@ let initialState = {
   userHardWords: DEFAULT_VALUES.EMPTY_ARRAY,
   userDeletedWords: DEFAULT_VALUES.EMPTY_ARRAY,
   authMessage: DEFAULT_VALUES.FALSE,
+  registerSucces: DEFAULT_VALUES.FALSE,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -54,6 +56,12 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         authMessage: action.message,
+      };
+    }
+    case ACTION_CONST.SET_REGISTER: {
+      return {
+        ...state,
+        registerSucces: action.register
       };
     }
     case ACTION_CONST.SET_IS_LOADING_PROGRESS: {
@@ -159,6 +167,10 @@ export const removeLearningWord = (activeWordId) => ({
 export const setMessage = (message) => ({
   type: ACTION_CONST.SET_MESSAGE,
   message
+});
+export const setRegister = (register) => ({
+  type: ACTION_CONST.SET_REGISTER,
+  register
 })
 export const logout = () => ({ type: ACTION_CONST.SET_DEFAULT_VALUES });
 export const login = (email, password) => async (dispatch) => {
@@ -181,6 +193,9 @@ export const login = (email, password) => async (dispatch) => {
     );
   } else {
     dispatch(setMessage(DEFAULT_VALUES.TRUE));
+    setTimeout(() => {
+      dispatch(setMessage(DEFAULT_VALUES.FALSE));
+    }, 1)
   }
 
   dispatch(setIsLoadingInProgress(false));
@@ -192,9 +207,13 @@ export const register = (userName, email, password, image) => async (
   dispatch(setIsLoadingInProgress(true));
   const response = await rsLangApi.register(userName, email, password, image);
   if (!response) {
-    dispatch(setMessage(DEFAULT_VALUES.TRUE))
+    dispatch(setMessage(DEFAULT_VALUES.TRUE));
+    dispatch(setMessage(DEFAULT_VALUES.FALSE));
   } else {
-    dispatch(setMessage(DEFAULT_VALUES.FALSE))
+    dispatch(setMessage(DEFAULT_VALUES.FALSE));
+    dispatch(setRegister(true));
+    dispatch(setRegister(false))
+
   }
   dispatch(setIsLoadingInProgress(false));
 };

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 import { login } from '../../redux/auth-reducer'
 import { setCurrentPage } from '../../redux/settings-reducer'
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config'
 
 import './auth.scss'
 
@@ -13,11 +14,11 @@ export const Auth = () => {
     "email": "", "password": '',
   })
   const message = useSelector((store) => store.authStore.authMessage)
-  const [authMessage, setAuthMessage] = useState(message)
+  const [authMessage, setAuthMessage] = useState(null)
   const isLoading = useSelector(
     (store) => store.authStore.isLoading
   );
-
+  const language = useSelector((store) => store.settingsStore.activeLanguage)
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
@@ -26,9 +27,11 @@ export const Auth = () => {
     dispatch(login(form.email, form.password));
   }
   useEffect(() => {
+    language === LANGUAGE_CONFIG.foreign ? setAuthMessage(WORDS_CONFIG.AUTH_ERROR.foreign) :
+      setAuthMessage(WORDS_CONFIG.AUTH_ERROR.native)
+    if (message) window.M.toast({ html: authMessage, displayLength: 1000 })
     dispatch(setCurrentPage(''))
-    console.log(message)
-  },[message])
+  }, [message])
   return (
     <div className="row auth_container">
       <div className="col s6 offset-s3">
@@ -51,7 +54,6 @@ export const Auth = () => {
                 <label htmlFor="password" className="active">Password</label>
               </div>
             </div>
-            <span className='error-message'> {message === '' ? '': message}</span>
           </div>
           <div className="sign_in_btn_area">
             <button onClick={loginHandler} disabled={isLoading} className="btn waves-effect red waves-light" type="submit" name="action">Sign in!
