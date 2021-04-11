@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { register } from '../../redux/auth-reducer'
 
 import './registration.scss'
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config'
 
 export const Registration = () => {
 
   const dispatch = useDispatch();
+  const language = useSelector((store) => store.settingsStore.activeLanguage)
+  const message = useSelector((store) => store.authStore.authMessage)
+  const registerSucces = useSelector((store) => store.authStore.registerSucces)
+  const [registerMessage, setRegisterMessage] = useState(null)
+  const [succesMessage, setSuccesMessage] = useState(null)
   const [form, setForm] = useState({
     name: "", email: "", password: '', avatar: ''
   })
@@ -29,6 +35,20 @@ export const Registration = () => {
   const registerHandler = () => {
     dispatch(register(form.name, form.email, form.password, form.avatar))
   }
+
+  useEffect(() => {
+    language === LANGUAGE_CONFIG.foreign ? setRegisterMessage(WORDS_CONFIG.REGISTER_ERROR.foreign) :
+      setRegisterMessage(WORDS_CONFIG.REGISTER_ERROR.native)
+    language === LANGUAGE_CONFIG.foreign ? setSuccesMessage(WORDS_CONFIG.REGISTER_SUCCES.foreign) :
+      setRegisterMessage(WORDS_CONFIG.REGISTER_SUCCES.native)
+    if (message) {
+      window.M.toast({ html: registerMessage, displayLength: 1000 })
+    }
+    else if (!message && registerSucces) {
+      console.log('hi')
+      window.M.toast({ html: succesMessage, displayLength: 1000 })
+    }
+  }, [message, registerSucces])
 
   return (
     <div className="row reg_container">

@@ -135,5 +135,17 @@ export const WORDS_CONFIG = {
   SPRINT_INCORRECT: {
     foreign: 'Incorrect',
     native: 'Не правильно',
-  }
+  },
+  AUTH_ERROR: {
+    foreign: 'Wrong email or password',
+    native: 'Неправильная почта или пароль',
+  },
+  REGISTER_ERROR: {
+    foreign: 'Wrong username, email or password',
+    native:'Неправильный никнейм, почта или пороль',
+  },
+  REGISTER_SUCCES: {
+    foreign: 'User Created!',
+    native: 'Пользователь создан!'
+  },
 };
