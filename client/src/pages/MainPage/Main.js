@@ -4,14 +4,15 @@ import { useHttp } from './../../hooks/http.hook';
 import { setCurrentPage, setCurrentWordsGroup, setCurrentWordsPage } from '../../redux/settings-reducer';
 import WordCard from './WordCard';
 import Popup from './Popup';
-import 'materialize-css';
-import './Main.scss';
 import { setIsLoadingInProgress } from '../../redux/auth-reducer';
 import { MainPagePreloader } from '../../components/Loader';
+import 'materialize-css';
+import './Main.scss';
 
 export const Main = () => {
-  const dispatch = useDispatch()
-  const isLoading = useSelector((store) => store.authStore.isLoading)
+  const dispatch = useDispatch();
+  const isLoading = useSelector((store) => store.authStore.isLoading);
+  const userDeletedWords = useSelector((store) => store.authStore.userDeletedWords);
   const currentWordsGroup = useSelector(
     (store) => store.settingsStore.currentWordsGroup
   );
@@ -70,7 +71,8 @@ export const Main = () => {
       <div className="word_container">
         {
           data && data.map((el) => {
-            return (
+            if(!userDeletedWords.includes(el.id)) {
+              return (
               <div onClick={() => {
                 setCurrWord(el);
                 setModalActive(true);
@@ -78,6 +80,7 @@ export const Main = () => {
                 <WordCard element={el} />
               </div>
             )
+            }
           })}
       </div>
       <div className="navigation">

@@ -20,9 +20,10 @@
 }
 
 .reg_container {
-    height: 81.7vh;
+    height: 84.4vh;
     display: flex;
     align-items: center;
+    margin: 0;
 }
 
 .photo_field {
@@ -35,4 +36,8 @@
 
 .card-title {
   height: 5% !important;
+}
+
+.card-content {
+  padding-bottom: 0% !important;
 }

@@ -34,22 +34,22 @@ export const Auth = () => {
   }, [message])
   return (
     <div className="row auth_container">
-      <div className="col s6 offset-s3">
-        <div id="sign_in_form" className="card auth_card">
+      <div id="sign_in_form" className="col s6 offset-s3">
+        <div className="card auth_card">
           <div className="card-content white-text">
             <span className="card-title" style={{ textAlign: 'center' }}>Sign in</span>
           </div>
-          <div className="card-inputs">
+          <div className="card-auth-inputs">
             <div className="row">
             </div>
             <div className="row">
-              <div className="input-field col s12">
+              <div className="input-field input-auth-field col s12">
                 <input onChange={changeHandler} name="email" id="email" type="email" className="validate" placeholder="Enter email" />
                 <label htmlFor="email" className="active">Email</label>
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s12">
+              <div className="input-field input-auth-field col s12">
                 <input onChange={changeHandler} name="password" id="password" type="password" className="validate" placeholder="Enter password" />
                 <label htmlFor="password" className="active">Password</label>
               </div>
