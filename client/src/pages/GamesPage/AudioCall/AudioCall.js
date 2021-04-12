@@ -49,8 +49,8 @@ export const AudioCall = () => {
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameLost, setIsGameLost] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [livesArray, setLivesArray] = useState(GAME_DEFAULT_VALUES.LIVES_ARRAY);
-  const [wordsArray, setWordsArray] = useState(wordsMockData);
-  const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
+  const [wordsArray, setWordsArray] = useState([]);
+  const [remainWordsArray, setRemainWordsArray] = useState([]);
   const [activeCard, setActiveCard] = useState();
 
   const [isImageShown, setIsImageShown] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -84,7 +84,6 @@ export const AudioCall = () => {
   const startGame = () => {
     setDefaultGameSettings();
     setIsGameStarted(!isGameStarted);
-    setRandomActiveCardAndCardsForSelection();
     if (isAuthenticated) {
       dispatch(getStatistic(userId, token));
     }
@@ -120,15 +119,15 @@ export const AudioCall = () => {
     audio.play();
   };
 
-  const getRandomCardsForSelect = (activeCard) => {
+  const getRandomCardsForSelect = (wordsArray, activeCard) => {
     const arrayOfCardsForSelect = [...wordsArray].filter(
       (card) => card.id !== activeCard.id
     );
 
     //TODO
-    const length = 3;
+    const cardsLength = 4;
     const result = [];
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < cardsLength; i++) {
       let index = getRandomValue(arrayOfCardsForSelect.length - 1);
       let curCard = arrayOfCardsForSelect[index];
       arrayOfCardsForSelect.splice(index, 1);
@@ -145,18 +144,21 @@ export const AudioCall = () => {
 
   const handleNextButtonClick = () => {
     if (remainWordsArray.length) {
-      setRandomActiveCardAndCardsForSelection();
+      setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
     }
     setIsImageShown(GAME_DEFAULT_VALUES.FALSE);
   };
 
-  const setRandomActiveCardAndCardsForSelection = () => {
+  const setRandomActiveCardAndCardsForSelection = (
+    wordsArray,
+    remainWordsArray
+  ) => {
     const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
     const remainWordsArrayForSelection = [...remainWordsArray];
 
     setActiveCard(remainWordsArray[activeCardIndex]);
     setCardsForSelection(() =>
-      getRandomCardsForSelect(remainWordsArray[activeCardIndex])
+      getRandomCardsForSelect(wordsArray, remainWordsArray[activeCardIndex])
     );
     remainWordsArrayForSelection.splice(activeCardIndex, 1);
     setRemainWordsArray(remainWordsArrayForSelection);
@@ -251,7 +253,7 @@ export const AudioCall = () => {
         setWordsArray(cards);
         setRemainWordsArray(cards);
         setIsLoading(GAME_DEFAULT_VALUES.FALSE);
-        setRandomActiveCardAndCardsForSelection();
+        setRandomActiveCardAndCardsForSelection(cards, cards);
       }
     }, [
       currentPage,
@@ -269,29 +271,29 @@ export const AudioCall = () => {
     <div className="savannah-container">
       {!isGameStarted && currentPage !== "main" && (
         <>
-        <h2>AudioCall</h2>
-            <Select
-              id="select-level"
-              multiple={false}
-              onChange={(event) => setLevelInputText(event.currentTarget.value)}
-              value={levelInputValue}
-            >
-              {levelsArray.map((el) => {
-                return <option value={el}>{el}</option>;
-              })}
-            </Select>
-            <Select
-              id="select-page"
-              multiple={false}
-              onChange={(event) => setPageInputText(event.currentTarget.value)}
-              value={pageInputValue}
-            >
-              {pagesArray.map((el) => {
-                return <option value={el}>{el}</option>;
-              })}
-            </Select>
-          </>
-        )}
+          <h2>AudioCall</h2>
+          <Select
+            id="select-level"
+            multiple={false}
+            onChange={(event) => setLevelInputText(event.currentTarget.value)}
+            value={levelInputValue}
+          >
+            {levelsArray.map((el) => {
+              return <option value={el}>{el}</option>;
+            })}
+          </Select>
+          <Select
+            id="select-page"
+            multiple={false}
+            onChange={(event) => setPageInputText(event.currentTarget.value)}
+            value={pageInputValue}
+          >
+            {pagesArray.map((el) => {
+              return <option value={el}>{el}</option>;
+            })}
+          </Select>
+        </>
+      )}
       {!isGameStarted && (
         <>
           <div className="rules">
@@ -315,67 +317,84 @@ export const AudioCall = () => {
           <div className="additional__info">
             {isImageShown && (
               <>
-                <div className="white-text word_text">
-                  {activeCard.transcription}
+                <div className="text_container">
+                  <div className="white-text word_text">
+                    {activeCard.transcription}
+                  </div>
+                  <button className="btn play" onClick={playActiveCardAudio}>
+                    <i className="material-icons">volume_up </i>
+                  </button>
                 </div>
-                <button className="btn play" onClick={playActiveCardAudio}>
-                  <i className="material-icons">volume_up </i>
-                </button>
                 <img
                   className="correct_word_image"
                   src={`${RS_LANG_API}${activeCard.image}`}
                   alt="word_image"
                 />
-                <div className="white-text word_text">
-                  {activeCard.textMeaning.replace(/<\/?[^>]+(>|$)/g, '')}
+                <div className="text_container">
+                  <div
+                    className="white-text word_text"
+                    dangerouslySetInnerHTML={{ __html: activeCard.textMeaning }}
+                  ></div>
+                  <button
+                    className="btn play"
+                    onClick={playActiveCardAudioMeaning}
+                  >
+                    <i className="material-icons">volume_up </i>
+                  </button>
                 </div>
-                <button
-                  className="btn play"
-                  onClick={playActiveCardAudioMeaning}
-                >
-                  <i className="material-icons">volume_up </i>
-                </button>
-                <div className="white-text word_text" dangerouslySetInnerHTML={{__html: activeCard.textExampleTranslate}}>   
+                <div
+                  className="white-text word_text"
+                  dangerouslySetInnerHTML={{
+                    __html: activeCard.textExampleTranslate,
+                  }}
+                ></div>
+                <div className="text_container">
+                  <div
+                    className="white-text word_text"
+                    dangerouslySetInnerHTML={{ __html: activeCard.textExample }}
+                  ></div>
+                  <button
+                    className="btn play"
+                    onClick={playActiveCardAudioExample}
+                  >
+                    <i className="material-icons">volume_up </i>
+                  </button>
                 </div>
-                <div className="white-text word_text" dangerouslySetInnerHTML={{__html: activeCard.textExample}}>
-                </div>
-                <button
-                  className="btn play"
-                  onClick={playActiveCardAudioExample}
-                >
-                  <i className="material-icons">volume_up </i>
-                </button>
                 <div className="white-text word_text">
                   {activeCard.textMeaningTranslate}
                 </div>
               </>
             )}
           </div>
-         {!isImageShown &&<button className="btn play" onClick={playActiveCardAudio}>
-                  <i className="material-icons">volume_up </i>
-                </button>}
+          {!isImageShown && (
+            <button className="btn play" onClick={playActiveCardAudio}>
+              <i className="material-icons">volume_up </i>
+            </button>
+          )}
           <button className="btn" onClick={handleNextButtonClick}>
             Next
           </button>
-          <div
-            className={
-              isImageShown
-                ? "selection-audio-container-end"
-                : "selection-audio-container"
-            }
-          >
-            {cardsForSelection.map((word) => {
-              return (
-                <div
-                  key={word.id}
-                  onClick={(event) => handleCardClick(event, word)}
-                  className="btn red audiocall-card"
-                >
-                  {word.wordTranslate}
-                </div>
-              );
-            })}
-          </div>
+          {isGameStarted && cardsForSelection && (
+            <div
+              className={
+                isImageShown
+                  ? "selection-audio-container-end"
+                  : "selection-audio-container"
+              }
+            >
+              {cardsForSelection.map((word) => {
+                return (
+                  <div
+                    key={word.id}
+                    onClick={(event) => handleCardClick(event, word)}
+                    className="btn red audiocall-card"
+                  >
+                    {word.wordTranslate}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </>
       )}
     </div>
