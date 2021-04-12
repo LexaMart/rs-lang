@@ -72,15 +72,16 @@ export const Main = () => {
       <div className="word_container">
         {
           // eslint-disable-next-line array-callback-return
-          data && data.map((el, key) => {
+          data && data.map((el) => {
             if (!userDeletedWords.includes(el.id)) {
               return (
                 <div onClick={() => {
-                  key = { key }
                   setCurrWord(el);
                   setModalActive(true);
-                }}>
-                  <WordCard key={key} element={el} />
+                }}
+                  key={el.id}
+                >
+                  <WordCard element={el} />
                 </div>
               )
             }
