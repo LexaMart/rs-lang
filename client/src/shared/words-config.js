@@ -108,6 +108,10 @@ export const WORDS_CONFIG = {
     foreign: 'Main page',
     native: 'Главная страница',
   },
+  MAIN_PAGE_GROUP: {
+    foreign: 'Group',
+    native: 'Группа',
+  },
   GAMES_PAGE: {
     foreign: 'Games',
     native: 'Игры',
@@ -239,5 +243,21 @@ export const WORDS_CONFIG = {
   RETRY_BUTTON: {
     foreign: 'Retry',
     native: 'Повторить',
+  },
+  POPUP_TRANSLATION: {
+    foreign: 'Translation',
+    native: 'Перевод',
+  },
+  POPUP_TRANSCRIPTION: {
+    foreign: 'Transcription',
+    native: 'Транскрипция',
+  },
+  POPUP_WORD_MEANING: {
+    foreign: 'Word Meaning',
+    native: 'Значение слова',
+  },
+  POPUP_WORD_USAGE: {
+    foreign: 'Word usage example',
+    native: 'Пример использования слов',
   },
 };

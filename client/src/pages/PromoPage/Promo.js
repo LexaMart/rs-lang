@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage } from '../../redux/settings-reducer';
-import {
-  CURRENT_PAGE_NAME,
-  LANGUAGE_CONFIG,
-  WORDS_CATEGORIES,
-  WORDS_CONFIG,
-} from '../../shared/words-config';
+import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
 import { Link } from 'react-router-dom';
 import statistics from '../../assets/images/statistics.png';

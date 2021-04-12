@@ -8,11 +8,14 @@ import {
   removeHardWord,
 } from '../../redux/auth-reducer';
 import { rsLangApi, RS_LANG_API } from '../../services/rs-lang-api';
-import { WORDS_CATEGORIES } from '../../shared/words-config';
+import {
+  WORDS_CATEGORIES,
+  LANGUAGE_CONFIG,
+  WORDS_CONFIG,
+} from '../../shared/words-config';
 import audioImage from '../../assets/images/audio.svg';
 import 'materialize-css';
 import './popup.scss';
-
 
 const Popup = ({
   active,
@@ -31,15 +34,18 @@ const Popup = ({
   const isAdditionalButtonsShown = useSelector(
     (store) => store.settingsStore.isAdditionalButtonsShown
   );
+  const language = useSelector((store) => store.settingsStore.activeLanguage);
+
   const popupBtnHandler = (action) => {
     if (isAuthenticated) {
       rsLangApi.postUserWord(token, userId, currElement.id, action);
       action === WORDS_CATEGORIES.deleted
         ? dispatch(addDeletedWord(currElement.id))
         : action === WORDS_CATEGORIES.hard
-          ? dispatch(addHardWord(currElement.id))
-          : dispatch(addLearningWord(currElement.id));
-    } else { }
+        ? dispatch(addHardWord(currElement.id))
+        : dispatch(addLearningWord(currElement.id));
+    } else {
+    }
   };
 
   const recoverBtnHandler = async () => {
@@ -82,30 +88,72 @@ const Popup = ({
           <div className="text_container">
             <div>
               <div className="word_transcript">
-                <b>Transcription:</b> {currElement.transcription}
+                <b>
+                  {language === LANGUAGE_CONFIG.foreign
+                    ? WORDS_CONFIG.POPUP_TRANSCRIPTION.foreign
+                    : WORDS_CONFIG.POPUP_TRANSCRIPTION.native}
+                  :
+                </b>{' '}
+                {currElement.transcription}
               </div>
               <div className={isTranslationShown ? 'word_translate' : 'hide'}>
-                <b>Translation:</b> {currElement.wordTranslate}
+                <b>
+                  {language === LANGUAGE_CONFIG.foreign
+                    ? WORDS_CONFIG.POPUP_TRANSLATION.foreign
+                    : WORDS_CONFIG.POPUP_TRANSLATION.native}
+                  :
+                </b>{' '}
+                {currElement.wordTranslate}
               </div>
               <div>
-                <b>Word Meaning: </b><span dangerouslySetInnerHTML={{ __html: currElement.textMeaning }} className="text_meaning"></span>
+                <b>
+                  {language === LANGUAGE_CONFIG.foreign
+                    ? WORDS_CONFIG.POPUP_WORD_MEANING.foreign
+                    : WORDS_CONFIG.POPUP_WORD_MEANING.native}
+                  :{' '}
+                </b>
+                <span
+                  dangerouslySetInnerHTML={{ __html: currElement.textMeaning }}
+                  className="text_meaning"
+                ></span>
               </div>
               <div
                 className={
                   isTranslationShown ? 'text_meaning_translation' : 'hide'
                 }
               >
-                <b>Translation:</b> {currElement.textMeaningTranslate}
+                <b>
+                  {language === LANGUAGE_CONFIG.foreign
+                    ? WORDS_CONFIG.POPUP_TRANSLATION.foreign
+                    : WORDS_CONFIG.POPUP_TRANSLATION.native}
+                  :
+                </b>{' '}
+                {currElement.textMeaningTranslate}
               </div>
               <div className="text_example">
-                <b>Word usage example: </b><span dangerouslySetInnerHTML={{ __html: currElement.textExample }} className="text_meaning"></span>
+                <b>
+                  {language === LANGUAGE_CONFIG.foreign
+                    ? WORDS_CONFIG.POPUP_WORD_USAGE.foreign
+                    : WORDS_CONFIG.POPUP_WORD_USAGE.native}
+                  :{' '}
+                </b>
+                <span
+                  dangerouslySetInnerHTML={{ __html: currElement.textExample }}
+                  className="text_meaning"
+                ></span>
               </div>
               <div
                 className={
                   isTranslationShown ? 'text_example_translation' : 'hide'
                 }
               >
-                <b>Translation:</b> {currElement.textExampleTranslate}
+                <b>
+                  {language === LANGUAGE_CONFIG.foreign
+                    ? WORDS_CONFIG.POPUP_TRANSLATION.foreign
+                    : WORDS_CONFIG.POPUP_TRANSLATION.native}
+                  :
+                </b>{' '}
+                {currElement.textExampleTranslate}
               </div>
             </div>
           </div>
@@ -118,29 +166,58 @@ const Popup = ({
           </div>
         </div>
         <div className="audio_container">
-          <div className="audio_btn"><img img src={audioImage} alt="audio" className="audio_image" onClick={() => playAudio()} /></div>
-          <div className="audio_btn"><img img src={audioImage} alt="audio" className="audio_image" onClick={() => playAudio1()} /></div>
-          <div className="audio_btn"><img img src={audioImage} alt="audio" className="audio_image" onClick={() => playAudio2()} /></div>
+          <div className="audio_btn">
+            <img
+              img
+              src={audioImage}
+              alt="audio"
+              className="audio_image"
+              onClick={() => playAudio()}
+            />
+          </div>
+          <div className="audio_btn">
+            <img
+              img
+              src={audioImage}
+              alt="audio"
+              className="audio_image"
+              onClick={() => playAudio1()}
+            />
+          </div>
+          <div className="audio_btn">
+            <img
+              img
+              src={audioImage}
+              alt="audio"
+              className="audio_image"
+              onClick={() => playAudio2()}
+            />
+          </div>
         </div>
         <div className={isAdditionalButtonsShown ? 'button_container' : 'hide'}>
           {!isDeleted ? (
             <React.Fragment>
               <button onClick={() => popupBtnHandler('hard')} className="btn">
-                Difficult
+                {language === LANGUAGE_CONFIG.foreign ? 'Difficult' : 'сложное'}
               </button>
               <button
                 onClick={() => popupBtnHandler('deleted')}
                 className="btn"
               >
-                Delete
+                {language === LANGUAGE_CONFIG.foreign ? 'Delete' : 'Удаление'}
               </button>
-              <button onClick={() => popupBtnHandler('learned')} className="btn">
-                Known
+              <button
+                onClick={() => popupBtnHandler('learned')}
+                className="btn"
+              >
+                {language === LANGUAGE_CONFIG.foreign ? 'Known' : 'Изученное'}
               </button>
             </React.Fragment>
           ) : (
             <button onClick={() => recoverBtnHandler()} className="btn">
-              Recover
+              {language === LANGUAGE_CONFIG.foreign
+                ? 'Recover'
+                : 'Восстановление'}
             </button>
           )}
         </div>
