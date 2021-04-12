@@ -3,6 +3,17 @@ export const LANGUAGE_CONFIG = {
   foreign: 'en',
 };
 
+export const WORDS_CATEGORIES = {
+  learned: 'learned',
+  hard: 'hard',
+}
+
+export const CURRENT_PAGE_NAME = {
+  MAIN: 'main',
+  STATISTIC: 'statistic',
+  SETTINGS: 'settings',
+}
+
 export const WORDS_CONFIG = {
   LOGIN_BUTTON: {
     foreign: 'Login',

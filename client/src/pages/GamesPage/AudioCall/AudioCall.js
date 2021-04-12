@@ -251,7 +251,7 @@ export const AudioCall = () => {
         setWordsArray(cards);
         setRemainWordsArray(cards);
         setIsLoading(GAME_DEFAULT_VALUES.FALSE);
-        // setRandomActiveCardAndCardsForSelection();
+        setRandomActiveCardAndCardsForSelection();
       }
     }, [
       currentPage,
@@ -338,7 +338,6 @@ export const AudioCall = () => {
                 <div className="white-text word_text" dangerouslySetInnerHTML={{__html: activeCard.textExampleTranslate}}>   
                 </div>
                 <div className="white-text word_text" dangerouslySetInnerHTML={{__html: activeCard.textExample}}>
-                  {/* {activeCard.textExample} */}
                 </div>
                 <button
                   className="btn play"

@@ -11,12 +11,12 @@ import {
   setCurrentPage,
 } from "../../redux/settings-reducer";
 import { useDispatch, useSelector } from "react-redux";
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
+import { CURRENT_PAGE_NAME, LANGUAGE_CONFIG, WORDS_CONFIG } from "../../shared/words-config";
 
 export const Settings = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentPage('settings'))
+    dispatch(setCurrentPage(CURRENT_PAGE_NAME.SETTINGS))
   })
 
   const isAdditionalButtonsShown = useSelector(

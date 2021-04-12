@@ -16,11 +16,16 @@ import {
 } from "../../../redux/statistics-reducer";
 import { rsLangApi } from "../../../services/rs-lang-api";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
-import correctAudio from "../../../assets/sounds/correct.mp3";
-import errorAudio from "../../../assets/sounds/error.mp3";
+import correctAudio from "../../../assets/sounds/savannah_correct.mp3";
+import errorAudio from "../../../assets/sounds/savannah_error.mp3";
 import savannahCrystalImg from "../../../assets/images/savannah_gun.png";
 import savannahGrass from "../../../assets/images/savannah-grass.png";
 import savannahLion from "../../../assets/images/savannah_lion.png";
+import savananhGunShot from "../../../assets/images/savannah_gun_shot.png";
+import {
+  CURRENT_PAGE_NAME,
+  WORDS_CATEGORIES,
+} from "../../../shared/words-config";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -59,8 +64,8 @@ export const Savannah = () => {
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameLost, setIsGameLost] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [livesArray, setLivesArray] = useState(GAME_DEFAULT_VALUES.LIVES_ARRAY);
-  const [wordsArray, setWordsArray] = useState(wordsMockData);
-  const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
+  const [wordsArray, setWordsArray] = useState([]);
+  const [remainWordsArray, setRemainWordsArray] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
@@ -73,6 +78,7 @@ export const Savannah = () => {
   const [isActiveCardSpacing, setIsActiveCardSpacing] = useState(
     GAME_DEFAULT_VALUES.FALSE
   );
+  const [isGunShooting, setIsGunShooting] = useState(GAME_DEFAULT_VALUES.FALSE);
 
   const [levelInputValue, setLevelInputText] = useState(1);
   const [pageInputValue, setPageInputText] = useState(1);
@@ -88,15 +94,11 @@ export const Savannah = () => {
 
   const startGame = () => {
     setDefaultGameSettings();
-    // setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
     //TODO add spinner
     setIsLoading(GAME_DEFAULT_VALUES.TRUE);
-    setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
-    // setRandomActiveCardAndCardsForSelection();
 
     setTimeout(() => {
       setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
-      // setRandomActiveCardAndCardsForSelection();
     }, 0);
     if (isAuthenticated) {
       dispatch(getStatistic(userId, token));
@@ -108,22 +110,20 @@ export const Savannah = () => {
       if (isGameStarted) {
         const cards = await request(
           `${urls.API}/words?group=${
-            currentPage !== "main" ? levelInputValue - 1 : currentWordsPage
+            currentPage !== CURRENT_PAGE_NAME.MAIN
+              ? levelInputValue - 1
+              : currentWordsPage
           }&page=${
-            currentPage !== "main" ? pageInputValue - 1 : currentWordsGroup
+            currentPage !== CURRENT_PAGE_NAME.MAIN
+              ? pageInputValue - 1
+              : currentWordsGroup
           }`,
           "GET"
         );
         setWordsArray(cards);
         setRemainWordsArray(cards);
-        if (cards) {
-          setTimeout(() => {
-            //TODO STOP SPINNER
-            setIsLoading(GAME_DEFAULT_VALUES.FALSE);
-            // setIsWordFalling(GAME_DEFAULT_VALUES.FALSE)
-            setRandomActiveCardAndCardsForSelection();
-          }, 3000);
-        }
+        setRandomActiveCardAndCardsForSelection(cards);
+        //     //TODO STOP SPINNER
       }
     }, [
       currentPage,
@@ -168,7 +168,7 @@ export const Savannah = () => {
     audio.play();
   };
 
-  const getRandomCardsForSelect = (activeCard) => {
+  const getRandomCardsForSelect = (wordsArray, activeCard) => {
     const arrayOfCardsForSelect = [...wordsArray].filter(
       (card) => card.id !== activeCard.id
     );
@@ -182,7 +182,11 @@ export const Savannah = () => {
       arrayOfCardsForSelect.splice(index, 1);
       result.push(curCard);
     }
-    result.splice(Math.floor(Math.random() * Math.floor(3)), 0, activeCard);
+    result.splice(
+      Math.floor(Math.random() * Math.floor(numberOfCards)),
+      0,
+      activeCard
+    );
 
     return result;
   };
@@ -193,38 +197,40 @@ export const Savannah = () => {
       guessTheWord();
       setNumberOfLearnedWords(numberOfLearnedWords + 1);
       if (isAuthenticated) {
-        rsLangApi.postUserWord(token, userId, word.id, "learned");
+        rsLangApi.postUserWord(
+          token,
+          userId,
+          word.id,
+          WORDS_CATEGORIES.learned
+        );
       }
     } else notGuessTheWord();
   };
 
-  const setRandomActiveCardAndCardsForSelection = () => {
-    // if (remainWordsArray) {
-
-    const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
-    const remainWordsArrayForSelection = [...remainWordsArray];
+  const setRandomActiveCardAndCardsForSelection = (wordsArray) => {
+    const activeCardIndex = getRandomValue(wordsArray.length - 1);
+    const remainWordsArrayForSelection = [...wordsArray];
     setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
     setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     setTimeout(() => {}, 0);
-
-    setActiveCard(remainWordsArray[activeCardIndex]);
+    setIsGunShooting(GAME_DEFAULT_VALUES.FALSE);
+    setActiveCard(wordsArray[activeCardIndex]);
     setCardsForSelection(() =>
-      getRandomCardsForSelect(remainWordsArray[activeCardIndex])
+      getRandomCardsForSelect(wordsArray, wordsArray[activeCardIndex])
     );
     remainWordsArrayForSelection.splice(activeCardIndex, 1);
     setRemainWordsArray(remainWordsArrayForSelection);
-    // }
   };
 
   const guessTheWord = () => {
     playCorrectAudio();
     setIsActiveCardSpacing(GAME_DEFAULT_VALUES.TRUE);
     setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
+    setIsGunShooting(GAME_DEFAULT_VALUES.TRUE);
     if (remainWordsArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection();
+        setRandomActiveCardAndCardsForSelection(remainWordsArray);
       }, 300);
-      // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     } else {
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
       setEndGameSettings();
@@ -241,7 +247,7 @@ export const Savannah = () => {
     setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1);
     if (remainLivesArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection();
+        setRandomActiveCardAndCardsForSelection(remainWordsArray);
       }, 300);
     } else {
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
@@ -314,18 +320,6 @@ export const Savannah = () => {
   return (
     <>
       <div className="savannah-container">
-        {/* <div className="gallery">
-
-    <div className="left"></div>
-    <div className="center">
-    
-    </div>
-
-    <div className="right"></div>
-    </div>
-    <div></div>
-    <div></div> */}
-
         {!isGameStarted && !isGameLost && (
           <>
             <h2>Savannah</h2>
@@ -387,69 +381,19 @@ export const Savannah = () => {
                   <img src={savannahLion} alt="lion"></img>
                 </div>
               )}
-              {/* {activeCard && (
-        <div className={isWordFalling ? `savannah-card_active activeCardFall` : 'savannah-card_active'}>
-              {activeCard.word}
-            </div>
-          )} */}
-              {/* {activeCard && (
-            <div
-              className={`savannah-card_active ${
-                isWordFalling ? "activeCardFall" : ""
-              } ${isActiveCardSpacing ? "activeCardSpacing" : ""}`}
-            >
-              {activeCard.word}
-            </div>
-          )} */}
-              {/* <div className="selection-container">
-            {cardsForSelection.map((word, index) => {
-              return (
-                <div
-                  key={word.id}
-                  onClick={(event) => handleCardClick(event, word)}
-                  className="savannah-card btn red"
-                >
-                  {index + 1}.{word.wordTranslate}
-                </div>
-              );
-            })}
-          </div> */}
-              {/* {isGameStarted && cardsForSelection && (
-        <div className="selection-container">
-          {cardsForSelection.map((word, index) => {
-            return (
-              <div
-                key={word.id}
-                onClick={(event) => handleCardClick(event, word)}
-                className="savannah-card btn red"
-              >
-                {index + 1}.{word.wordTranslate}
-              </div>
-            );
-          })}
-        </div>
-      )} */}
               <div className="gun-container">
-                {/* {isGameStarted && cardsForSelection && (
-                  <div className="selection-container">
-                    {cardsForSelection.map((word, index) => {
-                      return (
-                        <div
-                          key={word.id}
-                          onClick={(event) => handleCardClick(event, word)}
-                          className="savannah-card btn red"
-                        >
-                          {index + 1}.{word.wordTranslate}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )} */}
                 <img
                   className="savannah_grass"
                   src={savannahGrass}
                   alt="savannah_crystal"
                 />
+                {isGunShooting && (
+                  <img
+                    className="savannah_gun_shot"
+                    src={savananhGunShot}
+                    alt="savannah_gun_shot"
+                  />
+                )}
                 <img
                   className="savannah_crystal"
                   src={savannahCrystalImg}
@@ -461,20 +405,20 @@ export const Savannah = () => {
         )}
 
         {isGameStarted && cardsForSelection && (
-        <div className="selection-container">
-          {cardsForSelection.map((word, index) => {
-            return (
-              <div
-                key={word.id}
-                onClick={(event) => handleCardClick(event, word)}
-                className="savannah-card btn red"
-              >
-                {index + 1}.{word.wordTranslate}
-              </div>
-            );
-          })}
-        </div>
-      )}
+          <div className="selection-container">
+            {cardsForSelection.map((word, index) => {
+              return (
+                <div
+                  key={word.id}
+                  onClick={(event) => handleCardClick(event, word)}
+                  className="savannah-card btn red"
+                >
+                  {index + 1}.{word.wordTranslate}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </>
   );

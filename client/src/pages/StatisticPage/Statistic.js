@@ -10,7 +10,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getStatistic } from '../../redux/statistics-reducer';
 import { setCurrentPage } from '../../redux/settings-reducer';
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
+import { CURRENT_PAGE_NAME, LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 import Lion from '../../assets/images/lion.svg';
 import Sprint from '../../assets/images/sprint.svg';
 import Joystick from '../../assets/images/joystick.svg';
@@ -20,7 +20,7 @@ import './statistic.scss';
 
 import Popup from '../../components/Popup';
 
-const ERROR_DIVINE_COEFFICIENT = 1;
+const ERROR_DIVINE_COEFFICIENT = 0;
 
 export const Statistic = () => {
   const activeLanguage = useSelector(
@@ -81,7 +81,7 @@ export const Statistic = () => {
   //TODO if you never played it broken
   useEffect(
     useCallback(async () => {
-      dispatch(setCurrentPage('statistic'));
+      dispatch(setCurrentPage(CURRENT_PAGE_NAME.STATISTIC));
       if (isAuthenticated) {
         dispatch(getStatistic(userId, token));
         if (statisticsOptionalData) {
@@ -121,7 +121,7 @@ export const Statistic = () => {
               ? WORDS_CONFIG.MODAL_STATISTIC_TITLE.native
               : WORDS_CONFIG.MODAL_STATISTIC_TITLE.foreign
           }
-          page="statistic"
+          page={CURRENT_PAGE_NAME.STATISTIC}
           language={activeLanguage}
         />
         <h1>
