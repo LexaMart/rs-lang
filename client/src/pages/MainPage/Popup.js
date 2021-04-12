@@ -88,7 +88,7 @@ const Popup = ({
                 <b>Translation:</b> {currElement.wordTranslate}
               </div>
               <div>
-                <b>Word Meaning: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textMeaning }} className="text_meaning"></span>
+                <b>Word Meaning: </b><span dangerouslySetInnerHTML={{ __html: currElement.textMeaning }} className="text_meaning"></span>
               </div>
               <div
                 className={
@@ -98,7 +98,7 @@ const Popup = ({
                 <b>Translation:</b> {currElement.textMeaningTranslate}
               </div>
               <div className="text_example">
-                <b>Word usage example: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textExample }} className="text_meaning"></span>
+                <b>Word usage example: </b><span dangerouslySetInnerHTML={{ __html: currElement.textExample }} className="text_meaning"></span>
               </div>
               <div
                 className={

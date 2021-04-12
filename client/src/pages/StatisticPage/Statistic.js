@@ -130,10 +130,9 @@ export const Statistic = () => {
         </h1>
         <div className="average_stat">
           <div className="capt">Average statistic</div>
-          <div>Whole learned words: {wholeLearnedWords}</div>
+          <div>Whole correct answers: {wholeLearnedWords}</div>
           <div>
-            Percents of wins:
-            {(
+            Percents of wins: {(
               (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}
