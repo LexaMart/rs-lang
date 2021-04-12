@@ -207,7 +207,7 @@ export const AudioCall = () => {
         numberOfLearnedWords,
         numberOfIncorrectAnswers
       );
-    }
+    } else  setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
   };
 
   useKey(
