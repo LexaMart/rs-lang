@@ -141,7 +141,6 @@ export const Statistic = () => {
           %
           </div>
         </div>
-      </div>
       <div className="capt">Special game statictic</div>
       <div className="stat_container">
         <div className="stat_block savannah_stat">
@@ -275,6 +274,7 @@ export const Statistic = () => {
             : WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.foreign}
         </p>
       </>
+      </div>
     </>
   );
 };
