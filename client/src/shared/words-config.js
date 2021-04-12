@@ -12,6 +12,8 @@ export const CURRENT_PAGE_NAME = {
   MAIN: 'main',
   STATISTIC: 'statistic',
   SETTINGS: 'settings',
+  GAMES: 'games',
+  DICTIONARY: 'dictionary',
 }
 
 export const WORDS_CONFIG = {

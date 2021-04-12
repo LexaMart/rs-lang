@@ -8,13 +8,14 @@ import audio from '../../assets/images/audio.svg';
 import joystick from '../../assets/images/joystick.svg';
 import sprint from '../../assets/images/sprint.svg';
 import './games.scss';
+import { CURRENT_PAGE_NAME } from '../../shared/words-config';
 
 
 export const Games = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setCurrentPage('games'))
+    dispatch(setCurrentPage(CURRENT_PAGE_NAME.GAMES))
   })
 
   return (
