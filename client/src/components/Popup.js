@@ -9,7 +9,6 @@ const Popup = ({ active, setActive, text, page, language = 'en' }) => {
   return (
     <div
       className={active ? 'popup popup_active' : 'popup'}
-      // onClick={() => setActive(false)}
     >
       <div
         className={

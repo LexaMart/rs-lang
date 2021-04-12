@@ -25,6 +25,8 @@ import {
   CURRENT_PAGE_NAME,
   WORDS_CATEGORIES,
 } from "../../../shared/words-config";
+import { MainPagePreloader } from "../../../components/Loader";
+import { DEFAULT_VALUES } from "../../../redux/auth-reducer";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -93,7 +95,6 @@ export const Savannah = () => {
 
   const startGame = () => {
     setDefaultGameSettings();
-    //TODO add spinner
     setIsLoading(GAME_DEFAULT_VALUES.TRUE);
 
     setTimeout(() => {
@@ -107,6 +108,7 @@ export const Savannah = () => {
   useEffect(
     useCallback(async () => {
       if (isGameStarted) {
+        setIsLoading(GAME_DEFAULT_VALUES.TRUE)
         const cards = await request(
           `${urls.API}/words?group=${
             currentPage !== CURRENT_PAGE_NAME.MAIN
@@ -119,11 +121,13 @@ export const Savannah = () => {
           }`,
           "GET"
         );
+        setIsLoading(DEFAULT_VALUES.FALSE)
         setWordsArray(cards);
         setRemainWordsArray(cards);
         setRandomActiveCardAndCardsForSelection(cards, cards);
         //     //TODO STOP SPINNER
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       currentPage,
       currentWordsGroup,
@@ -171,8 +175,6 @@ export const Savannah = () => {
     const arrayOfCardsForSelect = [...wordsArray].filter(
       (card) => card.id !== activeCard.id
     );
-
-    //TODO
     const numberOfCards = 3;
     const result = [];
     for (let i = 0; i < numberOfCards; i++) {
@@ -186,7 +188,6 @@ export const Savannah = () => {
       0,
       activeCard
     );
-
     return result;
   };
 
@@ -304,9 +305,7 @@ export const Savannah = () => {
       playActiveCardAudio();
       const interval = setInterval(() => {
         notGuessTheWord();
-        // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
       }, 5000);
-      //TODO handle right guess
       if (!isWordFalling) {
         clearInterval(interval);
       }
@@ -314,8 +313,10 @@ export const Savannah = () => {
         clearInterval(interval);
       };
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCard]);
 
+  if (isLoading) return <MainPagePreloader />;
   return (
     <>
       <div className="savannah-container">

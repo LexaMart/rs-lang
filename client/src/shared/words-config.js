@@ -4,17 +4,20 @@ export const LANGUAGE_CONFIG = {
 };
 
 export const WORDS_CATEGORIES = {
-  learned: "learned",
-  hard: "hard",
-};
+  learned: 'learned',
+  hard: 'hard',
+  deleted: 'deleted',
+}
 
 export const CURRENT_PAGE_NAME = {
-  MAIN: "main",
-  STATISTIC: "statistic",
-  SETTINGS: "settings",
-  GAMES: "games",
-  DICTIONARY: "dictionary",
-};
+  MAIN: 'main',
+  STATISTIC: 'statistic',
+  SETTINGS: 'settings',
+  GAMES: 'games',
+  DICTIONARY: 'dictionary',
+  PROMO: 'promo',
+  LOGIN: 'login',
+}
 
 export const WORDS_CONFIG = {
   LOGIN_BUTTON: {
@@ -154,8 +157,8 @@ export const WORDS_CONFIG = {
     native: "Неправильная почта или пароль",
   },
   REGISTER_ERROR: {
-    foreign: "Wrong username, email or password",
-    native: "Неправильный никнейм, почта или пороль",
+    foreign: 'Wrong username, email or password',
+    native: 'Неправильный никнейм, почта или пороль',
   },
   REGISTER_SUCCES: {
     foreign: "User Created!",

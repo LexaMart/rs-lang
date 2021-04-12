@@ -6,7 +6,7 @@ import { rsLangApi } from '../../../../../services/rs-lang-api'
 import './sprintGame.scss'
 import { scoreHandler } from '../Score/Score'
 import { constants } from '../Timer/Timer'
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../../../../shared/words-config'
+import { LANGUAGE_CONFIG, WORDS_CATEGORIES, WORDS_CONFIG } from '../../../../../shared/words-config'
 import rightSound from '../../../../../assets/sounds/correct.mp3'
 import wrongSound from '../../../../../assets/sounds/error.mp3'
 import { playSound } from '../../../GameUtilities/GameUtilities'
@@ -49,11 +49,11 @@ export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorr
       } else {
         setScore(score + constants.scorePlus)
       }
-      if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, 'learned')
+      if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, WORDS_CATEGORIES.learned)
       setNumberOfLearned(numberOfLearned + constants.one)
     } else {
       if (isAuthenticated) {
-        rsLangApi.postUserWord(token, userId, winId, 'hard')
+        rsLangApi.postUserWord(token, userId, winId, WORDS_CATEGORIES.hard)
       }
       playSound(wrongSound)
       setCorrectString(language === LANGUAGE_CONFIG.foreign ? WORDS_CONFIG.SPRINT_INCORRECT.foreign :

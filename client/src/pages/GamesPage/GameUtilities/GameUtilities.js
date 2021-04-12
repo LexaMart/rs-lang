@@ -5,7 +5,6 @@ export const sendStatistic = (isAuthenticated, userId, token, wholeLearnedWords,
     let now = moment().format("DD-MM-YYYY");
     const newWholeLearnedWords = wholeLearnedWords + numberOfLearnedWords
     const optionalObject = { ...optionalStatisticObject };
-    //TODO move to redux??
     if (!optionalObject[now]) {
       optionalObject[now] = {
         date: now,
@@ -33,6 +32,6 @@ export const sendStatistic = (isAuthenticated, userId, token, wholeLearnedWords,
 
 export const playSound = (answer) => {
   const audio = new Audio();
-    audio.src = answer;
+  audio.src = answer;
   audio.play();
 };

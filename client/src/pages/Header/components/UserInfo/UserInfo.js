@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { RS_LANG_API } from '../../../../services/rs-lang-api'
 import './userInfo.scss'
 
 export const UserInfo = () => {

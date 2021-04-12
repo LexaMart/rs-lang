@@ -10,7 +10,6 @@ import Audio from '../../assets/images/audio.svg';
 import Picture from "../../assets/images/promo_img.png";
 import './promo.scss';
 
-
 export const Promo = () => {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -79,7 +78,7 @@ export const Promo = () => {
             <div className="granted_point">Settings</div>
             <div className="granted_point">Your own dictionary</div>
             <div className="granted_point">Your own statistics</div>
-          </div> 
+          </div>
         </div>
       </div>
       <div className="btn_container">
