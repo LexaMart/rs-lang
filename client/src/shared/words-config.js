@@ -284,4 +284,14 @@ export const WORDS_CONFIG = {
       placeholderPhoto: 'Установить свою фотографию',
     },
   },
+  MYGAMES_PAGE_RULES: {
+    foreign:
+      'In this mini-game you should guess what picture describes the following word',
+    native:
+      'В этой мини-игре вам предстоит угадать, какую картинку описывает следующее слово',
+  },
+  MYGAMES_PAGE_LOST: {
+    foreign: 'Game is over your score is',
+    native: 'Игра окончена, ваш счет',
+  },
 };
