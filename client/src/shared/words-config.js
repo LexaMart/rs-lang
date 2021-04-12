@@ -260,4 +260,28 @@ export const WORDS_CONFIG = {
     foreign: 'Word usage example',
     native: 'Пример использования слов',
   },
+  PAGE_REGISTRATION: {
+    foreign: {
+      signup: 'Sign up',
+      signin: 'Sign in',
+      name: 'Name',
+      placeholderName: 'Enter name',
+      email: 'Email',
+      placeholderEmail: 'Enter email',
+      password: 'Password',
+      placeholderPassword: 'Enter password',
+      placeholderPhoto: 'Set your photo',
+    },
+    native: {
+      signup: 'Зарегистрироваться',
+      signin: 'Авторизоваться',
+      name: 'Имя',
+      placeholderName: 'Введите имя',
+      email: 'Электронная почта',
+      placeholderEmail: 'Введите электронную почту',
+      password: 'Пароль',
+      placeholderPassword: 'Введите пароль',
+      placeholderPhoto: 'Установить свою фотографию',
+    },
+  },
 };
