@@ -31,6 +31,7 @@ export const Auth = () => {
       setAuthMessage(WORDS_CONFIG.AUTH_ERROR.native)
     if (message) window.M.toast({ html: authMessage, displayLength: 1000 })
     dispatch(setCurrentPage(''))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message])
   return (
     <div className="row auth_container">

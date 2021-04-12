@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { register } from '../../redux/auth-reducer'
-
-import './registration.scss'
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config'
+import './registration.scss'
 
 export const Registration = () => {
-
   const dispatch = useDispatch();
   const language = useSelector((store) => store.settingsStore.activeLanguage)
   const message = useSelector((store) => store.authStore.authMessage)
@@ -45,9 +42,9 @@ export const Registration = () => {
       window.M.toast({ html: registerMessage, displayLength: 1000 })
     }
     else if (!message && registerSucces) {
-      console.log('hi')
       window.M.toast({ html: succesMessage, displayLength: 1000 })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message, registerSucces])
 
   return (

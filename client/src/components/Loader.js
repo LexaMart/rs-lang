@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Preloader } from "react-materialize";
+import { Col, Preloader } from "react-materialize";
 import FadeLoader from 'react-spinners/FadeLoader';
 export const DictionaryLoader = ({ color = 'rgba(240, 138, 93, 1)' }) => {
   return (

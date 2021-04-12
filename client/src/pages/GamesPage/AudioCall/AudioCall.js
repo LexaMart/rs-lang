@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { RS_LANG_API } from "../../../services/rs-lang-api";
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
-import { WORDS_CONFIG } from "../../../shared/words-config";
 import urls from "../../../assets/constants/ursl";
 import { useHttp } from "../../../hooks/http.hook";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +15,7 @@ import { useKey } from "../../../hooks/keyboardEvents.hook";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
 import "./audiocall.scss";
 import "materialize-css";
+import { MainPagePreloader } from "../../../components/Loader";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -79,6 +79,7 @@ export const AudioCall = () => {
     if (activeCard) {
       playActiveCardAudio();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCard]);
 
   const startGame = () => {
@@ -253,6 +254,7 @@ export const AudioCall = () => {
         setIsLoading(GAME_DEFAULT_VALUES.FALSE);
         setRandomActiveCardAndCardsForSelection();
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       currentPage,
       currentWordsGroup,
@@ -264,6 +266,8 @@ export const AudioCall = () => {
     ]),
     [isGameStarted]
   );
+
+  if (isLoading) return <MainPagePreloader />
 
   return (
     <div className="savannah-container">

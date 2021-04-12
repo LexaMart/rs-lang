@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sprintStates } from '../../../../../assets/constants/sprintStates';
-import { RS_LANG_API } from '../../../../../services/rs-lang-api';
-import { getStatistic } from '../../../../../redux/statistics-reducer'
+import { getStatistic } from '../../../../../redux/statistics-reducer';
 import { Select } from "react-materialize";
 
 
@@ -18,8 +17,8 @@ export const SprintRules = ({ setScore, setGameStarted, setPage, setGroup }) => 
     pagesArray.push(i + 1);
   }
   const currentPage = useSelector((store) => store.settingsStore.currentPage);
-  const [levelInputValue, setLevelInputText] = useState(1);
-  const [pageInputValue, setPageInputText] = useState(1);
+  const levelInputValue = 1;
+  const pageInputValue = 1;
   const dispatch = useDispatch()
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);

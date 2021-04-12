@@ -78,7 +78,6 @@ export const Statistic = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
 
-  //TODO if you never played it broken
   useEffect(
     useCallback(async () => {
       dispatch(setCurrentPage(CURRENT_PAGE_NAME.STATISTIC));
@@ -141,139 +140,139 @@ export const Statistic = () => {
           %
           </div>
         </div>
-      <div className="capt">Special game statictic</div>
-      <div className="stat_container">
-        <div className="stat_block savannah_stat">
-          <img src={Lion} alt="lion" className="game_stat_img" />
-          <p>MaxSeries: {savannahMaxSeries}</p>
-          <p>LearnedWords: {savannahLearnedWords}</p>
-          <p>
-            Percents of wins:
+        <div className="capt">Special game statictic</div>
+        <div className="stat_container">
+          <div className="stat_block savannah_stat">
+            <img src={Lion} alt="lion" className="game_stat_img" />
+            <p>MaxSeries: {savannahMaxSeries}</p>
+            <p>LearnedWords: {savannahLearnedWords}</p>
+            <p>
+              Percents of wins:
             {(
-              (savannahLearnedWords /
-                (savannahLearnedWords + savannahIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
-              100
-            ).toFixed(2) || 0}{' '}
+                (savannahLearnedWords /
+                  (savannahLearnedWords + savannahIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
+                100
+              ).toFixed(2) || 0}{' '}
             %
           </p>
-        </div>
-        <div className="stat_block audiocall_stat">
-          <img src={Audio} alt="audio" className="game_stat_img" />
-          <p>MaxSeries: {audioCallMaxSeries}</p>
-          <p>LearnedWords: {audioCallLearnedWords}</p>
-          <p>
-            Percents of wins:{' '}
-            {(
-              (audioCallLearnedWords /
-                (audioCallLearnedWords + audioCallIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
-              100
-            ).toFixed(2) || 0}{' '}
+          </div>
+          <div className="stat_block audiocall_stat">
+            <img src={Audio} alt="audio" className="game_stat_img" />
+            <p>MaxSeries: {audioCallMaxSeries}</p>
+            <p>LearnedWords: {audioCallLearnedWords}</p>
+            <p>
+              Percents of wins:{' '}
+              {(
+                (audioCallLearnedWords /
+                  (audioCallLearnedWords + audioCallIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
+                100
+              ).toFixed(2) || 0}{' '}
             %
           </p>
-        </div>
-        <div className="stat_block sprint_stat">
-          <img src={Sprint} alt="sprint" className="game_stat_img" />
-          <p>MaxSeries: {sprintMaxSeries}</p>
-          <p>LearnedWords: {sprintLearnedWords}</p>
-          <p>
-            Percents of wins:{' '}
-            {(
-              (sprintLearnedWords /
-                (sprintLearnedWords + sprintIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
-              100
-            ).toFixed(2) || 0}{' '}
+          </div>
+          <div className="stat_block sprint_stat">
+            <img src={Sprint} alt="sprint" className="game_stat_img" />
+            <p>MaxSeries: {sprintMaxSeries}</p>
+            <p>LearnedWords: {sprintLearnedWords}</p>
+            <p>
+              Percents of wins:{' '}
+              {(
+                (sprintLearnedWords /
+                  (sprintLearnedWords + sprintIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
+                100
+              ).toFixed(2) || 0}{' '}
             %
           </p>
-        </div>
-        <div className="stat_block mygame_stat">
-          <img src={Joystick} alt="joystick" className="game_stat_img" />
-          <p>MaxSeries: {myGameMaxSeries}</p>
-          <p>LearnedWords: {myGameLearnedWords}</p>
-          <p>
-            Percents of wins:{' '}
-            {(
-              (myGameLearnedWords /
-                (myGameLearnedWords + myGameIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
-              100
-            ).toFixed(2) || 0}{' '}
+          </div>
+          <div className="stat_block mygame_stat">
+            <img src={Joystick} alt="joystick" className="game_stat_img" />
+            <p>MaxSeries: {myGameMaxSeries}</p>
+            <p>LearnedWords: {myGameLearnedWords}</p>
+            <p>
+              Percents of wins:{' '}
+              {(
+                (myGameLearnedWords /
+                  (myGameLearnedWords + myGameIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
+                100
+              ).toFixed(2) || 0}{' '}
             %
           </p>
+          </div>
         </div>
-      </div>
-      <div className="capt">Graffical view</div>
-      <>
-        <AreaChart
-          width={730}
-          height={250}
-          data={rechartsData}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="date" stroke="#fff" />
-          <YAxis stroke="#fff" />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Area
-            type="monotone"
-            dataKey="correctAnswers"
-            stroke="#8884d8"
-            fillOpacity={1}
-            fill="url(#colorUv)"
-          />
-          <Area
-            type="monotone"
-            dataKey="incorrectAnswers"
-            stroke="#82ca9d"
-            fillOpacity={1}
-            fill="url(#colorPv)"
-          />
-        </AreaChart>
-        <p>
-          {activeLanguage === LANGUAGE_CONFIG.native
-            ? WORDS_CONFIG.FIRST_STATISTIC_CHART_NAME.native
-            : WORDS_CONFIG.FIRST_STATISTIC_CHART_NAME.foreign}
-        </p>
-      </>
-      <>
-        <AreaChart
-          width={730}
-          height={250}
-          data={rechartsData}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="date" stroke="#fff" />
-          <YAxis stroke="#fff" />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Area
-            type="monotone"
-            dataKey="learnedWords"
-            stroke="#8884d8"
-            fillOpacity={1}
-            fill="url(#colorUv)"
-          />
-        </AreaChart>
-        <p>
-          {activeLanguage === LANGUAGE_CONFIG.native
-            ? WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.native
-            : WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.foreign}
-        </p>
-      </>
+        <div className="capt">Graffical view</div>
+        <>
+          <AreaChart
+            width={730}
+            height={250}
+            data={rechartsData}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="date" stroke="#fff" />
+            <YAxis stroke="#fff" />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="correctAnswers"
+              stroke="#8884d8"
+              fillOpacity={1}
+              fill="url(#colorUv)"
+            />
+            <Area
+              type="monotone"
+              dataKey="incorrectAnswers"
+              stroke="#82ca9d"
+              fillOpacity={1}
+              fill="url(#colorPv)"
+            />
+          </AreaChart>
+          <p>
+            {activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.FIRST_STATISTIC_CHART_NAME.native
+              : WORDS_CONFIG.FIRST_STATISTIC_CHART_NAME.foreign}
+          </p>
+        </>
+        <>
+          <AreaChart
+            width={730}
+            height={250}
+            data={rechartsData}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="date" stroke="#fff" />
+            <YAxis stroke="#fff" />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="learnedWords"
+              stroke="#8884d8"
+              fillOpacity={1}
+              fill="url(#colorUv)"
+            />
+          </AreaChart>
+          <p>
+            {activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.native
+              : WORDS_CONFIG.SECOND_STATISTIC_CHART_NAME.foreign}
+          </p>
+        </>
       </div>
     </>
   );

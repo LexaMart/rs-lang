@@ -33,7 +33,6 @@ export const Settings = () => {
     (store) => store.settingsStore.gameDifficult
   )
 
-  //TODO if settings saves at backend
   const [inputValue, setInputText] = useState(activeLanguage);
 
   const handleLanguageChange = (event) => {

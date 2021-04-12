@@ -9,6 +9,11 @@ import { MainPagePreloader } from '../../components/Loader';
 import 'materialize-css';
 import './Main.scss';
 
+const MAIN_CONSTANTS = {
+  groupNum: [0, 1, 2, 3, 4, 5],
+  maxPage: 29,
+}
+
 export const Main = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((store) => store.authStore.isLoading);
@@ -30,56 +35,54 @@ export const Main = () => {
       setData(fetched);
       dispatch(setIsLoadingInProgress(false))
     } catch (e) { }
-  }, [request, currentWordsGroup, currentWordsPage])
+  }, [dispatch, request, currentWordsGroup, currentWordsPage])
   useEffect(
     () => {
       dispatch(setCurrentPage('main'))
       getWords();
-    }, [getWords]);
+    }, [dispatch, getWords]);
   const changePage = (incr) => {
-    //TODO Magic numbers
-    if ((currentWordsPage + incr < 0) || (currentWordsPage + incr > 29)) {
+    if ((currentWordsPage + incr < 0) || (currentWordsPage + incr > MAIN_CONSTANTS.maxPage)) {
       return;
     }
-    // setPage(page + incr);
     dispatch(setCurrentWordsPage(currentWordsPage + incr))
   };
 
   const changeGroup = (value) => {
     if (currentWordsGroup !== value) {
-      // setPage(0);
       dispatch(setCurrentWordsPage(0))
     }
-    // setGroup(value);
     dispatch(setCurrentWordsGroup(value))
   }
   if (isLoading) {
     return (
-    <MainPagePreloader />
+      <MainPagePreloader />
     )
   }
   return (
     <div>
       <div className="groups">
-        <div className={currentWordsGroup === 0 ? "btn group group_1" : "btn group"} onClick={() => changeGroup(0)}>Группа 1</div>
-        <div className={currentWordsGroup === 1 ? "btn group group_2" : "btn group"} onClick={() => changeGroup(1)}>Группа 2</div>
-        <div className={currentWordsGroup === 2 ? "btn group group_3" : "btn group"} onClick={() => changeGroup(2)}>Группа 3</div>
-        <div className={currentWordsGroup === 3 ? "btn group group_4" : "btn group"} onClick={() => changeGroup(3)}>Группа 4</div>
-        <div className={currentWordsGroup === 4 ? "btn group group_5" : "btn group"} onClick={() => changeGroup(4)}>Группа 5</div>
-        <div className={currentWordsGroup === 5 ? "btn group group_6" : "btn group"} onClick={() => changeGroup(5)}>Группа 6</div>
+        <div className={currentWordsGroup === MAIN_CONSTANTS.groupNum[0] ? "btn group group_1" : "btn group"} onClick={() => changeGroup(MAIN_CONSTANTS.groupNum[0])}>Группа 1</div>
+        <div className={currentWordsGroup === MAIN_CONSTANTS.groupNum[1] ? "btn group group_2" : "btn group"} onClick={() => changeGroup(MAIN_CONSTANTS.groupNum[1])}>Группа 2</div>
+        <div className={currentWordsGroup === MAIN_CONSTANTS.groupNum[2] ? "btn group group_3" : "btn group"} onClick={() => changeGroup(MAIN_CONSTANTS.groupNum[2])}>Группа 3</div>
+        <div className={currentWordsGroup === MAIN_CONSTANTS.groupNum[3] ? "btn group group_4" : "btn group"} onClick={() => changeGroup(MAIN_CONSTANTS.groupNum[3])}>Группа 4</div>
+        <div className={currentWordsGroup === MAIN_CONSTANTS.groupNum[4] ? "btn group group_5" : "btn group"} onClick={() => changeGroup(MAIN_CONSTANTS.groupNum[4])}>Группа 5</div>
+        <div className={currentWordsGroup === MAIN_CONSTANTS.groupNum[5] ? "btn group group_6" : "btn group"} onClick={() => changeGroup(MAIN_CONSTANTS.groupNum[5])}>Группа 6</div>
       </div>
       <div className="word_container">
         {
-          data && data.map((el) => {
-            if(!userDeletedWords.includes(el.id)) {
+          // eslint-disable-next-line array-callback-return
+          data && data.map((el, key) => {
+            if (!userDeletedWords.includes(el.id)) {
               return (
-              <div onClick={() => {
-                setCurrWord(el);
-                setModalActive(true);
-              }}>
-                <WordCard element={el} />
-              </div>
-            )
+                <div onClick={() => {
+                  key = { key }
+                  setCurrWord(el);
+                  setModalActive(true);
+                }}>
+                  <WordCard key={key} element={el} />
+                </div>
+              )
             }
           })}
       </div>
