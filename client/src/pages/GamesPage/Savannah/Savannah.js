@@ -122,7 +122,7 @@ export const Savannah = () => {
         );
         setWordsArray(cards);
         setRemainWordsArray(cards);
-        setRandomActiveCardAndCardsForSelection(cards);
+        setRandomActiveCardAndCardsForSelection(cards, cards);
         //     //TODO STOP SPINNER
       }
     }, [
@@ -207,16 +207,16 @@ export const Savannah = () => {
     } else notGuessTheWord();
   };
 
-  const setRandomActiveCardAndCardsForSelection = (wordsArray) => {
-    const activeCardIndex = getRandomValue(wordsArray.length - 1);
-    const remainWordsArrayForSelection = [...wordsArray];
+  const setRandomActiveCardAndCardsForSelection = (wordsArray, remainWordsArray) => {
+    const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
+    const remainWordsArrayForSelection = [...remainWordsArray];
     setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
     setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     setTimeout(() => {}, 0);
     setIsGunShooting(GAME_DEFAULT_VALUES.FALSE);
-    setActiveCard(wordsArray[activeCardIndex]);
+    setActiveCard(remainWordsArray[activeCardIndex]);
     setCardsForSelection(() =>
-      getRandomCardsForSelect(wordsArray, wordsArray[activeCardIndex])
+      getRandomCardsForSelect(wordsArray, remainWordsArray[activeCardIndex])
     );
     remainWordsArrayForSelection.splice(activeCardIndex, 1);
     setRemainWordsArray(remainWordsArrayForSelection);
@@ -229,7 +229,7 @@ export const Savannah = () => {
     setIsGunShooting(GAME_DEFAULT_VALUES.TRUE);
     if (remainWordsArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection(remainWordsArray);
+        setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
       }, 300);
     } else {
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
@@ -247,7 +247,7 @@ export const Savannah = () => {
     setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1);
     if (remainLivesArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection(remainWordsArray);
+        setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
       }, 300);
     } else {
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
