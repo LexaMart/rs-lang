@@ -10,9 +10,10 @@
 }
 
 .auth_container {
-  height: 81.7vh;
+  height: 84.4vh;
   display: flex;
   align-items: center;
+  margin: 0;
 }
 
 .auth-link {
@@ -37,4 +38,8 @@
   align-items: center;
   margin-top: 2%;
   margin-bottom: 2%;
+}
+
+.input-auth-field {
+  margin: 6.6% 0; 
 }

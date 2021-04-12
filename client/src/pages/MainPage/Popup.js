@@ -95,9 +95,8 @@ const Popup = ({
               <div className={isTranslationShown ? 'word_translate' : 'hide'}>
                 <b>Translation:</b> {currElement.wordTranslate}
               </div>
-              <div className="text_meaning">
-                <b>Word Meaning:</b>{' '}
-                {currElement.textMeaning.replace(/<\/?[^>]+(>|$)/g, '')}
+              <div>
+                <b>Word Meaning: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textMeaning}} className="text_meaning"></span>
               </div>
               <div
                 className={
@@ -107,8 +106,7 @@ const Popup = ({
                 <b>Translation:</b> {currElement.textMeaningTranslate}
               </div>
               <div className="text_example">
-                <b>Word usage example:</b>{' '}
-                {currElement.textExample.replace(/<\/?[^>]+(>|$)/g, '')}
+                <b>Word usage example: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textExample}} className="text_meaning"></span>
               </div>
               <div
                 className={

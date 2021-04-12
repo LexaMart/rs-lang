@@ -24,7 +24,7 @@ export const Promo = () => {
         <div><img src={Picture} alt="img" className="head_promo_img" /></div>
       </div>
       <div className="youtube_video_container">
-      <iframe classname="youtube_video" width="560" height="315" src="https://www.youtube.com/embed/-043FORA-Gc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe classname="youtube_video" width="560" height="315" src="https://www.youtube.com/embed/-043FORA-Gc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div className="feature_card card">
         <div className="feature_info">
@@ -54,9 +54,37 @@ export const Promo = () => {
         </div>
         <div><img src={Audio} alt="pronounsiation" className="feature_img" /></div>
       </div>
+      <div className="info_block_promo card white-text">
+        <div className="disadvantages card">
+          <div className="disadvantages_title card">
+            <div className="title_text">Without registration</div>
+          </div>
+          <div className="disadvantages_entity card">
+            <div className="granted_point">Dictionary of 3600 words</div>
+            <div className="granted_point">Pronunciation</div>
+            <div className="granted_point">Games</div>
+            <div className="granted_point">Settings</div>
+            <div className="nongranted_point">Your own dictionary</div>
+            <div className="nongranted_point">Your own statistics</div>
+          </div>
+        </div>
+        <div className="advantages card">
+          <div className="advantages_title card">
+            <div className="title_text">With registration</div>
+          </div>
+          <div className="advantages_entity card">
+            <div className="granted_point">Dictionary of 3600 words</div>
+            <div className="granted_point">Pronunciation</div>
+            <div className="granted_point">Games</div>
+            <div className="granted_point">Settings</div>
+            <div className="granted_point">Your own dictionary</div>
+            <div className="granted_point">Your own statistics</div>
+          </div> 
+        </div>
+      </div>
       <div className="btn_container">
         <Link className="btn sign_in_btn red" to="/login">Войти </Link>
-        <Link className="btn" to="/registration">Регистрация </Link>
+        <Link className="btn sign_in_btn" to="/registration">Регистрация </Link>
       </div>
     </div>
   )
