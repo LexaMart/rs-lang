@@ -1,127 +1,157 @@
 .savannah-container {
     display: flex;
-    // justify-content: space-around;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     width: 100%;
     min-height: 84.3vh;
-    background: linear-gradient(180deg, #F08A5D 0%, #B83B5E 100%);
-    user-select: none;
-    position: relative;
+    transform-style: preserve-3d;
 
-    .selection-container {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 50vh;
-      width: 90vw;
-  }
-  
-  .lives-container {
-      display: flex;
-      font-size: 2rem;
-      color: #fff;
-      justify-content: center;
-      align-items: center;
-      margin-top: 5vh;
-      margin-left: 80%;
-  }
-  
-  .savannah-card {
-      font-size: 2rem;
-      color: #fff;
-      cursor: pointer;
-      text-transform: lowercase;
-      /* border: 2px solid #000;
-      border-radius: 1vh; */
-  }
-  
-  .savannah-card_active {
-      font-size: 2rem;
-      color: #fff;
-      position: absolute;
-      // top: 20%;
-      // left: 30%;
-        font-size: 2em;
+    .savannah-field {
+        background-image: url('https://image.freepik.com/free-photo/african-savanna-landscape-namibia-south-africa_146539-301.jpg');
+        width: 100%;
+        height: 74.3vh;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-size: cover;
+    }
+
+    .lives-container {
+        display: flex;
+        font-size: 2rem;
+        color: #fff;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5vh;
+        margin-left: 80%;
+    }
+
+    .savannah-card {
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+        text-transform: lowercase;
+    }
+
+    .savannah-card_active {
+        font-size: 2rem;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 2%;
+        left: 30%;
+        font-size: 12rem;
         font-weight: bold;
         text-transform: capitalize;
-        transform: translate(0);
-        
-        // animation: active-card-fall 5s ease infinite;
-    
-        // @keyframes active-card-fall {
-        //   0% {
-        //     top: 50vh;
-        //   }
-      
-        //   100% {
-        //     top: 70vh;
-        //   }
-        // }
-  }
-  
-  .activeCardFall {
-    transform: translateY(60vh);
-    transition: transform 5s linear;
-  }
+        transform: scale3d(0, 0, 0);
+    }
 
-  .activeCardSpacing {
-    transition: letter-spacing 0.4s ease;
-    letter-spacing: 1000px;
-    // transform: translateY(80vh);
-    // transition: transform 0.1s ease;
-  }
-  
-  .win-screen {
-      font-size: 5rem;
-      color: #fff;
-  }
-  
-  .lost-screen {
-      font-size: 5rem;
-      color: #fff;
-  }
+    .activeCardFall {
+        transform: scale3d(0.5, 0.5, 0.5);
+        transition: transform 5s linear;
+    }
 
-  .savannah_crystal {
-    height: 10vh;
+    .activeCardSpacing {
+        transition: letter-spacing 0.4s ease;
+        letter-spacing: 1000px;
+    }
+
+    .win-screen {
+        font-size: 5rem;
+        color: #fff;
+    }
+
+    .lost-screen {
+        font-size: 5rem;
+        color: #fff;
+    }
+
+    @keyframes crystal-animation {
+        0% {
+            transform: translate(0);
+        }
+
+        23% {
+            transform: translateY(-6px);
+        }
+
+        25% {
+            transform: translateY(-7px);
+        }
+
+        28% {
+            transform: translateY(-6px);
+        }
+
+        50% {
+            transform: translate(0);
+        }
+
+        72% {
+            transform: translateY(6px);
+        }
+
+        75% {
+            transform: translateY(7px);
+        }
+
+        78% {
+            transform: translateY(6px);
+        }
+
+        100% {
+            transform: translate(0);
+        }
+    }
+
+}
+
+.selection-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 3vh 5vw;
+    width: 90vw;
+    z-index: 1000;
+}
+
+.gun-container {
+    position: relative;
+    width: 100%;
+}
+
+.savannah_crystal {
+    position: absolute;
+    width: 25vw;
+    height: 25vh;
     animation: crystal-animation 2s linear infinite;
-  }
-
-  @keyframes crystal-animation {
-    0% {
-      transform: translate(0);
-  }
-  23% {
-      transform: translateY(-6px);
-  }
-  25% {
-      transform: translateY(-7px);
-  }
-  28% {
-      transform: translateY(-6px);
-  }
-  50% {
-      transform: translate(0);
-  }
-  72% {
-      transform: translateY(6px);
-  }
-  75% {
-      transform: translateY(7px);
-  }
-  78% {
-      transform: translateY(6px);
-  }
-  100% {
-      transform: translate(0);
-    
-  }
-  
+    bottom: 10vh;
+    left: 60%;
 }
 
-
+.savannah_gun_shot {
+    position: absolute;
+    width: 25vw;
+    height: 25vh;
+    animation: crystal-animation 2s linear infinite;
+    bottom: 20vh;
+    left: 53%;
 }
+
+.savannah_grass {
+    position: absolute;
+    width: 98vw;
+    height: 50vh;
+    bottom: 0;
+    left: 0;
+    z-index: 200;
+}
+
 @media (max-width: 600px) {
-  .savannah-card {
-    font-size: 1.5rem;
-}
+    .savannah-card {
+        font-size: 1.5rem;
+    }
 }

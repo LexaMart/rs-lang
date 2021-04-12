@@ -16,9 +16,16 @@ import {
 } from "../../../redux/statistics-reducer";
 import { rsLangApi } from "../../../services/rs-lang-api";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
-import correctAudio from "../../../assets/sounds/correct.mp3";
-import errorAudio from "../../../assets/sounds/error.mp3";
-import savannahCrystalImg from "../../../assets/images/savannah_crystal.png";
+import correctAudio from "../../../assets/sounds/savannah_correct.mp3";
+import errorAudio from "../../../assets/sounds/savannah_error.mp3";
+import savannahCrystalImg from "../../../assets/images/savannah_gun.png";
+import savannahGrass from "../../../assets/images/savannah-grass.png";
+import savannahLion from "../../../assets/images/savannah_lion.png";
+import savananhGunShot from "../../../assets/images/savannah_gun_shot.png";
+import {
+  CURRENT_PAGE_NAME,
+  WORDS_CATEGORIES,
+} from "../../../shared/words-config";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -57,11 +64,12 @@ export const Savannah = () => {
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameLost, setIsGameLost] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [livesArray, setLivesArray] = useState(GAME_DEFAULT_VALUES.LIVES_ARRAY);
-  const [wordsArray, setWordsArray] = useState(wordsMockData);
-  const [remainWordsArray, setRemainWordsArray] = useState(wordsMockData);
+  const [wordsArray, setWordsArray] = useState([]);
+  const [remainWordsArray, setRemainWordsArray] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
+  const [isLoading, setIsLoading] = useState(GAME_DEFAULT_VALUES.FALSE);
   const levelsArray = [];
   const pagesArray = [];
 
@@ -70,6 +78,7 @@ export const Savannah = () => {
   const [isActiveCardSpacing, setIsActiveCardSpacing] = useState(
     GAME_DEFAULT_VALUES.FALSE
   );
+  const [isGunShooting, setIsGunShooting] = useState(GAME_DEFAULT_VALUES.FALSE);
 
   const [levelInputValue, setLevelInputText] = useState(1);
   const [pageInputValue, setPageInputText] = useState(1);
@@ -85,16 +94,12 @@ export const Savannah = () => {
 
   const startGame = () => {
     setDefaultGameSettings();
-    // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     //TODO add spinner
-    setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
-    setRandomActiveCardAndCardsForSelection();
+    setIsLoading(GAME_DEFAULT_VALUES.TRUE);
 
-    // setTimeout(()=> {
-    //   setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
-    //   setRandomActiveCardAndCardsForSelection();
-
-    // }, 0)
+    setTimeout(() => {
+      setIsGameStarted(GAME_DEFAULT_VALUES.TRUE);
+    }, 0);
     if (isAuthenticated) {
       dispatch(getStatistic(userId, token));
     }
@@ -105,14 +110,20 @@ export const Savannah = () => {
       if (isGameStarted) {
         const cards = await request(
           `${urls.API}/words?group=${
-            currentPage !== "main" ? levelInputValue - 1 : currentWordsPage
+            currentPage !== CURRENT_PAGE_NAME.MAIN
+              ? levelInputValue - 1
+              : currentWordsPage
           }&page=${
-            currentPage !== "main" ? pageInputValue - 1 : currentWordsGroup
+            currentPage !== CURRENT_PAGE_NAME.MAIN
+              ? pageInputValue - 1
+              : currentWordsGroup
           }`,
           "GET"
         );
         setWordsArray(cards);
         setRemainWordsArray(cards);
+        setRandomActiveCardAndCardsForSelection(cards);
+        //     //TODO STOP SPINNER
       }
     }, [
       currentPage,
@@ -125,22 +136,6 @@ export const Savannah = () => {
     ]),
     [isGameStarted]
   );
-
-  useEffect(() => {
-    if (isGameStarted) {
-      playActiveCardAudio();
-      const interval = setInterval(() => {
-        notGuessTheWord();
-      }, 5000);
-      //TODO handle right guess
-      if (!isWordFalling) {
-        // clearInterval(interval)
-      }
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [activeCard]);
 
   const setDefaultGameSettings = async () => {
     setNumberOfLearnedWords(0);
@@ -173,7 +168,7 @@ export const Savannah = () => {
     audio.play();
   };
 
-  const getRandomCardsForSelect = (activeCard) => {
+  const getRandomCardsForSelect = (wordsArray, activeCard) => {
     const arrayOfCardsForSelect = [...wordsArray].filter(
       (card) => card.id !== activeCard.id
     );
@@ -187,7 +182,11 @@ export const Savannah = () => {
       arrayOfCardsForSelect.splice(index, 1);
       result.push(curCard);
     }
-    result.splice(Math.floor(Math.random() * Math.floor(3)), 0, activeCard);
+    result.splice(
+      Math.floor(Math.random() * Math.floor(numberOfCards)),
+      0,
+      activeCard
+    );
 
     return result;
   };
@@ -198,20 +197,26 @@ export const Savannah = () => {
       guessTheWord();
       setNumberOfLearnedWords(numberOfLearnedWords + 1);
       if (isAuthenticated) {
-        rsLangApi.postUserWord(token, userId, word.id, "learned");
+        rsLangApi.postUserWord(
+          token,
+          userId,
+          word.id,
+          WORDS_CATEGORIES.learned
+        );
       }
     } else notGuessTheWord();
   };
 
-  const setRandomActiveCardAndCardsForSelection = () => {
-    const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
-    const remainWordsArrayForSelection = [...remainWordsArray];
+  const setRandomActiveCardAndCardsForSelection = (wordsArray) => {
+    const activeCardIndex = getRandomValue(wordsArray.length - 1);
+    const remainWordsArrayForSelection = [...wordsArray];
     setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
     setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
-
-    setActiveCard(remainWordsArray[activeCardIndex]);
+    setTimeout(() => {}, 0);
+    setIsGunShooting(GAME_DEFAULT_VALUES.FALSE);
+    setActiveCard(wordsArray[activeCardIndex]);
     setCardsForSelection(() =>
-      getRandomCardsForSelect(remainWordsArray[activeCardIndex])
+      getRandomCardsForSelect(wordsArray, wordsArray[activeCardIndex])
     );
     remainWordsArrayForSelection.splice(activeCardIndex, 1);
     setRemainWordsArray(remainWordsArrayForSelection);
@@ -221,11 +226,11 @@ export const Savannah = () => {
     playCorrectAudio();
     setIsActiveCardSpacing(GAME_DEFAULT_VALUES.TRUE);
     setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
+    setIsGunShooting(GAME_DEFAULT_VALUES.TRUE);
     if (remainWordsArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection();
+        setRandomActiveCardAndCardsForSelection(remainWordsArray);
       }, 300);
-      // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     } else {
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
       setEndGameSettings();
@@ -233,7 +238,7 @@ export const Savannah = () => {
   };
 
   const notGuessTheWord = () => {
-    // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
+    setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     setIsWordFalling(GAME_DEFAULT_VALUES.FALSE);
     playErrorAudio();
     const remainLivesArray = [...livesArray];
@@ -242,7 +247,7 @@ export const Savannah = () => {
     setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1);
     if (remainLivesArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection();
+        setRandomActiveCardAndCardsForSelection(remainWordsArray);
       }, 300);
     } else {
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
@@ -295,72 +300,111 @@ export const Savannah = () => {
       handleCardClick(null, cardsForSelection[3])
   );
 
+  useEffect(() => {
+    if (isGameStarted && activeCard) {
+      playActiveCardAudio();
+      const interval = setInterval(() => {
+        notGuessTheWord();
+        // setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
+      }, 5000);
+      //TODO handle right guess
+      if (!isWordFalling) {
+        clearInterval(interval);
+      }
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [activeCard]);
+
   return (
-    <div className="savannah-container">
-      {!isGameStarted && !isGameLost && (
-        <>
-          <h2>Savannah</h2>
-          <div className="rules">
-            In this game you should choose correct translation of given word
-          </div>
-        </>
-      )}
-      {isGameWon && <div className="win-screen">WON</div>}
-      {isGameLost && <div className="lost-screen">LOST</div>}
-      {!isGameStarted && currentPage !== "main" && (
-        <>
-          <Select
-            id="select-level"
-            multiple={false}
-            onChange={(event) => setLevelInputText(event.currentTarget.value)}
-            value={levelInputValue}
-          >
-            {levelsArray.map((el) => {
-              return <option value={el}>{el}</option>;
-            })}
-          </Select>
-          <Select
-            id="select-page"
-            multiple={false}
-            onChange={(event) => setPageInputText(event.currentTarget.value)}
-            value={pageInputValue}
-          >
-            {pagesArray.map((el) => {
-              return <option value={el}>{el}</option>;
-            })}
-          </Select>
-        </>
-      )}
-      {!isGameStarted && (
-        <button className="btn red" onClick={startGame}>
-          {!isGameLost ? "Start" : "Retry"}
-        </button>
-      )}
-      {isGameStarted && (
-        <>
-          <div className="lives-container">
-            {livesArray.map((el, index) => {
-              return (
-                <i key={`live${el}${index}`} className="material-icons">
-                  favorite{" "}
-                </i>
-              );
-            })}
-          </div>
-          {/* {activeCard && (
-        <div className={isWordFalling ? `savannah-card_active activeCardFall` : 'savannah-card_active'}>
-              {activeCard.word}
+    <>
+      <div className="savannah-container">
+        {!isGameStarted && !isGameLost && (
+          <>
+            <h2>Savannah</h2>
+            <div className="rules">
+              In this game you should choose correct translation of given word
             </div>
-          )} */}
-          {activeCard && (
-            <div
-              className={`savannah-card_active ${
-                isWordFalling ? "activeCardFall" : ""
-              } ${isActiveCardSpacing ? "activeCardSpacing" : ""}`}
+          </>
+        )}
+        {isGameWon && <div className="win-screen">WON</div>}
+        {isGameLost && <div className="lost-screen">LOST</div>}
+        {!isGameStarted && currentPage !== "main" && (
+          <>
+            <Select
+              id="select-level"
+              multiple={false}
+              onChange={(event) => setLevelInputText(event.currentTarget.value)}
+              value={levelInputValue}
             >
-              {activeCard.word}
+              {levelsArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+            <Select
+              id="select-page"
+              multiple={false}
+              onChange={(event) => setPageInputText(event.currentTarget.value)}
+              value={pageInputValue}
+            >
+              {pagesArray.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
+            </Select>
+          </>
+        )}
+        {!isGameStarted && (
+          <button className="btn red" onClick={startGame}>
+            {!isGameLost ? "Start" : "Retry"}
+          </button>
+        )}
+        {isGameStarted && (
+          <>
+            <div className="savannah-field">
+              <div className="lives-container">
+                {livesArray.map((el, index) => {
+                  return (
+                    <i key={`live${el}${index}`} className="material-icons">
+                      favorite{" "}
+                    </i>
+                  );
+                })}
+              </div>
+              {activeCard && (
+                <div
+                  className={`savannah-card_active ${
+                    isWordFalling ? "activeCardFall" : ""
+                  } ${isActiveCardSpacing ? "activeCardSpacing" : ""}`}
+                >
+                  {activeCard.word}
+                  <img src={savannahLion} alt="lion"></img>
+                </div>
+              )}
+              <div className="gun-container">
+                <img
+                  className="savannah_grass"
+                  src={savannahGrass}
+                  alt="savannah_crystal"
+                />
+                {isGunShooting && (
+                  <img
+                    className="savannah_gun_shot"
+                    src={savananhGunShot}
+                    alt="savannah_gun_shot"
+                  />
+                )}
+                <img
+                  className="savannah_crystal"
+                  src={savannahCrystalImg}
+                  alt="savannah_crystal"
+                />
+              </div>
             </div>
-          )}
+          </>
+        )}
+
+        {isGameStarted && cardsForSelection && (
           <div className="selection-container">
             {cardsForSelection.map((word, index) => {
               return (
@@ -374,9 +418,8 @@ export const Savannah = () => {
               );
             })}
           </div>
-          <img className="savannah_crystal" src={savannahCrystalImg} alt='savannah_crystal'/>
-        </>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };

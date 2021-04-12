@@ -9,7 +9,7 @@ import { DictionaryLoader } from '../../components/Loader';
 import { Progress } from './Components/Progress';
 import { DictionaryCard } from './Components/DictionaryCard';
 import { DictionaryList } from './Components/DictionaryList';
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
+import { CURRENT_PAGE_NAME, LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 
 import './Dictionary.scss';
 import { setCurrentPage } from '../../redux/settings-reducer';
@@ -40,7 +40,7 @@ export const Dictionary = () => {
   let { path } = useRouteMatch();
 
   useEffect(() => {
-    dispatch(setCurrentPage('dictionary'));
+    dispatch(setCurrentPage(CURRENT_PAGE_NAME.DICTIONARY));
     const { token, userId } = userData;
     wordsNew(token, userId);
   }, [userData]);

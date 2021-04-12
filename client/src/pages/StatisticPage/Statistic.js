@@ -10,7 +10,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getStatistic } from '../../redux/statistics-reducer';
 import { setCurrentPage } from '../../redux/settings-reducer';
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
+import { CURRENT_PAGE_NAME, LANGUAGE_CONFIG, WORDS_CONFIG } from '../../shared/words-config';
 import Lion from '../../assets/images/lion.svg';
 import Sprint from '../../assets/images/sprint.svg';
 import Joystick from '../../assets/images/joystick.svg';
@@ -19,6 +19,9 @@ import 'materialize-css';
 import './statistic.scss';
 
 import Popup from '../../components/Popup';
+
+const ERROR_DIVINE_COEFFICIENT = 0;
+
 export const Statistic = () => {
   const activeLanguage = useSelector(
     (store) => store.settingsStore.activeLanguage
@@ -78,11 +81,14 @@ export const Statistic = () => {
   //TODO if you never played it broken
   useEffect(
     useCallback(async () => {
-      dispatch(setCurrentPage('statistic'));
+      dispatch(setCurrentPage(CURRENT_PAGE_NAME.STATISTIC));
       if (isAuthenticated) {
         dispatch(getStatistic(userId, token));
-        const data = Object.values(statisticsOptionalData);
-        setRechartsData(data);
+        if (statisticsOptionalData) {
+
+          const data = Object.values(statisticsOptionalData);
+          setRechartsData(data);
+        }
       }
     }, [dispatch, isAuthenticated, statisticsOptionalData, token, userId]),
     [isAuthenticated]
@@ -115,11 +121,10 @@ export const Statistic = () => {
               ? WORDS_CONFIG.MODAL_STATISTIC_TITLE.native
               : WORDS_CONFIG.MODAL_STATISTIC_TITLE.foreign
           }
-          page="statistic"
+          page={CURRENT_PAGE_NAME.STATISTIC}
           language={activeLanguage}
         />
         <h1>
-          {' '}
           {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.STATISTICS_PAGE.native
             : WORDS_CONFIG.STATISTICS_PAGE.foreign}
@@ -128,11 +133,11 @@ export const Statistic = () => {
           <div className="capt">Average statistic</div>
           <div>Whole learned words: {wholeLearnedWords}</div>
           <div>
-            Percents of wins:{' '}
+            Percents of wins:
             {(
-              (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords)) *
+              (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords) || ERROR_DIVINE_COEFFICIENT) *
               100
-            ).toFixed(2) || 0}{' '}
+            ).toFixed(2) || 0}
           %
           </div>
         </div>
@@ -143,10 +148,10 @@ export const Statistic = () => {
           <p>MaxSeries: {savannahMaxSeries}</p>
           <p>LearnedWords: {savannahLearnedWords}</p>
           <p>
-            Percents of wins:{' '}
+            Percents of wins:
             {(
               (savannahLearnedWords /
-                (savannahLearnedWords + savannahIncorrectAnswers)) *
+                (savannahLearnedWords + savannahIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %
@@ -160,7 +165,7 @@ export const Statistic = () => {
             Percents of wins:{' '}
             {(
               (audioCallLearnedWords /
-                (audioCallLearnedWords + audioCallIncorrectAnswers)) *
+                (audioCallLearnedWords + audioCallIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %
@@ -174,7 +179,7 @@ export const Statistic = () => {
             Percents of wins:{' '}
             {(
               (sprintLearnedWords /
-                (sprintLearnedWords + sprintIncorrectAnswers)) *
+                (sprintLearnedWords + sprintIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %
@@ -188,7 +193,7 @@ export const Statistic = () => {
             Percents of wins:{' '}
             {(
               (myGameLearnedWords /
-                (myGameLearnedWords + myGameIncorrectAnswers)) *
+                (myGameLearnedWords + myGameIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}{' '}
             %
