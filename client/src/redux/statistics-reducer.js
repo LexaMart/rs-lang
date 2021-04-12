@@ -1,10 +1,6 @@
-// import moment from 'moment';
 import { rsLangApi } from "../services/rs-lang-api";
 const ACTION_CONST = {
   ADD_LEARNED_WORDS_NUMBER: "ADD_LEARNED_WORDS_NUMBER",
-  //  ADD_DAYS_STATISTIC: 'ADD_DAYS_STATISTIC',
-  // ADD_CORRECT_WORDS: "ADD_CORRECT_WORDS",
-  // ADD_INCORRECT_WORDS: "ADD_INCORRECT_WORDS",
   SET_SAVANNAH_LEARNED_WORDS_NUMBER: "SET_SAVANNAH_LEARNED_WORDS_NUMBER",
   SET_SAVANNAH_INCORRECT_ANSWERS_NUMBER:
     "SET_SAVANNAH_INCORRECT_ANSWERS_NUMBER",
@@ -25,7 +21,6 @@ const DEFAULT_VALUES = {
   LANGUAGE: "en",
   ZERO: 0,
 };
-// let now = moment().format('DD-MM-YYYY');
 let initialState = {
   learnedWords: DEFAULT_VALUES.ZERO,
   incorrectAnswers: DEFAULT_VALUES.ZERO,
@@ -42,29 +37,10 @@ let initialState = {
   myGameLearnedWords: DEFAULT_VALUES.ZERO,
   myGameIncorrectAnswers: DEFAULT_VALUES.ZERO,
   statisticsData: DEFAULT_VALUES.EMPTY,
-  // optional: {}
 };
 
 const statisticsReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case ACTION_CONST.ADD_LEARNED_WORDS_NUMBER: {
-    //   return {
-    //     ...state,
-    //     learnedWords: state.learnedWords + action.learnedWords,
-    //   };
-    // }
-    // case ACTION_CONST.ADD_DAYS_STATISTIC: {
-    //   let now = moment().format("DD-MM-YYYY");
-    //   if (!state.optional[now]) {
-    //     return {
-    //       ...state,
-    //       optional: { ...state.optional, now: action.todaysStatistic}
-    //     };
-    //   } else return {
-    //     ...state,
-    //     // optional: { ...state.optional, action.todaysStatistic},
-    //   };
-    // }
     case ACTION_CONST.SET_SAVANNAH_LEARNED_WORDS_NUMBER: {
       return {
         ...state,
@@ -159,11 +135,6 @@ const statisticsReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-// export const addLearnedWords = (learnedWords) => ({
-//   type: ACTION_CONST.ADD_LEARNED_WORDS_NUMBER,
-//   learnedWords,
-// });
 
 export const setSavannahLearnedWords = (savannahLearnedWords) => ({
   type: ACTION_CONST.SET_SAVANNAH_LEARNED_WORDS_NUMBER,

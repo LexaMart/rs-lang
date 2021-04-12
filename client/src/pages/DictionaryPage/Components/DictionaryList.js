@@ -6,7 +6,7 @@ import { useParams, useRouteMatch, Link } from 'react-router-dom';
 import { getUserWordID } from '../../../services/getAllWords';
 import urls from '../../../assets/constants/ursl';
 import { DictionaryLoader } from '../../../components/Loader';
-import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../../shared/words-config';
+import { LANGUAGE_CONFIG, WORDS_CATEGORIES, WORDS_CONFIG } from '../../../shared/words-config';
 
 import Popup from '../../MainPage/Popup';
 
@@ -105,7 +105,6 @@ export const DictionaryList = ({
   );
 
   const [page, setPage] = useState(1);
-  const [currentData, setCurrentData] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [isWordRecovery, setWordRecovery] = useState(false);
   const [currWord, setCurrWord] = useState({
@@ -116,15 +115,15 @@ export const DictionaryList = ({
 
   useEffect(() => {
     if (isPageRender) {
-      setCurrentData((prev) => currentDataList());
       pageRender(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPageRender]);
 
   const style =
     nameList === 'learning'
       ? styles.btnGreen
-      : nameList === 'hard'
+      : nameList === WORDS_CATEGORIES
       ? styles.btnBlue
       : styles.btnPink;
 
@@ -135,7 +134,7 @@ export const DictionaryList = ({
         : WORDS_CONFIG.DICTIONARY_CARD_TITLE.foreign;
     return list === 'learning'
       ? arrName[0]
-      : list === 'hard'
+      : list === WORDS_CATEGORIES.hard
       ? arrName[1]
       : arrName[2];
   };
@@ -150,7 +149,7 @@ export const DictionaryList = ({
     let data = [];
     list === 'learning'
       ? (data = [...userLearningWords, ...userHardWords])
-      : list === 'hard'
+      : list === WORDS_CATEGORIES.hard
       ? (data = userHardWords)
       : (data = userDeletedWords);
 
@@ -223,7 +222,7 @@ export const DictionaryList = ({
         active={modalActive}
         setActive={setModalActive}
         currElement={currWord}
-        isDeleted={list === 'deleted' || isWordRecovery}
+        isDeleted={list === WORDS_CATEGORIES.deleted || isWordRecovery}
         pageRender={pageRender}
       />
     </div>

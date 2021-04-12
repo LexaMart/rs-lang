@@ -49,33 +49,33 @@ export const settingsReducer = (state = initialState, action) => {
         activeLanguage: action.activeLanguage,
       };
     }
-      case ACTION_CONST.SET_GAME_DIFFICULT: {
-        return {
-          ...state,
-          gameDifficult : action.gameDifficult
-        }
-      }
-      case ACTION_CONST.SET_CURRENT_PAGE: {
-        return {
-          ...state,
-          currentPage: action.page
-        }
-      }
-      case ACTION_CONST.SET_CURRENT_WORDS_GROUP: {
-        return {
-          ...state,
-          currentWordsGroup: action.wordsGroup
-        }
-      }
-      case ACTION_CONST.SET_CURRENT_WORDS_PAGE: {
-        return {
-          ...state,
-          currentWordsPage: action.wordsPage
-        }
-      }
+    case ACTION_CONST.SET_GAME_DIFFICULT: {
+      return {
+        ...state,
+        gameDifficult: action.gameDifficult
+      };
+    }
+    case ACTION_CONST.SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.page
+      };
+    }
+    case ACTION_CONST.SET_CURRENT_WORDS_GROUP: {
+      return {
+        ...state,
+        currentWordsGroup: action.wordsGroup
+      };
+    }
+    case ACTION_CONST.SET_CURRENT_WORDS_PAGE: {
+      return {
+        ...state,
+        currentWordsPage: action.wordsPage
+      };
+    }
     default:
       return state;
-  }
+  };
 };
 
 export const setIsAdditionalTranslationsShows = (isTranslationShows) => ({

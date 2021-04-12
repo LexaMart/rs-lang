@@ -6,6 +6,7 @@ export const LANGUAGE_CONFIG = {
 export const WORDS_CATEGORIES = {
   learned: 'learned',
   hard: 'hard',
+  deleted: 'deleted',
 }
 
 export const CURRENT_PAGE_NAME = {
@@ -14,6 +15,8 @@ export const CURRENT_PAGE_NAME = {
   SETTINGS: 'settings',
   GAMES: 'games',
   DICTIONARY: 'dictionary',
+  PROMO: 'promo',
+  LOGIN: 'login',
 }
 
 export const WORDS_CONFIG = {
@@ -155,7 +158,7 @@ export const WORDS_CONFIG = {
   },
   REGISTER_ERROR: {
     foreign: 'Wrong username, email or password',
-    native:'Неправильный никнейм, почта или пороль',
+    native: 'Неправильный никнейм, почта или пороль',
   },
   REGISTER_SUCCES: {
     foreign: 'User Created!',

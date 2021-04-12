@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SprintGame } from './components/Sprint/SprintGame'
-import { SprintRules } from './components/SprintRules/SprintRules'
+import { SprintGame } from './components/Sprint/SprintGame';
+import { SprintRules } from './components/SprintRules/SprintRules';
 import { useHttp } from '../../../hooks/http.hook';
 import { RS_LANG_API } from '../../../services/rs-lang-api';
 import { constants, Timer } from './components/Timer/Timer';
@@ -9,7 +9,7 @@ import { sprintStates } from '../../../assets/constants/sprintStates';
 import { Score } from './components/Score/Score';
 import { Finish } from './components/Finish/Finish';
 import { setIsLoadingInProgress } from '../../../redux/auth-reducer';
-import './sprint.scss'
+import './sprint.scss';
 import { MainPagePreloader } from '../../../components/Loader';
 
 export const Sprint = () => {
@@ -42,6 +42,7 @@ export const Sprint = () => {
       }
       dispatch(setIsLoadingInProgress(false))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameStarted, levelInputValue, pageInputValue, setGameArr, request]), [isGameStarted, levelInputValue, pageInputValue])
   if (isLoading) {
     return <MainPagePreloader />

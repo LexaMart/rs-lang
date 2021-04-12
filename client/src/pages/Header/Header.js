@@ -7,7 +7,7 @@ import Lion from '../../assets/images/lion.svg';
 import Sprint from '../../assets/images/sprint.svg';
 import Joystick from '../../assets/images/joystick.svg';
 import Audio from '../../assets/images/audio.svg';
-import burger from "../../assets/images/menu.svg"
+import burger from "../../assets/images/menu.svg";
 
 const Header = () => {
     const [burgerActive, setBurgerActive] = useState(false);

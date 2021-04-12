@@ -15,7 +15,6 @@ import { Dictionary } from './pages/DictionaryPage/Dictionary';
 import { Sprint } from './pages/GamesPage/Sprint/Sprint';
 
 export const useRoutes = (isAuthenticated) => {
-  console.log(isAuthenticated);
   if (isAuthenticated) {
     return (
       <Switch>

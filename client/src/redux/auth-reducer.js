@@ -171,7 +171,7 @@ export const setMessage = (message) => ({
 export const setRegister = (register) => ({
   type: ACTION_CONST.SET_REGISTER,
   register
-})
+});
 export const logout = () => ({ type: ACTION_CONST.SET_DEFAULT_VALUES });
 export const login = (email, password) => async (dispatch) => {
   dispatch(setIsLoadingInProgress(true));
@@ -212,7 +212,7 @@ export const register = (userName, email, password, image) => async (
   } else {
     dispatch(setMessage(DEFAULT_VALUES.FALSE));
     dispatch(setRegister(true));
-    dispatch(setRegister(false))
+    dispatch(setRegister(false));
 
   }
   dispatch(setIsLoadingInProgress(false));

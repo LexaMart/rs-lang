@@ -15,6 +15,7 @@ import { ImageCard } from './components/ImageCard/ImageCard'
 import rightSound from '../../../assets/sounds/correct.mp3'
 import wrongSound from '../../../assets/sounds/error.mp3'
 import looseSound from '../../../assets/sounds/failure.mp3'
+import { WORDS_CATEGORIES } from '../../../shared/words-config';
 
 export const MyGame = () => {
   const dispatch = useDispatch()
@@ -59,7 +60,7 @@ export const MyGame = () => {
     (store) => store.statisticsStore.learnedWords
   );
 
-  
+
 
   const startGame = async () => {
     setLives([1, 1, 1, 1])
@@ -73,7 +74,7 @@ export const MyGame = () => {
       setScore(score + 1)
       setNumberOfLearnedWords(numberOfLearnedWords + 1)
       if (isFirtsTry && isAuthenticated) {
-        rsLangApi.postUserWord(token, userId, winingCard.id, 'learned')
+        rsLangApi.postUserWord(token, userId, winingCard.id, WORDS_CATEGORIES.learned)
       }
       setRandomInt([Math.floor(Math.random() * 6), Math.floor(Math.random() * 29)])
     }
@@ -117,6 +118,7 @@ export const MyGame = () => {
       setFirstTry(true)
       dispatch(setIsLoadingInProgress(false))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameStarted, gameCards, request, levelInputValue, pageInputValue]), [isGameStarted, pageInputValue, levelInputValue, randomInt])
 
   if (isLoading) {

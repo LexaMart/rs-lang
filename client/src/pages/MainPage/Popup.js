@@ -7,13 +7,12 @@ import {
   removeDeletedWord,
   removeHardWord,
 } from '../../redux/auth-reducer';
-
 import { rsLangApi, RS_LANG_API } from '../../services/rs-lang-api';
-
+import { WORDS_CATEGORIES } from '../../shared/words-config';
 import audioImage from '../../assets/images/audio.svg';
-
 import 'materialize-css';
 import './popup.scss';
+
 
 const Popup = ({
   active,
@@ -33,21 +32,14 @@ const Popup = ({
     (store) => store.settingsStore.isAdditionalButtonsShown
   );
   const popupBtnHandler = (action) => {
-    // isAuthenticated
-    //   ? rsLangApi.postUserWord(token, userId, currElement.id, action)
-    //   : alert('Not logined');
-    // setActive(!active);
-
     if (isAuthenticated) {
       rsLangApi.postUserWord(token, userId, currElement.id, action);
-      action === 'deleted'
+      action === WORDS_CATEGORIES.deleted
         ? dispatch(addDeletedWord(currElement.id))
-        : action === 'hard'
-        ? dispatch(addHardWord(currElement.id))
-        : dispatch(addLearningWord(currElement.id));
-    } else {
-      alert('Not logined');
-    }
+        : action === WORDS_CATEGORIES.hard
+          ? dispatch(addHardWord(currElement.id))
+          : dispatch(addLearningWord(currElement.id));
+    } else { }
   };
 
   const recoverBtnHandler = async () => {
@@ -63,7 +55,7 @@ const Popup = ({
     audio.src = `${RS_LANG_API}${currElement.audio}`;
     audio.play();
   };
-  
+
   const playAudio1 = () => {
     const audio1 = new Audio();
     audio1.src = `${RS_LANG_API}${currElement.audioMeaning}`;
@@ -96,7 +88,7 @@ const Popup = ({
                 <b>Translation:</b> {currElement.wordTranslate}
               </div>
               <div>
-                <b>Word Meaning: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textMeaning}} className="text_meaning"></span>
+                <b>Word Meaning: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textMeaning }} className="text_meaning"></span>
               </div>
               <div
                 className={
@@ -106,7 +98,7 @@ const Popup = ({
                 <b>Translation:</b> {currElement.textMeaningTranslate}
               </div>
               <div className="text_example">
-                <b>Word usage example: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textExample}} className="text_meaning"></span>
+                <b>Word usage example: </b><span contentEditable='true' dangerouslySetInnerHTML={{ __html: currElement.textExample }} className="text_meaning"></span>
               </div>
               <div
                 className={
