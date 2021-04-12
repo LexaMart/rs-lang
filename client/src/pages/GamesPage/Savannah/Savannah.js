@@ -17,7 +17,7 @@ import { rsLangApi } from "../../../services/rs-lang-api";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
 import correctAudio from "../../../assets/sounds/savannah_correct.mp3";
 import errorAudio from "../../../assets/sounds/savannah_error.mp3";
-import savannahCrystalImg from "../../../assets/images/savannah_gun.png";
+import savannahGunImg from "../../../assets/images/savannah_gun.png";
 import savannahGrass from "../../../assets/images/savannah-grass.png";
 import savannahLion from "../../../assets/images/savannah_lion.png";
 import savananhGunShot from "../../../assets/images/savannah_gun_shot.png";
@@ -65,7 +65,7 @@ export const Savannah = () => {
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameLost, setIsGameLost] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [livesArray, setLivesArray] = useState(GAME_DEFAULT_VALUES.LIVES_ARRAY);
-  // const [wordsArray, setWordsArray] = useState([]);
+  const [wordsArray, setWordsArray] = useState([]);
   const [remainWordsArray, setRemainWordsArray] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
@@ -122,9 +122,10 @@ export const Savannah = () => {
           "GET"
         );
         setIsLoading(DEFAULT_VALUES.FALSE)
-        // setWordsArray(cards);
+        setWordsArray(cards);
         setRemainWordsArray(cards);
-        setRandomActiveCardAndCardsForSelection(cards);
+        setRandomActiveCardAndCardsForSelection(cards, cards);
+        //     //TODO STOP SPINNER
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
@@ -206,16 +207,16 @@ export const Savannah = () => {
     } else notGuessTheWord();
   };
 
-  const setRandomActiveCardAndCardsForSelection = (wordsArray) => {
-    const activeCardIndex = getRandomValue(wordsArray.length - 1);
-    const remainWordsArrayForSelection = [...wordsArray];
+  const setRandomActiveCardAndCardsForSelection = (wordsArray, remainWordsArray) => {
+    const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
+    const remainWordsArrayForSelection = [...remainWordsArray];
     setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
     setIsWordFalling(GAME_DEFAULT_VALUES.TRUE);
     setTimeout(() => {}, 0);
     setIsGunShooting(GAME_DEFAULT_VALUES.FALSE);
-    setActiveCard(wordsArray[activeCardIndex]);
+    setActiveCard(remainWordsArray[activeCardIndex]);
     setCardsForSelection(() =>
-      getRandomCardsForSelect(wordsArray, wordsArray[activeCardIndex])
+      getRandomCardsForSelect(wordsArray, remainWordsArray[activeCardIndex])
     );
     remainWordsArrayForSelection.splice(activeCardIndex, 1);
     setRemainWordsArray(remainWordsArrayForSelection);
@@ -228,7 +229,7 @@ export const Savannah = () => {
     setIsGunShooting(GAME_DEFAULT_VALUES.TRUE);
     if (remainWordsArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection(remainWordsArray);
+        setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
       }, 300);
     } else {
       setIsGameWon(GAME_DEFAULT_VALUES.TRUE);
@@ -246,7 +247,7 @@ export const Savannah = () => {
     setNumberOfIncorrectAnswers(numberOfIncorrectAnswers + 1);
     if (remainLivesArray.length) {
       setTimeout(() => {
-        setRandomActiveCardAndCardsForSelection(remainWordsArray);
+        setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
       }, 300);
     } else {
       setIsGameLost(GAME_DEFAULT_VALUES.TRUE);
@@ -394,9 +395,9 @@ export const Savannah = () => {
                   />
                 )}
                 <img
-                  className="savannah_crystal"
-                  src={savannahCrystalImg}
-                  alt="savannah_crystal"
+                  className="savannah_gun"
+                  src={savannahGunImg}
+                  alt="savannah_gun"
                 />
               </div>
             </div>
