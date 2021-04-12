@@ -3,7 +3,6 @@ import "./Savannah.scss";
 import "materialize-css";
 import { RS_LANG_API } from "../../../services/rs-lang-api";
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
-import { wordsMockData } from "../../../shared/wordsMockData";
 import { useHttp } from "../../../hooks/http.hook";
 import { useKey } from "../../../hooks/keyboardEvents.hook";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +17,7 @@ import { rsLangApi } from "../../../services/rs-lang-api";
 import { sendStatistic } from "../GameUtilities/GameUtilities";
 import correctAudio from "../../../assets/sounds/savannah_correct.mp3";
 import errorAudio from "../../../assets/sounds/savannah_error.mp3";
-import savannahCrystalImg from "../../../assets/images/savannah_gun.png";
+import savannahGunImg from "../../../assets/images/savannah_gun.png";
 import savannahGrass from "../../../assets/images/savannah-grass.png";
 import savannahLion from "../../../assets/images/savannah_lion.png";
 import savananhGunShot from "../../../assets/images/savannah_gun_shot.png";
@@ -395,9 +394,9 @@ export const Savannah = () => {
                   />
                 )}
                 <img
-                  className="savannah_crystal"
-                  src={savannahCrystalImg}
-                  alt="savannah_crystal"
+                  className="savannah_gun"
+                  src={savannahGunImg}
+                  alt="savannah_gun"
                 />
               </div>
             </div>

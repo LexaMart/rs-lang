@@ -2,7 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { RS_LANG_API } from "../../../services/rs-lang-api";
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
-import { WORDS_CONFIG } from "../../../shared/words-config";
+import {
+  WORDS_CONFIG,
+  CURRENT_PAGE_NAME,
+  LANGUAGE_CONFIG,
+} from "../../../shared/words-config";
 import urls from "../../../assets/constants/ursl";
 import { useHttp } from "../../../hooks/http.hook";
 import { useSelector, useDispatch } from "react-redux";
@@ -41,6 +45,9 @@ export const AudioCall = () => {
   );
   const wholeLearnedWords = useSelector(
     (store) => store.statisticsStore.learnedWords
+  );
+  const activeLanguage = useSelector(
+    (store) => store.settingsStore.activeLanguage
   );
   const [numberOfLearnedWords, setNumberOfLearnedWords] = useState(0);
   const [numberOfIncorrectAnswers, setNumberOfIncorrectAnswers] = useState(0);
@@ -133,7 +140,11 @@ export const AudioCall = () => {
       arrayOfCardsForSelect.splice(index, 1);
       result.push(curCard);
     }
-    result.splice(Math.floor(Math.random() * Math.floor(3)), 0, activeCard);
+    result.splice(
+      Math.floor(Math.random() * Math.floor(cardsLength)),
+      0,
+      activeCard
+    );
 
     return result;
   };
@@ -207,7 +218,8 @@ export const AudioCall = () => {
         numberOfLearnedWords,
         numberOfIncorrectAnswers
       );
-    } else  setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
+    } else
+      setRandomActiveCardAndCardsForSelection(wordsArray, remainWordsArray);
   };
 
   useKey(
@@ -244,9 +256,13 @@ export const AudioCall = () => {
       if (isGameStarted) {
         const cards = await request(
           `${urls.API}/words?group=${
-            currentPage !== "main" ? levelInputValue - 1 : currentWordsPage
+            currentPage !== CURRENT_PAGE_NAME.MAIN
+              ? levelInputValue - 1
+              : currentWordsPage
           }&page=${
-            currentPage !== "main" ? pageInputValue - 1 : currentWordsGroup
+            currentPage !== CURRENT_PAGE_NAME.MAIN
+              ? pageInputValue - 1
+              : currentWordsGroup
           }`,
           "GET"
         );
@@ -269,9 +285,11 @@ export const AudioCall = () => {
 
   return (
     <div className="savannah-container">
-      {!isGameStarted && currentPage !== "main" && (
+      {!isGameStarted && currentPage !== CURRENT_PAGE_NAME.MAIN && (
         <>
-          <h2>AudioCall</h2>
+          <h2>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.AUDIO_CALL.native
+            : WORDS_CONFIG.AUDIO_CALL.foreign}</h2>
           <Select
             id="select-level"
             multiple={false}
@@ -297,11 +315,18 @@ export const AudioCall = () => {
       {!isGameStarted && (
         <>
           <div className="rules">
-            In this game you should choose correct translation of audio that you
-            listen
+            {activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.AUDIO_CALL_RULES.native
+              : WORDS_CONFIG.AUDIO_CALL_RULES.foreign}
           </div>
           <button className="btn red" onClick={startGame}>
-            {!isGameLost ? "Start" : "Retry"}
+            {!isGameLost
+              ? activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.START_BUTTON.native
+                : WORDS_CONFIG.START_BUTTON.foreign
+              : activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.RETRY_BUTTON.native
+              : WORDS_CONFIG.RETRY_BUTTON.foreign}
           </button>
         </>
       )}
@@ -372,7 +397,9 @@ export const AudioCall = () => {
             </button>
           )}
           <button className="btn" onClick={handleNextButtonClick}>
-            Next
+            {activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.NEXT_BUTTON.native
+              : WORDS_CONFIG.NEXT_BUTTON.foreign}
           </button>
           {isGameStarted && cardsForSelection && (
             <div
