@@ -185,5 +185,41 @@ export const WORDS_CONFIG = {
   RETRY_BUTTON: {
     foreign: "Retry",
     native: "Повторить",
+  },
+  SAVANNAH: {
+    foreign: "Savannah",
+    native: "Саванна",
+  },
+  SAVANNAH_RULES: {
+    foreign: "In this game you should choose correct translation of given word. You can use numpad keys 1,2,3,4 on your keyboard",
+    native: "В этой игре вам нужно выбрать правильный перевод данного слова. Вы можете использовать клавиши цифровой клавиатуры 1,2,3,4 на клавиатуре",
+  },
+  WHOLE_ANSWERS: {
+    foreign: 'Whole correct answers:',
+    native: 'Все правильные ответы:',
+  },
+  AVERAGE_STATISTIC: {
+    foreign: 'Average statistic',
+    native: 'Средняя статистика',
+  },
+  WIN_PERCENTS: {
+    foreign: 'Percents of correct answers:',
+    native: 'Процент правильных ответов:',
+  },
+  SPECIAL_STATISTIC: {
+    foreign: 'Special game statictic',
+    native: 'Специальная игровая статистика',
+  },
+  CHARTS: {
+    foreign: 'Graffical view',
+    native: 'Графический вид',
+  },
+  CORRECT_ANSWERS: {
+    foreign: 'Correct answers:',
+    native: 'Правильные ответы:',
+  },
+  MAX_SERIES: {
+    foreign: 'The largest series of correct answers:',
+    native: 'Наибольшая серия правильных ответов:',
   }
 };
