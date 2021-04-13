@@ -300,4 +300,31 @@ export const WORDS_CONFIG = {
     native:
       'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
   },
+
+  TEAM_INFO_BURIK: {
+    foreign:
+      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
+    native:
+      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+  },
+  TEAM_INFO_LEXAMART: {
+    foreign:
+      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
+    native:
+      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+  },
+
+  TEAM_INFO_ANATLIYAK: {
+    foreign:
+      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
+    native:
+      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+  },
+
+  TEAM_INFO_NERBET: {
+    foreign:
+      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
+    native:
+      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+  },
 };

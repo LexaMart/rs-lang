@@ -165,3 +165,16 @@
     text-decoration: line-through;
     opacity: 0.4;
 }
+
+.team-info{
+    width: 70%;
+    .feature_card.card{
+        width: 100%;
+    }
+    img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    transition: 0.5s;
+    }
+}
