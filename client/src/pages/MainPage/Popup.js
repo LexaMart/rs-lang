@@ -27,6 +27,8 @@ const Popup = ({
   const dispatch = useDispatch();
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
+  const userHardWords = useSelector((store) => store.authStore.userHardWords);
+  const userLearningWords = useSelector((store) => store.authStore.userLearningWords);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
   const isTranslationShown = useSelector(
     (store) => store.settingsStore.isTranslationShown
@@ -85,7 +87,7 @@ const Popup = ({
       >
         <div className="word_text">{currElement.word.toUpperCase()}</div>
         <div className="info_container">
-          <div className="text_container">
+          <div className="popup_text_container">
             <div>
               <div className="word_transcript">
                 <b>
@@ -194,7 +196,7 @@ const Popup = ({
             />
           </div>
         </div>
-        <div className={isAdditionalButtonsShown ? 'button_container' : 'hide'}>
+        <div className={isAdditionalButtonsShown && !(userLearningWords.includes(currElement.id)) ? 'button_container' : 'hide'}>
           {!isDeleted ? (
             <React.Fragment>
               <button onClick={() => popupBtnHandler('hard')} className="btn">
