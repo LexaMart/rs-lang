@@ -2,12 +2,21 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sprintStates } from '../../../../../assets/constants/sprintStates';
 import { getStatistic } from '../../../../../redux/statistics-reducer';
-import { Select } from "react-materialize";
+import {
+  LANGUAGE_CONFIG,
+  WORDS_CONFIG,
+} from '../../../../../shared/words-config.js';
 
+import { Select } from 'react-materialize';
 
-import './sprintRules.scss'
+import './sprintRules.scss';
 import { MAX_NUMBER } from '../../../Savannah/Savannah';
-export const SprintRules = ({ setScore, setGameStarted, setPage, setGroup }) => {
+export const SprintRules = ({
+  setScore,
+  setGameStarted,
+  setPage,
+  setGroup,
+}) => {
   const levelsArray = [];
   const pagesArray = [];
   for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
@@ -19,23 +28,28 @@ export const SprintRules = ({ setScore, setGameStarted, setPage, setGroup }) => 
   const currentPage = useSelector((store) => store.settingsStore.currentPage);
   const levelInputValue = 1;
   const pageInputValue = 1;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
   const isAuthenticated = useSelector((store) => store.authStore.isAuthorized);
+
+  const language = useSelector((store) => store.settingsStore.activeLanguage);
+
   const startSprint = () => {
-    setGameStarted(sprintStates.pending)
-    setScore(0)
+    setGameStarted(sprintStates.pending);
+    setScore(0);
     if (isAuthenticated) {
       dispatch(getStatistic(userId, token));
     }
-  }
+  };
   return (
     <div className="sprint-rules">
       <p className="rules-text">
-        In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned
-    </p>
-      {currentPage !== 'main' &&
+        {language === LANGUAGE_CONFIG.foreign
+          ? WORDS_CONFIG.SPRINT_PAGE_RULES.foreign
+          : WORDS_CONFIG.SPRINT_PAGE_RULES.native}
+      </p>
+      {currentPage !== 'main' && (
         <>
           <Select
             id="select-level"
@@ -58,8 +72,15 @@ export const SprintRules = ({ setScore, setGameStarted, setPage, setGroup }) => 
             })}
           </Select>
         </>
-      }
-      <button onClick={() => startSprint()} className="btn start-sprint waves-effect waves-light red" type="button" name="action">START</button>
+      )}
+      <button
+        onClick={() => startSprint()}
+        className="btn start-sprint waves-effect waves-light red"
+        type="button"
+        name="action"
+      >
+        {language === LANGUAGE_CONFIG.foreign ? 'START' : 'СТАРТ'}
+      </button>
     </div>
-  )
-}
+  );
+};
