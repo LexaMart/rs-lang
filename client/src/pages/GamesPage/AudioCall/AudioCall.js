@@ -88,7 +88,7 @@ export const AudioCall = () => {
     if (activeCard) {
       playActiveCardAudio();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCard]);
 
   const startGame = () => {
@@ -134,17 +134,15 @@ export const AudioCall = () => {
       (card) => card.id !== activeCard.id
     );
 
-    //TODO
-    const cardsLength = 4;
     const result = [];
-    for (let i = 0; i < cardsLength; i++) {
+    for (let i = 0; i < GAME_DEFAULT_VALUES.AUDIOCALL_CARDS_NUMBER - 1; i++) {
       let index = getRandomValue(arrayOfCardsForSelect.length - 1);
       let curCard = arrayOfCardsForSelect[index];
       arrayOfCardsForSelect.splice(index, 1);
       result.push(curCard);
     }
     result.splice(
-      Math.floor(Math.random() * Math.floor(cardsLength)),
+      Math.floor(Math.random() * Math.floor(GAME_DEFAULT_VALUES.AUDIOCALL_CARDS_NUMBER)),
       0,
       activeCard
     );
@@ -274,7 +272,6 @@ export const AudioCall = () => {
         setIsLoading(GAME_DEFAULT_VALUES.FALSE);
         setRandomActiveCardAndCardsForSelection(cards, cards);
       }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       currentPage,
       currentWordsGroup,
@@ -287,15 +284,17 @@ export const AudioCall = () => {
     [isGameStarted]
   );
 
-  if (isLoading) return <MainPagePreloader />
+  if (isLoading) return <MainPagePreloader />;
 
   return (
-    <div className="savannah-container">
+    <div className="audiocall-container">
       {!isGameStarted && currentPage !== CURRENT_PAGE_NAME.MAIN && (
         <>
-          <h2>{activeLanguage === LANGUAGE_CONFIG.native
-            ? WORDS_CONFIG.AUDIO_CALL.native
-            : WORDS_CONFIG.AUDIO_CALL.foreign}</h2>
+          <h2>
+            {activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.AUDIO_CALL.native
+              : WORDS_CONFIG.AUDIO_CALL.foreign}
+          </h2>
           <Select
             id="select-level"
             multiple={false}
@@ -348,6 +347,11 @@ export const AudioCall = () => {
           <div className="additional__info">
             {isImageShown && (
               <>
+                <img
+                  className="correct_word_image"
+                  src={`${RS_LANG_API}${activeCard.image}`}
+                  alt="word_image"
+                />
                 <div className="text_container">
                   <div className="white-text word_text">
                     {activeCard.transcription}
@@ -356,34 +360,21 @@ export const AudioCall = () => {
                     <i className="material-icons">volume_up </i>
                   </button>
                 </div>
-                <img
-                  className="correct_word_image"
-                  src={`${RS_LANG_API}${activeCard.image}`}
-                  alt="word_image"
-                />
                 <div className="text_container">
-                  <div
-                    className="white-text word_text"
-                    dangerouslySetInnerHTML={{ __html: activeCard.textMeaning }}
-                  ></div>
-                  <button
-                    className="btn play"
-                    onClick={playActiveCardAudioMeaning}
-                  >
-                    <i className="material-icons">volume_up </i>
-                  </button>
-                </div>
-                <div
-                  className="white-text word_text"
-                  dangerouslySetInnerHTML={{
-                    __html: activeCard.textExampleTranslate,
-                  }}
-                ></div>
-                <div className="text_container">
-                  <div
-                    className="white-text word_text"
-                    dangerouslySetInnerHTML={{ __html: activeCard.textExample }}
-                  ></div>
+                  <div>
+                    <div
+                      className="white-text word_text"
+                      dangerouslySetInnerHTML={{
+                        __html: activeCard.textExample,
+                      }}
+                    ></div>
+                    <div
+                      className="white-text word_text"
+                      dangerouslySetInnerHTML={{
+                        __html: activeCard.textExampleTranslate,
+                      }}
+                    ></div>
+                  </div>
                   <button
                     className="btn play"
                     onClick={playActiveCardAudioExample}
@@ -391,8 +382,24 @@ export const AudioCall = () => {
                     <i className="material-icons">volume_up </i>
                   </button>
                 </div>
-                <div className="white-text word_text">
-                  {activeCard.textMeaningTranslate}
+                <div className="text_container">
+                  <div>
+                    <div
+                      className="white-text word_text"
+                      dangerouslySetInnerHTML={{
+                        __html: activeCard.textMeaning,
+                      }}
+                    ></div>
+                    <div className="white-text word_text">
+                      {activeCard.textMeaningTranslate}
+                    </div>
+                  </div>
+                  <button
+                    className="btn play"
+                    onClick={playActiveCardAudioMeaning}
+                  >
+                    <i className="material-icons">volume_up </i>
+                  </button>
                 </div>
               </>
             )}

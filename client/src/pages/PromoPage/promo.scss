@@ -29,6 +29,9 @@
 .youtube_video_container {
     margin-top: 4%;
     margin-bottom: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .youtube_video {
@@ -76,20 +79,6 @@
 .caption_promo {
     font-size: 42px;
     text-align: center;
-}
-
-@media (max-width: 860px) {
-    .promo_first_block {
-        flex-direction:column-reverse;
-        margin-bottom: 5%;
-    }
-    .info_promo {
-        width: 90%;
-    }
-
-    .sign_in_btn {
-        margin-bottom: 10px;
-    }
 }
 
 .info_block_promo {
@@ -201,5 +190,27 @@
         opacity: 0.6;
         font-size: 14px;
         font-weight: 300;
+}
+}
+@media (max-width: 860px) and (min-width: 480px) {
+    .promo_first_block {
+        flex-direction:column-reverse;
+        margin-bottom: 5%;
+    }
+    .info_promo {
+        width: 90%;
+    }
+    .info_block_promo {
+        width: 80%;
+    }
+    .title_text {
+        font-size: 20px;
+    }
+    .sign_in_btn {
+        width: 45%;
+    }
+    iframe {
+        width: 440px !important;
+        height: 255px !important;
     }
 }
