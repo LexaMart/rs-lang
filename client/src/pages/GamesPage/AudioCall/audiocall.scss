@@ -26,7 +26,10 @@
     width: 80vw;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+    padding-bottom: 1vh;
+    border-bottom: solid #fff;
 }
 
 .play {
@@ -36,17 +39,19 @@
 
 .word_text {
     font-size: 22px;
+    text-align: left;
 }
 
 .correct_word_image {
     width: 40vh;
     border-radius: 20%;
+    margin: 0 auto;
 }
 
 .additional__info {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     justify-content: space-around;
 }
 
