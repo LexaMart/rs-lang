@@ -173,10 +173,10 @@ export const Statistic = () => {
             <img src={Audio} alt="audio" className="game_stat_img" />
             <p>{activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.MAX_SERIES.native
-            : WORDS_CONFIG.MAX_SERIES.foreign} {savannahMaxSeries}</p>
+            : WORDS_CONFIG.MAX_SERIES.foreign} {audioCallMaxSeries}</p>
             <p>{activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.CORRECT_ANSWERS.native
-            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {savannahLearnedWords}</p>
+            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {audioCallLearnedWords}</p>
             <p>
             {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.WIN_PERCENTS.native
@@ -193,10 +193,10 @@ export const Statistic = () => {
             <img src={Sprint} alt="sprint" className="game_stat_img" />
             <p>{activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.MAX_SERIES.native
-            : WORDS_CONFIG.MAX_SERIES.foreign} {savannahMaxSeries}</p>
+            : WORDS_CONFIG.MAX_SERIES.foreign} {sprintMaxSeries}</p>
             <p>{activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.CORRECT_ANSWERS.native
-            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {savannahLearnedWords}</p>
+            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {sprintLearnedWords}</p>
             <p>
             {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.WIN_PERCENTS.native
@@ -213,10 +213,10 @@ export const Statistic = () => {
             <img src={Joystick} alt="joystick" className="game_stat_img" />
             <p>{activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.MAX_SERIES.native
-            : WORDS_CONFIG.MAX_SERIES.foreign} {savannahMaxSeries}</p>
+            : WORDS_CONFIG.MAX_SERIES.foreign} {myGameMaxSeries}</p>
             <p>{activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.CORRECT_ANSWERS.native
-            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {savannahLearnedWords}</p>
+            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {myGameLearnedWords}</p>
             <p>
             {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.WIN_PERCENTS.native
