@@ -287,7 +287,7 @@ export const AudioCall = () => {
   if (isLoading) return <MainPagePreloader />;
 
   return (
-    <div className="savannah-container">
+    <div className="audiocall-container">
       {!isGameStarted && currentPage !== CURRENT_PAGE_NAME.MAIN && (
         <>
           <h2>

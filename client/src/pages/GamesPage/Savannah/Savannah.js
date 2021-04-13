@@ -175,16 +175,15 @@ export const Savannah = () => {
     const arrayOfCardsForSelect = [...wordsArray].filter(
       (card) => card.id !== activeCard.id
     );
-    const numberOfCards = 3;
     const result = [];
-    for (let i = 0; i < numberOfCards; i++) {
+    for (let i = 0; i < GAME_DEFAULT_VALUES.SAVANNAH_CARDS_NUMBER; i++) {
       let index = getRandomValue(arrayOfCardsForSelect.length - 1);
       let curCard = arrayOfCardsForSelect[index];
       arrayOfCardsForSelect.splice(index, 1);
       result.push(curCard);
     }
     result.splice(
-      Math.floor(Math.random() * Math.floor(numberOfCards)),
+      Math.floor(Math.random() * Math.floor(GAME_DEFAULT_VALUES.SAVANNAH_CARDS_NUMBER)),
       0,
       activeCard
     );
@@ -304,7 +303,7 @@ export const Savannah = () => {
     if (isGameStarted && activeCard) {
       playActiveCardAudio();
       const interval = setInterval(() => {
-        notGuessTheWord();
+        // notGuessTheWord();
       }, 5000);
       if (!isWordFalling) {
         clearInterval(interval);
@@ -371,6 +370,7 @@ export const Savannah = () => {
                   );
                 })}
               </div>
+              <div className='animal_cage'>
               {activeCard && (
                 <div
                   className={`savannah-card_active ${
@@ -381,6 +381,7 @@ export const Savannah = () => {
                   <img src={savannahLion} alt="lion"></img>
                 </div>
               )}
+              </div>
               <div className="gun-container">
                 <img
                   className="savannah_grass"
