@@ -12,6 +12,8 @@ import wrongSound from '../../../../../assets/sounds/error.mp3'
 import { playSound } from '../../../GameUtilities/GameUtilities'
 
 export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorrect, setNumberOfIncorrect, gameArr, score, setScore }) => {
+  const userLearned = useSelector((store) => store.authStore.userLearningWords)
+  const userHard = useSelector((store) => store.authStore.userHardWords)
   const language = useSelector((store) => store.settingsStore.activeLanguage)
   const token = useSelector((store) => store.authStore.userData.token)
   const userId = useSelector((store) => store.authStore.userData.userId)
@@ -49,10 +51,12 @@ export const SprintGame = ({ numberOfLearned, setNumberOfLearned, numberOfIncorr
       } else {
         setScore(score + constants.scorePlus)
       }
-      if (isAuthenticated) rsLangApi.postUserWord(token, userId, winId, WORDS_CATEGORIES.learned)
+      if (isAuthenticated && !userLearned.includes(winId) && !userHard.includes(winId)) {
+        rsLangApi.postUserWord(token, userId, winId, WORDS_CATEGORIES.learned)
+      }
       setNumberOfLearned(numberOfLearned + constants.one)
     } else {
-      if (isAuthenticated) {
+      if (isAuthenticated && !userLearned.includes(winId) && !userHard.includes(winId)) {
         rsLangApi.postUserWord(token, userId, winId, WORDS_CATEGORIES.hard)
       }
       playSound(wrongSound)

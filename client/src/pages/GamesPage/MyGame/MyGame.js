@@ -35,6 +35,8 @@ export const MyGame = () => {
   for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
     pagesArray.push(i + 1);
   }
+  const userLearned = useSelector((store) => store.authStore.userLearningWords)
+  const userHard = useSelector((store) => store.authStore.userHardWords)
   const isLoading = useSelector((store) => store.authStore.isLoading);
   const token = useSelector((store) => store.authStore.userData.token);
   const userId = useSelector((store) => store.authStore.userData.userId);
@@ -80,7 +82,7 @@ export const MyGame = () => {
       playSound(rightSound);
       setScore(score + 1);
       setNumberOfLearnedWords(numberOfLearnedWords + 1);
-      if (isFirtsTry && isAuthenticated) {
+      if (isFirtsTry && isAuthenticated && !userLearned.includes(winingCard.id) && !userHard.includes(winingCard.id) ) {
         rsLangApi.postUserWord(
           token,
           userId,
