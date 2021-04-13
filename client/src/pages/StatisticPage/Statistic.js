@@ -160,7 +160,7 @@ export const Statistic = () => {
             <p>
             {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.WIN_PERCENTS.native
-            : WORDS_CONFIG.WIN_PERCENTS.foreign}
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
             {(
                 (savannahLearnedWords /
                   (savannahLearnedWords + savannahIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
@@ -180,7 +180,7 @@ export const Statistic = () => {
             <p>
             {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.WIN_PERCENTS.native
-            : WORDS_CONFIG.WIN_PERCENTS.foreign}
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
               {(
                 (audioCallLearnedWords /
                   (audioCallLearnedWords + audioCallIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
@@ -200,7 +200,7 @@ export const Statistic = () => {
             <p>
             {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.WIN_PERCENTS.native
-            : WORDS_CONFIG.WIN_PERCENTS.foreign}
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
               {(
                 (sprintLearnedWords /
                   (sprintLearnedWords + sprintIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
@@ -220,7 +220,7 @@ export const Statistic = () => {
             <p>
             {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.WIN_PERCENTS.native
-            : WORDS_CONFIG.WIN_PERCENTS.foreign}
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
               {(
                 (myGameLearnedWords /
                   (myGameLearnedWords + myGameIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
