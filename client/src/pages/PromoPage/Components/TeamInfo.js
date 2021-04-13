@@ -2,14 +2,23 @@ import React from 'react';
 import { LANGUAGE_CONFIG, WORDS_CONFIG } from '../../../shared/words-config';
 import { URL_GIT_AVATAR } from '../../../shared/avatar-config';
 
-const TeamsInfo = (language = 'en') => {
+const TeamsInfo = ({ language = 'en' }) => {
   return (
     <section className="team-info">
-      <h3 className="caption_promo white-text">О команде</h3>
+      <h3 className="caption_promo white-text">
+        {language === LANGUAGE_CONFIG.foreign ? 'About team' : 'О команде'}
+      </h3>
       <div className="team-info__list ">
         <div className="feature_card card">
           <div className="feature_info">
-            <h4 className="head_card">LexaMart</h4>
+            <h4 className="head_card">
+              LexaMart{' '}
+              <span className="head_card-role">
+                {language === LANGUAGE_CONFIG.foreign
+                  ? 'Team Lead, developer'
+                  : 'Руководитель команды, разработчик'}
+              </span>{' '}
+            </h4>
             <p>
               {language === LANGUAGE_CONFIG.foreign
                 ? WORDS_CONFIG.TEAM_INFO_LEXAMART.foreign
@@ -24,7 +33,14 @@ const TeamsInfo = (language = 'en') => {
         </div>
         <div className="feature_card card">
           <div className="feature_info">
-            <h4 className="head_card">AnAtoliyAK</h4>
+            <h4 className="head_card">
+              AnAtoliyAK{' '}
+              <span className="head_card-role">
+                {language === LANGUAGE_CONFIG.foreign
+                  ? 'Lead Developer'
+                  : 'Ведущий разработчик'}
+              </span>{' '}
+            </h4>
             <p>
               {language === LANGUAGE_CONFIG.foreign
                 ? WORDS_CONFIG.TEAM_INFO_ANATLIYAK.foreign
@@ -39,7 +55,14 @@ const TeamsInfo = (language = 'en') => {
         </div>
         <div className="feature_card card">
           <div className="feature_info">
-            <h4 className="head_card">Nerbet</h4>
+            <h4 className="head_card">
+              Nerbet
+              <span className="head_card-role">
+                {language === LANGUAGE_CONFIG.foreign
+                  ? 'Developer'
+                  : 'Разработчик'}
+              </span>
+            </h4>
             <p>
               {language === LANGUAGE_CONFIG.foreign
                 ? WORDS_CONFIG.TEAM_INFO_NERBET.foreign
@@ -50,7 +73,14 @@ const TeamsInfo = (language = 'en') => {
         </div>
         <div className="feature_card card">
           <div className="feature_info">
-            <h4 className="head_card">burik84</h4>
+            <h4 className="head_card">
+              burik84{' '}
+              <span className="head_card-role">
+                {language === LANGUAGE_CONFIG.foreign
+                  ? 'Developer'
+                  : 'Разработчик'}
+              </span>
+            </h4>
             <p>
               {language === LANGUAGE_CONFIG.foreign
                 ? WORDS_CONFIG.TEAM_INFO_BURIK.foreign

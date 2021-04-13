@@ -302,29 +302,25 @@ export const WORDS_CONFIG = {
   },
 
   TEAM_INFO_BURIK: {
-    foreign:
-      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
-    native:
-      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+    foreign: 'Responsible for the development of the Dictionary page',
+    native: 'Ответственный за разработку страницы Словарь',
   },
   TEAM_INFO_LEXAMART: {
     foreign:
-      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
+      'Responsible for back-end, application architecture, design development, and "Our Game" and "Sprint" games.',
     native:
-      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+      'Ответственный за back-end, архитектуру приложения, разработку дизайна и игр "Наша игра" и "Спринт".',
   },
 
   TEAM_INFO_ANATLIYAK: {
     foreign:
-      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
+      'Implementation and support of Redux in the application, development of the Statistics page, games "Savanna" and "Audio game" and answers to team questions.',
     native:
-      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+      'Внедрение и поддержка Redux в приложение, разработка страницы Статистика, игр "Саванна" и "Аудио игра" и ответы на вопросы команды.',
   },
 
   TEAM_INFO_NERBET: {
-    foreign:
-      'In this game you have one minute to choose as musch correct answers as possible. If you answer right on the first time your this word wiil be marked as learned',
-    native:
-      'В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное',
+    foreign: 'Responsible for creating pages Main, Promo',
+    native: 'Ответственный за создание страниц Главная, Промо',
   },
 };

@@ -168,13 +168,31 @@
 
 .team-info{
     width: 70%;
+    .feature_info{
+        margin: 1rem 0.5rem;
+    }
     .feature_card.card{
         width: 100%;
     }
-    img{
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    transition: 0.5s;
+    .feature_img{
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        // transition: 0.5s;
+    }
+    .head_card{
+        margin-top: 0;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-bottom: 1px solid;
+        padding-bottom: 4px;
+    }
+    .head_card-role{
+        margin-left: 1rem;
+        opacity: 0.6;
+        font-size: 14px;
+        font-weight: 300;
     }
 }
