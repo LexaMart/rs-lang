@@ -24,6 +24,8 @@ import savananhGunShot from "../../../assets/images/savannah_gun_shot.png";
 import {
   CURRENT_PAGE_NAME,
   WORDS_CATEGORIES,
+  LANGUAGE_CONFIG,
+  WORDS_CONFIG,
 } from "../../../shared/words-config";
 import { MainPagePreloader } from "../../../components/Loader";
 import { DEFAULT_VALUES } from "../../../redux/auth-reducer";
@@ -59,6 +61,9 @@ export const Savannah = () => {
   );
   const currentWordsGroup = useSelector(
     (store) => store.settingsStore.currentWordsGroup
+  );
+  const activeLanguage = useSelector(
+    (store) => store.settingsStore.activeLanguage
   );
   const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -125,7 +130,6 @@ export const Savannah = () => {
         setWordsArray(cards);
         setRemainWordsArray(cards);
         setRandomActiveCardAndCardsForSelection(cards, cards);
-        //     //TODO STOP SPINNER
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
@@ -175,16 +179,15 @@ export const Savannah = () => {
     const arrayOfCardsForSelect = [...wordsArray].filter(
       (card) => card.id !== activeCard.id
     );
-    const numberOfCards = 3;
     const result = [];
-    for (let i = 0; i < numberOfCards; i++) {
+    for (let i = 0; i < GAME_DEFAULT_VALUES.SAVANNAH_CARDS_NUMBER; i++) {
       let index = getRandomValue(arrayOfCardsForSelect.length - 1);
       let curCard = arrayOfCardsForSelect[index];
       arrayOfCardsForSelect.splice(index, 1);
       result.push(curCard);
     }
     result.splice(
-      Math.floor(Math.random() * Math.floor(numberOfCards)),
+      Math.floor(Math.random() * Math.floor(GAME_DEFAULT_VALUES.SAVANNAH_CARDS_NUMBER)),
       0,
       activeCard
     );
@@ -304,7 +307,7 @@ export const Savannah = () => {
     if (isGameStarted && activeCard) {
       playActiveCardAudio();
       const interval = setInterval(() => {
-        notGuessTheWord();
+        // notGuessTheWord();
       }, 5000);
       if (!isWordFalling) {
         clearInterval(interval);
@@ -322,9 +325,13 @@ export const Savannah = () => {
       <div className="savannah-container">
         {!isGameStarted && !isGameLost && (
           <>
-            <h2>Savannah</h2>
+            <h2> {activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.SAVANNAH.native
+              : WORDS_CONFIG.SAVANNAH.foreign}</h2>
             <div className="rules">
-              In this game you should choose correct translation of given word
+            {activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.SAVANNAH_RULES.native
+              : WORDS_CONFIG.SAVANNAH_RULES.foreign}
             </div>
           </>
         )}
@@ -356,8 +363,14 @@ export const Savannah = () => {
         )}
         {!isGameStarted && (
           <button className="btn red" onClick={startGame}>
-            {!isGameLost ? "Start" : "Retry"}
-          </button>
+          {!isGameLost
+            ? activeLanguage === LANGUAGE_CONFIG.native
+              ? WORDS_CONFIG.START_BUTTON.native
+              : WORDS_CONFIG.START_BUTTON.foreign
+            : activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.RETRY_BUTTON.native
+            : WORDS_CONFIG.RETRY_BUTTON.foreign}
+        </button>
         )}
         {isGameStarted && (
           <>
@@ -371,6 +384,7 @@ export const Savannah = () => {
                   );
                 })}
               </div>
+              <div className='animal_cage'>
               {activeCard && (
                 <div
                   className={`savannah-card_active ${
@@ -381,6 +395,7 @@ export const Savannah = () => {
                   <img src={savannahLion} alt="lion"></img>
                 </div>
               )}
+              </div>
               <div className="gun-container">
                 <img
                   className="savannah_grass"

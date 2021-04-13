@@ -129,24 +129,38 @@ export const Statistic = () => {
             : WORDS_CONFIG.STATISTICS_PAGE.foreign}
         </h1>
         <div className="average_stat">
-          <div className="capt">Average statistic</div>
-          <div>Whole correct answers: {wholeLearnedWords}</div>
+          <div className="capt"> {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.AVERAGE_STATISTIC.native
+            : WORDS_CONFIG.AVERAGE_STATISTIC.foreign}</div>
+          <div> {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.WHOLE_ANSWERS.native
+            : WORDS_CONFIG.WHOLE_ANSWERS.foreign} {wholeLearnedWords}</div>
           <div>
-            Percents of wins: {(
+          {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.WIN_PERCENTS.native
+            : WORDS_CONFIG.WIN_PERCENTS.foreign} {(
               (wholeLearnedWords / (wholeLearnedWords + wholeIncorrectWords) || ERROR_DIVINE_COEFFICIENT) *
               100
             ).toFixed(2) || 0}
           %
           </div>
         </div>
-        <div className="capt">Special game statictic</div>
+        <div className="capt">{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.SPECIAL_STATISTIC.native
+            : WORDS_CONFIG.SPECIAL_STATISTIC.foreign}</div>
         <div className="stat_container">
           <div className="stat_block savannah_stat">
             <img src={Lion} alt="lion" className="game_stat_img" />
-            <p>MaxSeries: {savannahMaxSeries}</p>
-            <p>LearnedWords: {savannahLearnedWords}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.MAX_SERIES.native
+            : WORDS_CONFIG.MAX_SERIES.foreign} {savannahMaxSeries}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.CORRECT_ANSWERS.native
+            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {savannahLearnedWords}</p>
             <p>
-              Percents of wins:
+            {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.WIN_PERCENTS.native
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
             {(
                 (savannahLearnedWords /
                   (savannahLearnedWords + savannahIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
@@ -157,10 +171,16 @@ export const Statistic = () => {
           </div>
           <div className="stat_block audiocall_stat">
             <img src={Audio} alt="audio" className="game_stat_img" />
-            <p>MaxSeries: {audioCallMaxSeries}</p>
-            <p>LearnedWords: {audioCallLearnedWords}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.MAX_SERIES.native
+            : WORDS_CONFIG.MAX_SERIES.foreign} {savannahMaxSeries}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.CORRECT_ANSWERS.native
+            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {savannahLearnedWords}</p>
             <p>
-              Percents of wins:{' '}
+            {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.WIN_PERCENTS.native
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
               {(
                 (audioCallLearnedWords /
                   (audioCallLearnedWords + audioCallIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
@@ -171,10 +191,16 @@ export const Statistic = () => {
           </div>
           <div className="stat_block sprint_stat">
             <img src={Sprint} alt="sprint" className="game_stat_img" />
-            <p>MaxSeries: {sprintMaxSeries}</p>
-            <p>LearnedWords: {sprintLearnedWords}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.MAX_SERIES.native
+            : WORDS_CONFIG.MAX_SERIES.foreign} {savannahMaxSeries}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.CORRECT_ANSWERS.native
+            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {savannahLearnedWords}</p>
             <p>
-              Percents of wins:{' '}
+            {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.WIN_PERCENTS.native
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
               {(
                 (sprintLearnedWords /
                   (sprintLearnedWords + sprintIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
@@ -185,10 +211,16 @@ export const Statistic = () => {
           </div>
           <div className="stat_block mygame_stat">
             <img src={Joystick} alt="joystick" className="game_stat_img" />
-            <p>MaxSeries: {myGameMaxSeries}</p>
-            <p>LearnedWords: {myGameLearnedWords}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.MAX_SERIES.native
+            : WORDS_CONFIG.MAX_SERIES.foreign} {savannahMaxSeries}</p>
+            <p>{activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.CORRECT_ANSWERS.native
+            : WORDS_CONFIG.CORRECT_ANSWERS.foreign} {savannahLearnedWords}</p>
             <p>
-              Percents of wins:{' '}
+            {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.WIN_PERCENTS.native
+            : WORDS_CONFIG.WIN_PERCENTS.foreign}{" "}
               {(
                 (myGameLearnedWords /
                   (myGameLearnedWords + myGameIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
@@ -198,7 +230,9 @@ export const Statistic = () => {
           </p>
           </div>
         </div>
-        <div className="capt">Graffical view</div>
+        <div className="capt"> {activeLanguage === LANGUAGE_CONFIG.native
+            ? WORDS_CONFIG.CHARTS.native
+            : WORDS_CONFIG.CHARTS.foreign}</div>
         <>
           <AreaChart
             width={730}
