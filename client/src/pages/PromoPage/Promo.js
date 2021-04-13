@@ -37,14 +37,14 @@ export const Promo = () => {
       </div>
       <div className="youtube_video_container">
         <iframe
-          classname="youtube_video"
+          className="youtube_video"
           width="560"
           height="315"
           src="https://www.youtube.com/embed/-043FORA-Gc"
           title="YouTube video player"
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       </div>
       <div className="feature_card card">
