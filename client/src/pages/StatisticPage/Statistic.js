@@ -146,7 +146,7 @@ export const Statistic = () => {
             <p>MaxSeries: {savannahMaxSeries}</p>
             <p>LearnedWords: {savannahLearnedWords}</p>
             <p>
-              Percents of wins:
+              Percents of wins: 
             {(
                 (savannahLearnedWords /
                   (savannahLearnedWords + savannahIncorrectAnswers) || ERROR_DIVINE_COEFFICIENT) *
