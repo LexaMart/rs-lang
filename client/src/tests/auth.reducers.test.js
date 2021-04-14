@@ -6,7 +6,7 @@ let initialState = {
   isLoading: DEFAULT_VALUES.FALSE,
 };
 
-test('User will be logouted', () => {
+test("User will be logout's", () => {
   let newState = authReducer(initialState, { type: "SET_DEFAULT_VALUES" });
   initialState.isAuthorized = true
   expect(newState.isAuthorized).toBeFalsy();
