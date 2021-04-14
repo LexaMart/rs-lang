@@ -17,12 +17,23 @@ test('Show additional buttons state will be switched', () => {
   expect(newState.isAdditionalButtonsShown).toBe(false)
 })
 
-test('Default language state will be switched', () => {
+test('Default language state has length', () => {
   let newState = settingsReducer(initialState, {type: "SET_ACTIVE_LANGUAGE", activeLanguage: 'test'})
-  expect(newState.activeLanguage).toBe('test')
+  expect(newState.activeLanguage).toHaveLength(4)
 })
 
-test('Set new game difficult', () => {
+test('Default language state will be switched', () => {
+  let newState = settingsReducer(initialState, {type: "SET_ACTIVE_LANGUAGE", activeLanguage: 'test'})
+  expect(newState.activeLanguage).toEqual('test')
+})
+
+
+test('Sets game difficult', () => {
   let newState = settingsReducer(initialState, {type: "SET_GAME_DIFFICULT", gameDifficult: 2})
-  expect(newState.gameDifficult).toBe(2)
+  expect(newState.gameDifficult).not.toBeNull()
+ })
+
+ test('Set new game difficult', () => {
+  let newState = settingsReducer(initialState, {type: "SET_GAME_DIFFICULT", gameDifficult: 2})
+  expect(newState.gameDifficult).toStrictEqual(2)
  })
