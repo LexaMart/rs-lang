@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { RS_LANG_API } from "../../../services/rs-lang-api";
 import { GAME_DEFAULT_VALUES } from "../../../shared/games-config";
 import { wordsMockData } from "../../../shared/wordsMockData";
-
+import { rsLangApi } from "../../../services/rs-lang-api";
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import {
   WORDS_CONFIG,
+  WORDS_CATEGORIES,
   CURRENT_PAGE_NAME,
   LANGUAGE_CONFIG,
 } from "../../../shared/words-config";
@@ -45,6 +47,7 @@ export const AudioCall = () => {
   const optionalStatisticObject = useSelector(
     (store) => store.statisticsStore.statisticsData.optional
   );
+  const handleFullScreen = useFullScreenHandle();
   const wholeLearnedWords = useSelector(
     (store) => store.statisticsStore.learnedWords
   );
@@ -71,6 +74,10 @@ export const AudioCall = () => {
   const currentWordsGroup = useSelector(
     (store) => store.settingsStore.currentWordsGroup
   );
+  const userDeletedWords = useSelector(
+    (store) => store.authStore.userDeletedWords
+  );
+  const userLearningWords = useSelector((store) => store.authStore.userLearningWords);
   const levelsArray = [];
   const pagesArray = [];
   const [isLoading, setIsLoading] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -151,7 +158,17 @@ export const AudioCall = () => {
   };
 
   const handleCardClick = (event, word) => {
-    word.id === activeCard.id ? guessTheWord() : notGuessTheWord();
+   if (word.id === activeCard.id) {
+    guessTheWord()
+    if (isAuthenticated && !userLearningWords.includes(word.id)) {
+      rsLangApi.postUserWord(
+        token,
+        userId,
+        word.id,
+        WORDS_CATEGORIES.learned
+      );
+    }
+   } else notGuessTheWord();
   };
 
   const handleNextButtonClick = () => {
@@ -259,18 +276,21 @@ export const AudioCall = () => {
           `${urls.API}/words?group=${
             currentPage !== CURRENT_PAGE_NAME.MAIN
               ? levelInputValue - 1
-              : currentWordsPage
-          }&page=${
-            currentPage !== CURRENT_PAGE_NAME.MAIN
-              ? pageInputValue - 1
               : currentWordsGroup
+            }&page=${
+              currentPage !== CURRENT_PAGE_NAME.MAIN
+              ? pageInputValue - 1
+              : currentWordsPage
           }`,
           "GET"
         );
-        setWordsArray(cards);
-        setRemainWordsArray(cards);
         setIsLoading(GAME_DEFAULT_VALUES.FALSE);
-        setRandomActiveCardAndCardsForSelection(cards, cards);
+        const filteredCards = cards.filter(word => !userDeletedWords.includes(word.id));
+        if (filteredCards.length) {
+          setWordsArray(cards);
+          setRemainWordsArray(filteredCards);
+          setRandomActiveCardAndCardsForSelection(cards, filteredCards);
+        }
       }
     }, [
       currentPage,
@@ -287,6 +307,11 @@ export const AudioCall = () => {
   if (isLoading) return <MainPagePreloader />;
 
   return (
+    <>
+        <button  className="btn full_screen_btn"  onClick={handleFullScreen.enter}>{activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.FULL_SCREEN_BUTTON.native
+                : WORDS_CONFIG.FULL_SCREEN_BUTTON.foreign}</button>
+    <FullScreen handle={handleFullScreen} >
     <div className="audiocall-container">
       {!isGameStarted && currentPage !== CURRENT_PAGE_NAME.MAIN && (
         <>
@@ -335,8 +360,44 @@ export const AudioCall = () => {
           </button>
         </>
       )}
-      {isGameWon && <div className="win-screen">WIN</div>}
-      {isGameLost && <div className="lost-screen">LOST</div>}
+     {isGameWon && (
+            <div className="end-screen">
+              {activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.WIN_SCREEN.native
+                : WORDS_CONFIG.WIN_SCREEN.foreign}
+             <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.CORRECT_ANSWERS.native
+                  : WORDS_CONFIG.CORRECT_ANSWERS.foreign}{" "}
+                {numberOfLearnedWords}
+              </div>
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.INCORRECT_ANSWERS.native
+                  : WORDS_CONFIG.INCORRECT_ANSWERS.foreign}{" "}
+                {numberOfIncorrectAnswers}
+              </div>
+            </div>
+          )}
+          {isGameLost && (
+            <div className="end-screen">
+              {activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.LOST_SCREEN.native
+                : WORDS_CONFIG.LOST_SCREEN.foreign}
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.CORRECT_ANSWERS.native
+                  : WORDS_CONFIG.CORRECT_ANSWERS.foreign}{" "}
+                {numberOfLearnedWords}
+              </div>
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.INCORRECT_ANSWERS.native
+                  : WORDS_CONFIG.INCORRECT_ANSWERS.foreign}{" "}
+                {numberOfIncorrectAnswers}
+              </div>
+            </div>
+          )}
       {isGameStarted && activeCard && (
         <>
           <div className="lives-container">
@@ -438,5 +499,7 @@ export const AudioCall = () => {
         </>
       )}
     </div>
+      </FullScreen>
+      </>
   );
 };

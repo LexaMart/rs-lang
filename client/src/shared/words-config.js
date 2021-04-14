@@ -278,6 +278,10 @@ export const WORDS_CONFIG = {
     foreign: "Correct answers:",
     native: "Правильные ответы:",
   },
+  INCORRECT_ANSWERS: {
+    foreign: "Incorrect answers:",
+    native: "Неправильные ответы:",
+  },
   MAX_SERIES: {
     foreign: "The largest series of correct answers:",
     native: "Наибольшая серия правильных ответов:",
@@ -338,7 +342,17 @@ export const WORDS_CONFIG = {
     native:
       "В этой игре у вас есть одна минута, чтобы выбрать как можно больше правильных ответов. Если вы ответите правильно с первого раза это слово будет помечено как выученное",
   },
-
+  FULL_SCREEN_BUTTON: {
+    foreign: 'Full Screen',
+    native: 'На весь экран',
+  },
+  WIN_SCREEN: {
+    foreign: 'WIN',
+    native: 'ППОБЕДА',
+  },
+  LOST_SCREEN: {
+    foreign: 'LOST',
+    native: 'Поражение',
   TEAM_INFO_BURIK: {
     foreign: 'Responsible for the development of the Dictionary page',
     native: 'Ответственный за разработку страницы Словарь',
@@ -349,7 +363,6 @@ export const WORDS_CONFIG = {
     native:
       'Ответственный за back-end, архитектуру приложения, разработку дизайна и игр "Наша игра" и "Спринт".',
   },
-
   TEAM_INFO_ANATLIYAK: {
     foreign:
       'Implementation and support of Redux in the application, development of the Statistics page, games "Savanna" and "Audio game" and answers to team questions.',
