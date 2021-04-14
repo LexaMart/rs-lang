@@ -41,6 +41,7 @@ const Popup = ({
   const popupBtnHandler = (action) => {
     if (isAuthenticated) {
       rsLangApi.postUserWord(token, userId, currElement.id, action);
+      setActive(!active);
       action === WORDS_CATEGORIES.deleted
         ? dispatch(addDeletedWord(currElement.id))
         : action === WORDS_CATEGORIES.hard

@@ -35,13 +35,13 @@ export const Dictionary = () => {
   let { path } = useRouteMatch();
 
   useEffect(() => {
-    dispatch(setCurrentPage(CURRENT_PAGE_NAME.DICTIONARY));
     const { token, userId } = userData;
     wordsNew(token, userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
   useEffect(() => {
+    dispatch(setCurrentPage(CURRENT_PAGE_NAME.DICTIONARY));
     if (isPageRender === true) {
       dispatch(setCurrentPage(CURRENT_PAGE_NAME.Dictionary));
       const { token, userId } = userData;
