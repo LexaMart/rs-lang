@@ -29,7 +29,7 @@ import {
 } from "../../../shared/words-config";
 import { MainPagePreloader } from "../../../components/Loader";
 import { DEFAULT_VALUES } from "../../../redux/auth-reducer";
-import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -69,7 +69,9 @@ export const Savannah = () => {
   const userDeletedWords = useSelector(
     (store) => store.authStore.userDeletedWords
   );
-  const userLearningWords = useSelector((store) => store.authStore.userLearningWords);
+  const userLearningWords = useSelector(
+    (store) => store.authStore.userLearningWords
+  );
   const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -119,7 +121,7 @@ export const Savannah = () => {
   useEffect(
     useCallback(async () => {
       if (isGameStarted) {
-        setIsLoading(GAME_DEFAULT_VALUES.TRUE)
+        setIsLoading(GAME_DEFAULT_VALUES.TRUE);
         const cards = await request(
           `${urls.API}/words?group=${
             currentPage !== CURRENT_PAGE_NAME.MAIN
@@ -133,14 +135,16 @@ export const Savannah = () => {
           "GET"
         );
         setIsLoading(DEFAULT_VALUES.FALSE);
-        const filteredCards = cards.filter(word => !userDeletedWords.includes(word.id));
+        const filteredCards = cards.filter(
+          (word) => !userDeletedWords.includes(word.id)
+        );
         if (filteredCards.length) {
           setWordsArray(cards);
           setRemainWordsArray(filteredCards);
           setRandomActiveCardAndCardsForSelection(cards, filteredCards);
         }
       }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       currentPage,
       currentWordsGroup,
@@ -196,7 +200,9 @@ export const Savannah = () => {
       result.push(curCard);
     }
     result.splice(
-      Math.floor(Math.random() * Math.floor(GAME_DEFAULT_VALUES.SAVANNAH_CARDS_NUMBER)),
+      Math.floor(
+        Math.random() * Math.floor(GAME_DEFAULT_VALUES.SAVANNAH_CARDS_NUMBER)
+      ),
       0,
       activeCard
     );
@@ -219,7 +225,10 @@ export const Savannah = () => {
     } else notGuessTheWord();
   };
 
-  const setRandomActiveCardAndCardsForSelection = (wordsArray, remainWordsArray) => {
+  const setRandomActiveCardAndCardsForSelection = (
+    wordsArray,
+    remainWordsArray
+  ) => {
     const activeCardIndex = getRandomValue(remainWordsArray.length - 1);
     const remainWordsArrayForSelection = [...remainWordsArray];
     setIsActiveCardSpacing(GAME_DEFAULT_VALUES.FALSE);
@@ -325,129 +334,174 @@ export const Savannah = () => {
         clearInterval(interval);
       };
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCard]);
 
   if (isLoading) return <MainPagePreloader />;
   return (
     <>
-        <button  className="btn full_screen_btn"  onClick={handleFullScreen.enter}>{activeLanguage === LANGUAGE_CONFIG.native
-                ? WORDS_CONFIG.FULL_SCREEN_BUTTON.native
-                : WORDS_CONFIG.FULL_SCREEN_BUTTON.foreign}</button>
-    <FullScreen handle={handleFullScreen} >
-      <div className="savannah-container">
-        {!isGameStarted && !isGameLost && (
-          <>
-            <h2> {activeLanguage === LANGUAGE_CONFIG.native
-              ? WORDS_CONFIG.SAVANNAH.native
-              : WORDS_CONFIG.SAVANNAH.foreign}</h2>
-            <div className="rules">
-            {activeLanguage === LANGUAGE_CONFIG.native
-              ? WORDS_CONFIG.SAVANNAH_RULES.native
-              : WORDS_CONFIG.SAVANNAH_RULES.foreign}
+      <button className="btn full_screen_btn" onClick={handleFullScreen.enter}>
+        {activeLanguage === LANGUAGE_CONFIG.native
+          ? WORDS_CONFIG.FULL_SCREEN_BUTTON.native
+          : WORDS_CONFIG.FULL_SCREEN_BUTTON.foreign}
+      </button>
+      <FullScreen handle={handleFullScreen}>
+        <div className="savannah-container">
+          {!isGameStarted && !isGameLost && (
+            <>
+              <h2>
+                {" "}
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.SAVANNAH.native
+                  : WORDS_CONFIG.SAVANNAH.foreign}
+              </h2>
+              <div className="rules">
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.SAVANNAH_RULES.native
+                  : WORDS_CONFIG.SAVANNAH_RULES.foreign}
+              </div>
+            </>
+          )}
+          {isGameWon && (
+            <div className="end-screen">
+              {activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.WIN_SCREEN.native
+                : WORDS_CONFIG.WIN_SCREEN.foreign}
+             <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.CORRECT_ANSWERS.native
+                  : WORDS_CONFIG.CORRECT_ANSWERS.foreign}{" "}
+                {numberOfLearnedWords}
+              </div>
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.INCORRECT_ANSWERS.native
+                  : WORDS_CONFIG.INCORRECT_ANSWERS.foreign}{" "}
+                {numberOfIncorrectAnswers}
+              </div>
             </div>
-          </>
-        )}
-        {isGameWon && <div className="win-screen">WON</div>}
-        {isGameLost && <div className="lost-screen">LOST</div>}
-        {!isGameStarted && currentPage !== "main" && (
-          <>
-            <Select
-              id="select-level"
-              multiple={false}
-              onChange={(event) => setLevelInputText(event.currentTarget.value)}
-              value={levelInputValue}
-            >
-              {levelsArray.map((el) => {
-                return <option value={el}>{el}</option>;
-              })}
-            </Select>
-            <Select
-              id="select-page"
-              multiple={false}
-              onChange={(event) => setPageInputText(event.currentTarget.value)}
-              value={pageInputValue}
-            >
-              {pagesArray.map((el) => {
-                return <option value={el}>{el}</option>;
-              })}
-            </Select>
-          </>
-        )}
-        {!isGameStarted && (
-          <button className="btn red" onClick={startGame}>
-          {!isGameLost
-            ? activeLanguage === LANGUAGE_CONFIG.native
-              ? WORDS_CONFIG.START_BUTTON.native
-              : WORDS_CONFIG.START_BUTTON.foreign
-            : activeLanguage === LANGUAGE_CONFIG.native
-            ? WORDS_CONFIG.RETRY_BUTTON.native
-            : WORDS_CONFIG.RETRY_BUTTON.foreign}
-        </button>
-        )}
-        {isGameStarted && (
-          <>
-            <div className="savannah-field">
-              <div className="lives-container">
-                {livesArray.map((el, index) => {
-                  return (
-                    <i key={`live${el}${index}`} className="material-icons">
-                      favorite{" "}
-                    </i>
-                  );
+          )}
+          {isGameLost && (
+            <div className="end-screen">
+              {activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.LOST_SCREEN.native
+                : WORDS_CONFIG.LOST_SCREEN.foreign}
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.CORRECT_ANSWERS.native
+                  : WORDS_CONFIG.CORRECT_ANSWERS.foreign}{" "}
+                {numberOfLearnedWords}
+              </div>
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.INCORRECT_ANSWERS.native
+                  : WORDS_CONFIG.INCORRECT_ANSWERS.foreign}{" "}
+                {numberOfIncorrectAnswers}
+              </div>
+            </div>
+          )}
+          {!isGameStarted && currentPage !== "main" && (
+            <>
+              <Select
+                id="select-level"
+                multiple={false}
+                onChange={(event) =>
+                  setLevelInputText(event.currentTarget.value)
+                }
+                value={levelInputValue}
+              >
+                {levelsArray.map((el) => {
+                  return <option value={el}>{el}</option>;
                 })}
-              </div>
-              <div className='animal_cage'>
-              {activeCard && (
-                <div
-                  className={`savannah-card_active ${
-                    isWordFalling ? "activeCardFall" : ""
-                  } ${isActiveCardSpacing ? "activeCardSpacing" : ""}`}
-                >
-                  {activeCard.word}
-                  <img src={savannahLion} alt="lion"></img>
+              </Select>
+              <Select
+                id="select-page"
+                multiple={false}
+                onChange={(event) =>
+                  setPageInputText(event.currentTarget.value)
+                }
+                value={pageInputValue}
+              >
+                {pagesArray.map((el) => {
+                  return <option value={el}>{el}</option>;
+                })}
+              </Select>
+            </>
+          )}
+          {!isGameStarted && (
+            <button className="btn red" onClick={startGame}>
+              {!isGameLost
+                ? activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.START_BUTTON.native
+                  : WORDS_CONFIG.START_BUTTON.foreign
+                : activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.RETRY_BUTTON.native
+                : WORDS_CONFIG.RETRY_BUTTON.foreign}
+            </button>
+          )}
+          {isGameStarted && (
+            <>
+              <div className="savannah-field">
+                <div className="lives-container">
+                  {livesArray.map((el, index) => {
+                    return (
+                      <i key={`live${el}${index}`} className="material-icons">
+                        favorite{" "}
+                      </i>
+                    );
+                  })}
                 </div>
-              )}
-              </div>
-              <div className="gun-container">
-                <img
-                  className="savannah_grass"
-                  src={savannahGrass}
-                  alt="savannah_crystal"
-                />
-                {isGunShooting && (
+                <div className="animal_cage">
+                  {activeCard && (
+                    <div
+                      className={`savannah-card_active ${
+                        isWordFalling ? "activeCardFall" : ""
+                      } ${isActiveCardSpacing ? "activeCardSpacing" : ""}`}
+                    >
+                      {activeCard.word}
+                      <img src={savannahLion} alt="lion"></img>
+                    </div>
+                  )}
+                </div>
+                <div className="gun-container">
                   <img
-                    className="savannah_gun_shot"
-                    src={savananhGunShot}
-                    alt="savannah_gun_shot"
+                    className="savannah_grass"
+                    src={savannahGrass}
+                    alt="savannah_crystal"
                   />
-                )}
-                <img
-                  className="savannah_gun"
-                  src={savannahGunImg}
-                  alt="savannah_gun"
-                />
-              </div>
-            </div>
-          </>
-        )}
-
-        {isGameStarted && cardsForSelection && (
-          <div className="selection-container">
-            {cardsForSelection.map((word, index) => {
-              return (
-                <div
-                  key={word.id}
-                  onClick={(event) => handleCardClick(event, word)}
-                  className="savannah-card btn red"
-                >
-                  {index + 1}.{word.wordTranslate}
+                  {isGunShooting && (
+                    <img
+                      className="savannah_gun_shot"
+                      src={savananhGunShot}
+                      alt="savannah_gun_shot"
+                    />
+                  )}
+                  <img
+                    className="savannah_gun"
+                    src={savannahGunImg}
+                    alt="savannah_gun"
+                  />
                 </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+              </div>
+            </>
+          )}
+
+          {isGameStarted && cardsForSelection && (
+            <div className="selection-container">
+              {cardsForSelection.map((word, index) => {
+                return (
+                  <div
+                    key={word.id}
+                    onClick={(event) => handleCardClick(event, word)}
+                    className="savannah-card btn red"
+                  >
+                    {index + 1}.{word.wordTranslate}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </FullScreen>
     </>
   );

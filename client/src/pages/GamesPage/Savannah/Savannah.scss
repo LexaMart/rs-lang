@@ -4,12 +4,12 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    min-height: 78.6vh;
+    min-height: 78vh;
 
     .savannah-field {
         background-image: url('../../../assets/images/savanna_bg.jpg');
          width: 100%;
-        height: 68.3vh;
+        height: 67.3vh;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -44,7 +44,8 @@
 
     .savannah-card_active {
         position: absolute;
-        top: -10vh;
+        top: -25vh;
+        left: -10vw;
         color: #fff;
         font-size: 12rem;
         font-weight: bold;
@@ -62,13 +63,13 @@
         letter-spacing: 1000px;
     }
 
-    .win-screen {
-        font-size: 5rem;
-        color: #fff;
-    }
-
-    .lost-screen {
-        font-size: 5rem;
+    .end-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 4rem;
+        min-height: 60vh;
         color: #fff;
     }
 

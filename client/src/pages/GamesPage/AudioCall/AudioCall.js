@@ -360,8 +360,44 @@ export const AudioCall = () => {
           </button>
         </>
       )}
-      {isGameWon && <div className="win-screen">WIN</div>}
-      {isGameLost && <div className="lost-screen">LOST</div>}
+     {isGameWon && (
+            <div className="end-screen">
+              {activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.WIN_SCREEN.native
+                : WORDS_CONFIG.WIN_SCREEN.foreign}
+             <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.CORRECT_ANSWERS.native
+                  : WORDS_CONFIG.CORRECT_ANSWERS.foreign}{" "}
+                {numberOfLearnedWords}
+              </div>
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.INCORRECT_ANSWERS.native
+                  : WORDS_CONFIG.INCORRECT_ANSWERS.foreign}{" "}
+                {numberOfIncorrectAnswers}
+              </div>
+            </div>
+          )}
+          {isGameLost && (
+            <div className="end-screen">
+              {activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.LOST_SCREEN.native
+                : WORDS_CONFIG.LOST_SCREEN.foreign}
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.CORRECT_ANSWERS.native
+                  : WORDS_CONFIG.CORRECT_ANSWERS.foreign}{" "}
+                {numberOfLearnedWords}
+              </div>
+              <div>
+                {activeLanguage === LANGUAGE_CONFIG.native
+                  ? WORDS_CONFIG.INCORRECT_ANSWERS.native
+                  : WORDS_CONFIG.INCORRECT_ANSWERS.foreign}{" "}
+                {numberOfIncorrectAnswers}
+              </div>
+            </div>
+          )}
       {isGameStarted && activeCard && (
         <>
           <div className="lives-container">

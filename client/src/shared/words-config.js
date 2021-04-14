@@ -278,6 +278,10 @@ export const WORDS_CONFIG = {
     foreign: "Correct answers:",
     native: "Правильные ответы:",
   },
+  INCORRECT_ANSWERS: {
+    foreign: "Incorrect answers:",
+    native: "Неправильные ответы:",
+  },
   MAX_SERIES: {
     foreign: "The largest series of correct answers:",
     native: "Наибольшая серия правильных ответов:",
@@ -341,5 +345,13 @@ export const WORDS_CONFIG = {
   FULL_SCREEN_BUTTON: {
     foreign: 'Full Screen',
     native: 'На весь экран',
-  }
+  },
+  WIN_SCREEN: {
+    foreign: 'WIN',
+    native: 'ППОБЕДА',
+  },
+  LOST_SCREEN: {
+    foreign: 'LOST',
+    native: 'Поражение',
+  },
 };
