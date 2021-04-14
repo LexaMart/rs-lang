@@ -116,17 +116,6 @@ export const Statistic = () => {
   return (
     <>
       <div className="stat_page_container white-text">
-        <Popup
-          active={modalActive}
-          setActive={setModalActive}
-          text={
-            activeLanguage === LANGUAGE_CONFIG.native
-              ? WORDS_CONFIG.MODAL_STATISTIC_TITLE.native
-              : WORDS_CONFIG.MODAL_STATISTIC_TITLE.foreign
-          }
-          page={CURRENT_PAGE_NAME.STATISTIC}
-          language={activeLanguage}
-        />
         <h1>
           {activeLanguage === LANGUAGE_CONFIG.native
             ? WORDS_CONFIG.STATISTICS_PAGE.native
