@@ -13,12 +13,13 @@
 .stat_container {
     display: flex;
     justify-content: space-around;
-    margin: 4% 0;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .game_stat_img {
     height: 60px;
+    margin-bottom: 5%;
 }
 
 .stat_block {
@@ -26,6 +27,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    width: 210px;
+    height: 250px;
+    margin: 5% 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 p {
@@ -33,6 +39,6 @@ p {
 }
 
 .capt {
-    margin: 4% 0;
+    margin-top: 4%;
     font-size: 32px;
 }
