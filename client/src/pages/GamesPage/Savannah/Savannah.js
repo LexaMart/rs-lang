@@ -29,6 +29,7 @@ import {
 } from "../../../shared/words-config";
 import { MainPagePreloader } from "../../../components/Loader";
 import { DEFAULT_VALUES } from "../../../redux/auth-reducer";
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 const KEYBOARD_KEYS = {
   START_KEYBOARD_USE: "NumpadDivide",
@@ -65,6 +66,10 @@ export const Savannah = () => {
   const activeLanguage = useSelector(
     (store) => store.settingsStore.activeLanguage
   );
+  const userDeletedWords = useSelector(
+    (store) => store.authStore.userDeletedWords
+  );
+  const userLearningWords = useSelector((store) => store.authStore.userLearningWords);
   const { request } = useHttp();
   const [isGameStarted, setIsGameStarted] = useState(GAME_DEFAULT_VALUES.FALSE);
   const [isGameWon, setIsGameWon] = useState(GAME_DEFAULT_VALUES.FALSE);
@@ -90,6 +95,7 @@ export const Savannah = () => {
   const [pageInputValue, setPageInputText] = useState(1);
 
   const dispatch = useDispatch();
+  const handleFullScreen = useFullScreenHandle();
 
   for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
     levelsArray.push(i + 1);
@@ -118,18 +124,21 @@ export const Savannah = () => {
           `${urls.API}/words?group=${
             currentPage !== CURRENT_PAGE_NAME.MAIN
               ? levelInputValue - 1
-              : currentWordsPage
+              : currentWordsGroup
           }&page=${
             currentPage !== CURRENT_PAGE_NAME.MAIN
               ? pageInputValue - 1
-              : currentWordsGroup
+              : currentWordsPage
           }`,
           "GET"
         );
-        setIsLoading(DEFAULT_VALUES.FALSE)
-        setWordsArray(cards);
-        setRemainWordsArray(cards);
-        setRandomActiveCardAndCardsForSelection(cards, cards);
+        setIsLoading(DEFAULT_VALUES.FALSE);
+        const filteredCards = cards.filter(word => !userDeletedWords.includes(word.id));
+        if (filteredCards.length) {
+          setWordsArray(cards);
+          setRemainWordsArray(filteredCards);
+          setRandomActiveCardAndCardsForSelection(cards, filteredCards);
+        }
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
@@ -199,7 +208,7 @@ export const Savannah = () => {
     if (word.id === activeCard.id) {
       guessTheWord();
       setNumberOfLearnedWords(numberOfLearnedWords + 1);
-      if (isAuthenticated) {
+      if (isAuthenticated && !userLearningWords.includes(word.id)) {
         rsLangApi.postUserWord(
           token,
           userId,
@@ -307,8 +316,8 @@ export const Savannah = () => {
     if (isGameStarted && activeCard) {
       playActiveCardAudio();
       const interval = setInterval(() => {
-        // notGuessTheWord();
-      }, 5000);
+        notGuessTheWord();
+      }, 4000);
       if (!isWordFalling) {
         clearInterval(interval);
       }
@@ -322,6 +331,10 @@ export const Savannah = () => {
   if (isLoading) return <MainPagePreloader />;
   return (
     <>
+        <button  className="btn full_screen_btn"  onClick={handleFullScreen.enter}>{activeLanguage === LANGUAGE_CONFIG.native
+                ? WORDS_CONFIG.FULL_SCREEN_BUTTON.native
+                : WORDS_CONFIG.FULL_SCREEN_BUTTON.foreign}</button>
+    <FullScreen handle={handleFullScreen} >
       <div className="savannah-container">
         {!isGameStarted && !isGameLost && (
           <>
@@ -435,6 +448,7 @@ export const Savannah = () => {
           </div>
         )}
       </div>
+      </FullScreen>
     </>
   );
 };
