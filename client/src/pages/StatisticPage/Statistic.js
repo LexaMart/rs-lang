@@ -152,7 +152,7 @@ export const Statistic = () => {
             : WORDS_CONFIG.SPECIAL_STATISTIC.foreign}
         </div>
         <div className="stat_container">
-          <div className="stat_block savannah_stat">
+          <div className="stat_block savannah_stat card">
             <img src={Lion} alt="lion" className="game_stat_img" />
             <p>
               {activeLanguage === LANGUAGE_CONFIG.native
@@ -178,7 +178,7 @@ export const Statistic = () => {
               %
             </p>
           </div>
-          <div className="stat_block audiocall_stat">
+          <div className="stat_block audiocall_stat card">
             <img src={Audio} alt="audio" className="game_stat_img" />
             <p>
               {activeLanguage === LANGUAGE_CONFIG.native
@@ -204,7 +204,7 @@ export const Statistic = () => {
               %
             </p>
           </div>
-          <div className="stat_block sprint_stat">
+          <div className="stat_block sprint_stat card">
             <img src={Sprint} alt="sprint" className="game_stat_img" />
             <p>
               {activeLanguage === LANGUAGE_CONFIG.native
@@ -230,7 +230,7 @@ export const Statistic = () => {
               %
             </p>
           </div>
-          <div className="stat_block mygame_stat">
+          <div className="stat_block mygame_stat card">
             <img src={Joystick} alt="joystick" className="game_stat_img" />
             <p>
               {activeLanguage === LANGUAGE_CONFIG.native
