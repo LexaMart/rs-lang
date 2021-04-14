@@ -353,25 +353,26 @@ export const WORDS_CONFIG = {
   LOST_SCREEN: {
     foreign: 'LOST',
     native: 'Поражение',
-  TEAM_INFO_BURIK: {
-    foreign: 'Responsible for the development of the Dictionary page',
-    native: 'Ответственный за разработку страницы Словарь',
   },
-  TEAM_INFO_LEXAMART: {
-    foreign:
-      'Responsible for back-end, application architecture, design development, and "Our Game" and "Sprint" games.',
-    native:
-      'Ответственный за back-end, архитектуру приложения, разработку дизайна и игр "Наша игра" и "Спринт".',
-  },
-  TEAM_INFO_ANATLIYAK: {
-    foreign:
-      'Implementation and support of Redux in the application, development of the Statistics page, games "Savanna" and "Audio game" and answers to team questions.',
-    native:
-      'Внедрение и поддержка Redux в приложение, разработка страницы Статистика, игр "Саванна" и "Аудио игра" и ответы на вопросы команды.',
-  },
+    TEAM_INFO_BURIK: {
+      foreign: 'Responsible for the development of the Dictionary page',
+      native: 'Ответственный за разработку страницы Словарь',
+    },
+    TEAM_INFO_LEXAMART: {
+      foreign:
+        'Responsible for back-end, application architecture, design development, and "Our Game" and "Sprint" games.',
+      native:
+        'Ответственный за back-end, архитектуру приложения, разработку дизайна и игр "Наша игра" и "Спринт".',
+    },
+    TEAM_INFO_ANATLIYAK: {
+      foreign:
+        'Implementation and support of Redux in the application, development of the Statistics page, games "Savanna" and "Audio game" and answers to team questions.',
+      native:
+        'Внедрение и поддержка Redux в приложение, разработка страницы Статистика, игр "Саванна" и "Аудио игра" и ответы на вопросы команды.',
+    },
 
-  TEAM_INFO_NERBET: {
-    foreign: 'Responsible for creating pages Main, Promo',
-    native: 'Ответственный за создание страниц Главная, Промо',
-  },
-};
+    TEAM_INFO_NERBET: {
+      foreign: 'Responsible for creating pages Main, Promo',
+      native: 'Ответственный за создание страниц Главная, Промо',
+    },
+  };
