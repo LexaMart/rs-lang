@@ -4,7 +4,7 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    min-height: 84.3vh;
+    min-height: 79.6vh;
 
     .audiocall-card {
         font-size: 2rem;
@@ -63,9 +63,26 @@
         justify-content: space-around;
     }
 
+    .end-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 4rem;
+        min-height: 60vh;
+        color: #fff;
+    }
+
     @media (max-width: 600px) {
         .audiocall-card {
             font-size: 1.5rem;
         }
     }
+
+}
+
+.full_screen_btn {
+    margin-top: 1vh;
+    margin-left: 5vw;
+    margin-bottom: 1vh;
 }
