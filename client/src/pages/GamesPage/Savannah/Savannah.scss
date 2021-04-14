@@ -37,11 +37,14 @@
     }
 
     .animal_cage {
-        width: 30vw;
+        width: 40vw;
         height: 30vh;
+        position: relative;
     }
 
     .savannah-card_active {
+        position: absolute;
+        top: -10vh;
         color: #fff;
         font-size: 12rem;
         font-weight: bold;

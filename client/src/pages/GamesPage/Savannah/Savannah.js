@@ -316,7 +316,7 @@ export const Savannah = () => {
     if (isGameStarted && activeCard) {
       playActiveCardAudio();
       const interval = setInterval(() => {
-        notGuessTheWord();
+        // notGuessTheWord();
       }, 4000);
       if (!isWordFalling) {
         clearInterval(interval);
