@@ -46,3 +46,11 @@
     }
   }
 }
+.card-input {
+  width: 100%;
+}
+@media (max-width : 680px) {
+  .card-title {
+    font-size: 20px !important;
+  }
+}

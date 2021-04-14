@@ -46,3 +46,9 @@
 .active {
   color:#fb5c5c
 }
+
+@media (max-width: 680px) {
+  .menu-nav-link {
+    font-size: 1.5rem;
+  }
+}
